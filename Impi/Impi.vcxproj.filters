@@ -21,12 +21,18 @@
     <ClCompile Include="gl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\Vector3.cpp">
+    <ClCompile Include="src\Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\precision.h">
+    <ClInclude Include="headers\precision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\Vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
