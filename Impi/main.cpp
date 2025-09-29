@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <data/Scene.h>
+#include "src/rendering/core/Shader.h"
 
 #include <iostream>
 
@@ -35,9 +36,8 @@ int main(void)
         return -1;
     }
 
-   // unsigned int VBO; // Muistetaas alustaa nämä
-    // glGenBuffers(1, &VBO);
 
+   
     
     glfwMakeContextCurrent(window);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
@@ -56,7 +56,7 @@ int main(void)
 
 
         glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(shaderProgram);
+        
 
 
         
@@ -65,6 +65,7 @@ int main(void)
         
         glfwPollEvents();
     }
+
 
     sphereMesh.destroySphereMesh();
     glfwDestroyWindow(window);

@@ -11,9 +11,6 @@ void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int
 
 	const float PI = 3.14159265358979323846f;
 
-	std::vector<float> vertices;
-	std::vector<unsigned int> indices;
-
 	float x, y, z, xy; // vpos
 	float nx, ny, nz, lengthInv = 1.0f / radius; // vertex normal
 	float s, t; // vertex texCoord
@@ -22,7 +19,7 @@ void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int
 	float stackStep = PI / stackCount;
 	float sectorAngle, stackAngle;
 
-	for (int i{ 0 }; i <= stackCount; ++i)
+	for (unsigned int i=0; i <= stackCount; ++i)
 	{
 		// pituusasteet
 		stackAngle = PI / 2 - i * stackStep;
@@ -31,21 +28,23 @@ void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int
 
 		// leveysasteet
 
-		for (int j{ 0 }; j <= sectorCount; ++j)
+		for (unsigned int j=0; j <= sectorCount; ++j)
 		{
 			sectorAngle = j * sectorStep;
 
 			x = xy * cosf(sectorAngle);
 			y = xy * sinf(sectorAngle);
 			// https://stackoverflow.com/questions/4303513/push-back-vs-emplace-back
-			vertices.emplace_back(x,y,z);
-			// vertices.push_back(glm::vec3(x,y,z));
+			//vertices.emplace_back(x,y,z);
+			vertices.push_back(glm::vec3(x,y,z));
 
 			nx = x * lengthInv;
 			ny = y * lengthInv;
 			nz = z * lengthInv;
-			normals.emplace_back(nx, ny, nz);
-			texCoords.emplace_back((float)i / sectorCount, (float)i / stackCount;
+			normals.push_back(glm::vec3(nx, ny, nz));
+			s = (float)j / sectorCount;
+			t = (float)i / stackCount;
+			texCoords.push_back(glm::vec2(s, t));
 
 		}
 
@@ -56,12 +55,12 @@ void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int
 	// |  / |
 	// | /  |
 	// k2--k2+1
-	for (unsigned int i{ 0 }; i < stackCount; ++i)
+	for (unsigned int i=0; i < stackCount; ++i)
 	{
 		unsigned int k1 = i * (sectorCount + 1);
 		unsigned int k2 = k1 + sectorCount + 1;
 
-		for (unsigned int j{ 0 }; j < sectorCount; ++j, ++k1, ++k2)
+		for (unsigned int j=0; j < sectorCount; ++j, ++k1, ++k2)
 		{
 			if (i != 0)
 			{
@@ -109,6 +108,8 @@ std::vector<float> SphereMesh::flatten() const
 		flatdata.push_back(uv.y);
 
 	}
+
+	return flatdata;
 }
 
 void SphereMesh::uploadToGPU()
@@ -121,7 +122,6 @@ void SphereMesh::uploadToGPU()
 	glGenBuffers(1, &ebo);
 
 	glBindVertexArray(vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, flatdata.size() * sizeof(float), flatdata.data(), GL_STATIC_DRAW);
 

@@ -129,20 +129,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\data\Scene.cpp" />
     <ClCompile Include="src\particle.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
+    <ClCompile Include="src\rendering\core\Shader.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="gl.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\data\Scene.h" />
     <ClInclude Include="headers\Particle.h" />
     <ClInclude Include="headers\Precision.h" />
     <ClInclude Include="headers\rendering\assets\RenderableParticle.h" />
     <ClInclude Include="headers\rendering\assets\Sphere.h" />
     <ClInclude Include="headers\rendering\assets\SphereMesh.h" />
     <ClInclude Include="headers\Vector3.h" />
+    <ClInclude Include="src\rendering\core\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
