@@ -1,11 +1,14 @@
-#include <glad/gl.h>
+#define GLFW_INCLUDE_NONE
+
+
+
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <data/Scene.h>
 #include "src/rendering/core/Shader.h"
-
 #include <iostream>
 
 
@@ -16,7 +19,6 @@ SphereMesh sphereMesh;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
-
 
 
 
@@ -41,6 +43,12 @@ int main(void)
     
     glfwMakeContextCurrent(window);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        fprintf(stderr, "Failed to initialize GLAD\n");
+        return -1;
+    }
+
 
    
     float lastTime = (float)glfwGetTime();
