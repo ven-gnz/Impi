@@ -35,6 +35,8 @@ int main(void)
     // glGenBuffers(1, &VBO);
 
 
+
+
     
     glfwMakeContextCurrent(window);
 

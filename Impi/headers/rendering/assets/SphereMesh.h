@@ -7,7 +7,7 @@
 https://songho.ca/opengl/gl_sphere.html
 Origokeskeinen yksikköpallo. 
 Resurssi yllä. 
-Tavoitteena tarjota sama utiliteetti kuin glutsolidsphere, mutta tuomatta uutta riippuvuutta projektiin.
+Tavoitteena tarjota sama utiliteetti kuin glutsolidsphere.
 */ 
 
 struct SphereMesh {
@@ -26,14 +26,14 @@ struct SphereMesh {
 
 	void createMesh(float radius = 1.0f, unsigned int sectorCount = 36, unsigned int stackCount = 24);
 
-	std::vector<float> interleave() const;
+	std::vector<float> flatten() const;
 
 	void uploadToGPU();
 
 	void draw() const;
 
-	void destroySphereMesh(SphereMesh& mesh);
+	void destroySphereMesh();
 
-	void drawSphereMesh(const SphereMesh& mesh);
+	void drawSphereMesh();
 
 };
