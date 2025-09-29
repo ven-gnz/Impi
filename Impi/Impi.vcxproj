@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -129,6 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\particle.cpp" />
+    <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="gl.c" />
     <ClCompile Include="main.cpp" />
@@ -136,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="headers\particle.h" />
     <ClInclude Include="headers\precision.h" />
+    <ClInclude Include="headers\rendering\assets\SphereMesh.h" />
     <ClInclude Include="headers\Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

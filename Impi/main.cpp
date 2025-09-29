@@ -31,8 +31,8 @@ int main(void)
         return -1;
     }
 
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
+   // unsigned int VBO; // Muistetaas alustaa nämä
+    // glGenBuffers(1, &VBO);
 
 
     
