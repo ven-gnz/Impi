@@ -20,4 +20,6 @@ public:
 
 	const Vector3& getPosition() const { return position; }
 	void setPosition(const Vector3& np) { position = np; }
+
+	void setVelocity(const Vector3& v) { velocity = v; }
 };

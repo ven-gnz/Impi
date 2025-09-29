@@ -27,15 +27,30 @@
     <ClCompile Include="src\particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\assets\SphereMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\assets\RenderableParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\precision.h">
+    <ClInclude Include="headers\Precision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\particle.h">
+    <ClInclude Include="headers\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rendering\assets\SphereMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rendering\assets\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rendering\assets\RenderableParticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
