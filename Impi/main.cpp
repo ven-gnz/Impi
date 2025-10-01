@@ -5,14 +5,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <data/Scene.h>
+#include <../scenes/Scene.h>
 #include "src/rendering/core/Shader.h"
 #include <iostream>
 
 
 SphereMesh sphereMesh;
 Scene* current_scene = nullptr;
-
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -48,17 +47,7 @@ int main(void)
    
     float lastTime = (float)glfwGetTime();
 
-    // jossakin vaiheessa olisi kiva olioistaa lis‰‰ t‰t‰ boileria, tai ei nyt boileria vaan per scene asiaa tuonne scenee
-    Scene ballistics("ballistics");
 
-    current_scene = &ballistics;
-
-    std::string sp = ballistics.getName(); // shader path prefix
-    std::string vs = sp + "/shader.vert";
-    const char *vertex_source = vs.c_str();
-    std::string fs = sp + "/shader.frag";
-    const char* frag_source = fs.c_str();
-    Shader ballisticShader(vertex_source, frag_source, nullptr);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -67,9 +56,11 @@ int main(void)
         float delta = currentTime - lastTime;
         lastTime = currentTime;
 
-        ballistics.update(delta);
+
+
+        // current_scene.update(delta);
        
-        ballistics.draw(ballisticShader.ID);
+        // current_scene.draw(.ID);
 
         glClear(GL_COLOR_BUFFER_BIT);
         

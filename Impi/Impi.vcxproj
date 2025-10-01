@@ -132,7 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="src\data\Scene.cpp" />
+    <ClCompile Include="scenes\ballistics\Ballistics.cpp" />
+    <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="src\particle.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
@@ -141,7 +142,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\data\Scene.h" />
+    <ClInclude Include="scenes\ballistics\Ballistics.h" />
+    <ClInclude Include="scenes\Scene.h" />
     <ClInclude Include="headers\Particle.h" />
     <ClInclude Include="headers\Precision.h" />
     <ClInclude Include="headers\rendering\assets\RenderableParticle.h" />
@@ -151,7 +153,7 @@
     <ClInclude Include="src\rendering\core\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\ballistics\shader.vert" />
+    <None Include="scenes\ballistics\shaders\shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,13 +30,16 @@
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\data\Scene.cpp">
+    <ClCompile Include="scenes\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\core\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scenes\ballistics\Ballistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,14 +62,17 @@
     <ClInclude Include="headers\rendering\assets\RenderableParticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\data\Scene.h">
+    <ClInclude Include="scenes\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\rendering\core\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="scenes\ballistics\Ballistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\ballistics\shader.vert" />
+    <None Include="scenes\ballistics\shaders\shader.vert" />
   </ItemGroup>
 </Project>

@@ -8,8 +8,9 @@
 class RenderableParticle : public Particle
 {
 public:
+	unsigned int shaderProgram;
 	SphereMesh* mesh = nullptr;
 	float radius = 1.0f;
 
-	void draw(unsigned int shaderProgram) const;
+	void draw() const;
 };

@@ -6,7 +6,7 @@
 Perinnällä mennään, ehkä tähän löytyy joku toimivampi ratkaisu myöhemmin.
 */
 
-void RenderableParticle::draw(unsigned int shaderProgram) const
+void RenderableParticle::draw() const
 {
 
 	glm::vec3 pos(position.x, position.y, position.z);
