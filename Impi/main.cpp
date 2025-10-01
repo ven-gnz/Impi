@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <../scenes/Scene.h>
 #include "src/rendering/core/Shader.h"
+#include "scenes/ballistics/Ballistics.h"
 #include <iostream>
 
 
@@ -47,7 +48,11 @@ int main(void)
    
     float lastTime = (float)glfwGetTime();
 
+    Ballistics ballistics;
+    current_scene = &ballistics;
 
+    glm::mat4 projection;
+    glm::mat4 view;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -57,10 +62,8 @@ int main(void)
         lastTime = currentTime;
 
 
-
-        // current_scene.update(delta);
-       
-        // current_scene.draw(.ID);
+        current_scene->update(delta);
+        current_scene->draw(projection, view);
 
         glClear(GL_COLOR_BUFFER_BIT);
         

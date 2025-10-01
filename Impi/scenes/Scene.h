@@ -9,14 +9,17 @@
 class Scene {
 public:
 
-	Scene(const std::string name);
+	Scene(const std::string name,
+		const char* vertexPath = nullptr,
+		const char* fragmentPath = nullptr,
+		const char* geometryPath = nullptr);
 	Shader shader;
 
 	std::string name;
 	std::vector<RenderableParticle> particles;
 
 	void update(float dt);
-	void draw() const;
+	void draw(const glm::mat4& projection, const glm::mat4& view) const;
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);

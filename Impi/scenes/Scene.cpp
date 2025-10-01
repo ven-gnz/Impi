@@ -6,7 +6,12 @@
 	testiscenejä niin ehkä tällainen tarvitaan. Pikkuhiljaa iteroidaan, katsotaan mitä tulee.
 */
 
-Scene::Scene(std::string init_name) : name(init_name) { }
+Scene::Scene(std::string init_name, const char* vertexPath, const char* fragmentPath, const char* geometryPath) 
+	: name(init_name),
+	shader(vertexPath,fragmentPath,geometryPath)
+{
+	
+}
 
 void Scene::update(float dt)
 {
@@ -16,10 +21,15 @@ void Scene::update(float dt)
 	}
 }
 
-void Scene::draw() const
+void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 {
+	shader->use();
+	shader->setMat4("projection", projection);
+	shader->setMat4("view", view);
+
 	for (auto& particle : particles)
 	{
+		glm::mat4 model = glm::mat4(1.0f);
 		particle.draw();
 	}
 }
