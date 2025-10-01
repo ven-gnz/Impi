@@ -1,5 +1,3 @@
-#define GLFW_INCLUDE_NONE
-
 
 
 #include <glad/glad.h>
@@ -12,8 +10,8 @@
 #include <iostream>
 
 
-Scene scene;
 SphereMesh sphereMesh;
+Scene* current_scene = nullptr;
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -39,8 +37,6 @@ int main(void)
     }
 
 
-   
-    
     glfwMakeContextCurrent(window);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 
@@ -49,9 +45,20 @@ int main(void)
         return -1;
     }
 
-
    
     float lastTime = (float)glfwGetTime();
+
+    // jossakin vaiheessa olisi kiva olioistaa lisää tätä boileria, tai ei nyt boileria vaan per scene asiaa tuonne scenee
+    Scene ballistics("ballistics");
+
+    current_scene = &ballistics;
+
+    std::string sp = ballistics.getName(); // shader path prefix
+    std::string vs = sp + "/shader.vert";
+    const char *vertex_source = vs.c_str();
+    std::string fs = sp + "/shader.frag";
+    const char* frag_source = fs.c_str();
+    Shader ballisticShader(vertex_source, frag_source, nullptr);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -60,8 +67,9 @@ int main(void)
         float delta = currentTime - lastTime;
         lastTime = currentTime;
 
-        scene.update(delta);
-
+        ballistics.update(delta);
+       
+        ballistics.draw(ballisticShader.ID);
 
         glClear(GL_COLOR_BUFFER_BIT);
         
@@ -98,16 +106,11 @@ void processInput(GLFWwindow* window)
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    if (current_scene)
     {
-        RenderableParticle p;
-        p.mesh = &sphereMesh;
-        p.setPosition(Vector3(0, 5, 0));
-        p.setVelocity(Vector3(5, 5, 0));
-
-        p.radius = 0.5f;
-        scene.particles.push_back(p);
-
+        current_scene->onMouseButton(window, button, action, mods);
     }
 }
+
+
 

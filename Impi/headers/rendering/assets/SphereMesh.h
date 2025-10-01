@@ -34,6 +34,4 @@ struct SphereMesh {
 
 	void destroySphereMesh();
 
-	void drawSphereMesh();
-
 };

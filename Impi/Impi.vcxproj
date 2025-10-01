@@ -150,6 +150,9 @@
     <ClInclude Include="headers\Vector3.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\ballistics\shader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
