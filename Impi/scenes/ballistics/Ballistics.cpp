@@ -4,13 +4,11 @@ SphereMesh mesh;
 
 Ballistics::Ballistics()
     :Scene("Ballistics",
-        "scenes/ballistics/shaders/shader.vert, "
-        "scenes/ballistics/shaders/shader.frag,",
+        "scenes/ballistics/shaders/shader.vert",
+        "scenes/ballistics/shaders/shader.frag",
         nullptr)
 {
     {
-        std::cout << "[Ballistics] Vertex shader path:   scenes/ballistics/shaders/shader.vert\n";
-        std::cout << "[Ballistics] Fragment shader path: scenes/ballistics/shaders/shader.frag\n";
 
     }
 }

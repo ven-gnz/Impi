@@ -16,8 +16,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geo
 
     try
     {
+
         vShaderFile.open(vertexPath);
         fShaderFile.open(fragmentPath);
+
+        std::cout << vertexPath << " vertex path" << std::endl;
+        std::cout << fragmentPath << " fragment path " << std::endl;
 
         std::stringstream vShaderStream, fShaderStream;
 

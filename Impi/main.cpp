@@ -9,6 +9,7 @@
 #include "src/rendering/core/Shader.h"
 #include "scenes/ballistics/Ballistics.h"
 #include <iostream>
+#include <stdlib.h>
 
 
 SphereMesh sphereMesh;
@@ -22,6 +23,14 @@ void processInput(GLFWwindow* window);
 
 int main(void)
 {
+
+ 
+    char* path;
+    _get_pgmptr(&path);
+    std::cout << path << std::endl;
+    
+   
+
     GLFWwindow* window;
 
     
@@ -66,8 +75,6 @@ int main(void)
         current_scene->draw(projection, view);
 
         glClear(GL_COLOR_BUFFER_BIT);
-        
-
 
         
         glfwSwapBuffers(window);
