@@ -130,16 +130,16 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-	<ItemGroup>
-		<None Include="scenes\*\shaders\*.*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="scenes\*\shaders\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="scenes\ballistics\Ballistics.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
-    <ClCompile Include="src\particle.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Shader.cpp" />

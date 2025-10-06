@@ -1,5 +1,5 @@
 #include "Ballistics.h"
-#include "../headers/rendering/assets/SphereMesh.h"
+#include "../src/rendering/assets/SphereParticle.h"
 SphereMesh mesh;
 
 Ballistics::Ballistics()
@@ -16,14 +16,15 @@ Ballistics::Ballistics()
 
     void Ballistics::onMouseButton(GLFWwindow * window, int button, int action, int mods)
     {
-        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-            RenderableParticle p;
-            p.mesh = &mesh;
-            p.setPosition(Vector3(0, 5, 0));
-            p.setVelocity(Vector3(5, 5, 0));
-            p.radius = 0.5f;
 
+        std::cout << "on mouse button on ballistics" << std::endl;
+        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+            Particle p;
+            p.setPosition(Vector3(0, 1, 0));
+            p.setVelocity(Vector3(0.25, 0.25, 0));
             particles.push_back(p);
+            Particle* ptr = &particles.back();
+            renderables.push_back(RenderableParticle(ptr, &mesh, 10.0f));
         }
 
     }

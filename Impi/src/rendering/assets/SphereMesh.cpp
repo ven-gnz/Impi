@@ -1,6 +1,7 @@
 #include <rendering/assets/SphereMesh.h>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int stackCount)
 {
@@ -152,6 +153,7 @@ void SphereMesh::destroySphereMesh()
 
 void SphereMesh::draw() const
 {
+	std::cout << "drawing mesh" << std::endl;
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

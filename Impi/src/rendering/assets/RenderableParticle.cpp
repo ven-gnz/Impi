@@ -4,20 +4,7 @@
 
 /*
 Perinnällä mennään, ehkä tähän löytyy joku toimivampi ratkaisu myöhemmin.
+
+EDIT 6.10 : järkevämpi ratkaisu löytyi, se oli ulkoistaa piirtäminen scenelle jolla on referenssi shader ohjelmaan.
+Ideana tutkia, saisiko partikkelien sijainnin integroinnin säikeistettyä tai rinnakkaistettua.
 */
-
-void RenderableParticle::draw() const
-{
-
-	glm::vec3 pos(position.x, position.y, position.z);
-
-	glm::mat4 model(1.0f);
-
-	model = glm::translate(model, pos)
-		* glm::scale(glm::mat4(1.0f), glm::vec3(radius));
-
-	int uni = glGetUniformLocation(shaderProgram, "model");
-	glUniformMatrix4fv(uni, 1, GL_FALSE, &model[0][0]);
-
-	mesh->draw();
-}

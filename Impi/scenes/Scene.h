@@ -14,9 +14,11 @@ public:
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);
 	Shader shader;
+	SphereMesh scenemesh;
 
 	std::string name;
-	std::vector<RenderableParticle> particles;
+	std::vector<Particle> particles;
+	std::vector<RenderableParticle> renderables;
 
 	void update(float dt);
 	void draw(const glm::mat4& projection, const glm::mat4& view) const;

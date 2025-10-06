@@ -21,7 +21,7 @@
     <ClCompile Include="src\Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\particle.cpp">
+    <ClCompile Include="src\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp">
@@ -73,6 +73,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="scenes\ballistics\shaders\shader.vert" />
+    <None Include="scenes\*\shaders\*.*" />
+    <None Include="scenes\*\shaders\*.*" />
   </ItemGroup>
 </Project>
