@@ -153,8 +153,5 @@ void SphereMesh::destroySphereMesh()
 
 void SphereMesh::draw() const
 {
-	std::cout << "drawing mesh" << std::endl;
-	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
 }

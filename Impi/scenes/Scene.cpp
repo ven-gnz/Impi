@@ -33,16 +33,15 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 	shader.use();
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
-	glBindVertexArray(scenemesh->vao);
+	glBindVertexArray(scenemesh.vao);
 
 	for (auto& r : renderables)
 	{
 		shader.setMat4("model", r.model);
-		if (r.mesh)
-		{
-			r.mesh->draw();
-		}
+		r.mesh->draw();
 	}
+
+	glBindVertexArray(0);
 }
 
 std::string Scene::getName() const

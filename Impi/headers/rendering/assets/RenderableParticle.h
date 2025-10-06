@@ -4,6 +4,7 @@
 #include "rendering/assets/SphereMesh.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 
 
 // 6.10. uusi yritys : en halua luoda objekteja, vaan haluan että fysiikkasimun renderöintiin käytetään
@@ -26,5 +27,8 @@ public:
 		Vector3 p = physicalParticle->getPosition();
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(p.x, p.y, p.z))
 			* glm::scale(glm::mat4(1.0f), glm::vec3(radius));
+
+		std::cout << "Model matrix: "
+			<< model[0][3] << "," << model[1][3] << "," << model[2][3] << std::endl;
 	}
 };

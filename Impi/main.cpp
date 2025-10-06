@@ -77,15 +77,12 @@ int main(void)
     Ballistics ballistics;
     current_scene = &ballistics;
 
-
-
-
     glm::mat4 projection;
     glm::mat4 view;
 
     while (!glfwWindowShouldClose(window))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
      
         float currentTime = (float)glfwGetTime();
         float delta = currentTime - lastTime;
@@ -96,8 +93,6 @@ int main(void)
 
         current_scene->update(delta);
         current_scene->draw(projection, view);
-
-       
 
         
         glfwSwapBuffers(window);

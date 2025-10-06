@@ -24,7 +24,7 @@ Ballistics::Ballistics()
             p.setVelocity(Vector3(0.25, 0.25, 0));
             particles.push_back(p);
             Particle* ptr = &particles.back();
-            renderables.push_back(RenderableParticle(ptr, &mesh, 10.0f));
+            renderables.push_back(RenderableParticle(ptr, &mesh, 1.0f));
         }
 
     }
