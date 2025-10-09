@@ -27,8 +27,5 @@ public:
 		Vector3 p = physicalParticle->getPosition();
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(p.x, p.y, p.z))
 			* glm::scale(glm::mat4(1.0f), glm::vec3(radius));
-
-		std::cout << "Model matrix: "
-			<< model[3][0] << "," << model[3][1] << "," << model[3][2] << std::endl;
 	}
 };

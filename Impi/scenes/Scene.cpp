@@ -1,10 +1,4 @@
 #include "Scene.h"
-#include <rendering/assets/RenderableParticle.h>
-
-
-
-
-
 
 /*
 	Pyrkimys formalisoida RR kurssilla vastaan tullut "Scene" ajatus. Nyt kun meillä selvästi on tulossa eri
@@ -32,9 +26,6 @@ void Scene::update(float dt)
 		renderable.updateModelMatrix();
 	}
 }
-
-
-
 
 
 void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const

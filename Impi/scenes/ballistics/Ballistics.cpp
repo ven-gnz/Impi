@@ -23,7 +23,7 @@ Ballistics::Ballistics()
         float dumping = 0.95f; // dummy +- damping - iterating on the name still
         float ima = 1.0f;
 
-        std::cout << "on mouse button on ballistics" << std::endl;
+       
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 
             Particle p;

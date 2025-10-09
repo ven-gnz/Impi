@@ -1,6 +1,6 @@
 #pragma once
 
-
+// Luokka erikoistaa renderableparticlen jahka sinne asti p‰‰st‰‰n.
 
 class SphereParticle : public RenderableParticle
 {
