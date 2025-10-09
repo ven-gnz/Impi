@@ -19,8 +19,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-int windowHeight = 720;
-int windowWidth = 1080;
+static const int windowHeight = 720;
+static const int windowWidth = 1080;
 float near = 0.1f;
 float far = 100.0f;
 float aspect = windowWidth / (float)windowHeight;
@@ -94,7 +94,6 @@ int main(void)
         current_scene->update(delta);
         current_scene->draw(projection, view);
 
-        
         glfwSwapBuffers(window);
 
         

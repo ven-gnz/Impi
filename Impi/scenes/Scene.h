@@ -14,7 +14,7 @@ public:
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);
 	Shader shader;
-	SphereMesh scenemesh;
+	SphereMesh* scenemesh = nullptr;
 
 	std::string name;
 	std::vector<Particle> particles;

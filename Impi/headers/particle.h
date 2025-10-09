@@ -22,4 +22,8 @@ public:
 	void setPosition(const Vector3& np) { position = np; }
 
 	void setVelocity(const Vector3& v) { velocity = v; }
+
+	void setDamping(const float damp) { damping = damp; }
+
+	void setInvMass(const float im) { inverseMass = im; }
 };

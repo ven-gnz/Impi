@@ -29,6 +29,6 @@ public:
 			* glm::scale(glm::mat4(1.0f), glm::vec3(radius));
 
 		std::cout << "Model matrix: "
-			<< model[0][3] << "," << model[1][3] << "," << model[2][3] << std::endl;
+			<< model[3][0] << "," << model[3][1] << "," << model[3][2] << std::endl;
 	}
 };

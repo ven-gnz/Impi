@@ -129,18 +129,20 @@ void SphereMesh::uploadToGPU()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-	GLsizei stride_ptr = (3 + 3 + 2) * sizeof(float);
+	GLsizei stride_ptr = 8 * sizeof(float);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride_ptr, (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride_ptr, (void*)3);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride_ptr, (void*)(3*sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride_ptr, (void*)6);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride_ptr, (void*)(6*sizeof(float)));
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
+
+	// indexCount = static_cast<unsigned int>(indices.size());
 }
 
 void SphereMesh::destroySphereMesh()
