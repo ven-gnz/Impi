@@ -10,7 +10,10 @@ Scene::Scene(std::string init_name,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), shader(vertexPath,fragmentPath,geometryPath)
+
 {
+
+
 
 }
 
@@ -35,8 +38,10 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
 
-	int index = 0;
-	glBindVertexArray(scenemesh->vao);
+
+
+	
+	glBindVertexArray(spheremesh_ptr->vao);
 	for (auto& r : renderables)
 	{
 		shader.setMat4("model", r.model);

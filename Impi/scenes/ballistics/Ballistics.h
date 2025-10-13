@@ -6,6 +6,7 @@ class Ballistics : public Scene {
     
 public:
     Ballistics();
-    SphereMesh mesh;
+    SphereMesh sphere_mesh;
+    PlaneMesh ground_mesh;
     void onMouseButton(GLFWwindow* window, int button, int action, int mods) override;
 };

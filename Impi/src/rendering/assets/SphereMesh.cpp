@@ -115,7 +115,7 @@ std::vector<float> SphereMesh::flatten() const
 
 void SphereMesh::uploadToGPU()
 {
-
+	// needs updating?
 	std::vector<float> flatdata = flatten();
 
 	glGenVertexArrays(1, &vao);
