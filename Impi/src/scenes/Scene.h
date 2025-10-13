@@ -3,9 +3,9 @@
 #include <vector>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <../src/rendering/core/Shader.h>
+#include <rendering/core/Shader.h>
 #include <rendering/assets/RenderableParticle.h>
-#include <../src/rendering/assets/PlaneMesh.h>
+#include <rendering/assets/PlaneMesh.h>
 
 
 class Scene {
@@ -16,6 +16,7 @@ public:
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);
 	Shader shader;
+	Shader groundShader;
 	SphereMesh* spheremesh_ptr = nullptr;
 	PlaneMesh* groundmesh_ptr = nullptr;
 	

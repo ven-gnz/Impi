@@ -102,7 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\assets;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\core;C:\Users\rapul\FYSM\Impi\Impi\src\rendering;C:\Users\rapul\FYSM\Impi\Impi\src\physics;C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\assets;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\core;C:\Users\rapul\FYSM\Impi\Impi\src\rendering;C:\Users\rapul\FYSM\Impi\Impi\src\physics;C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
@@ -131,31 +131,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="scenes\*\shaders\*.*">
+    <None Include="src\scenes\*\shaders\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="scenes\ballistics\Ballistics.cpp" />
-    <ClCompile Include="scenes\Scene.cpp" />
-    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\physics\Particle.cpp" />
+    <ClCompile Include="src\physics\Vector3.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Shader.cpp" />
-    <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
+    <ClCompile Include="src\scenes\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scenes\ballistics\Ballistics.h" />
-    <ClInclude Include="scenes\Scene.h" />
-    <ClInclude Include="headers\Particle.h" />
-    <ClInclude Include="headers\Precision.h" />
-    <ClInclude Include="headers\rendering\assets\RenderableParticle.h" />
-    <ClInclude Include="headers\rendering\assets\Sphere.h" />
-    <ClInclude Include="headers\rendering\assets\SphereMesh.h" />
-    <ClInclude Include="headers\Vector3.h" />
+    <ClInclude Include="includes\glad\gl.h" />
+    <ClInclude Include="includes\glad\glad.h" />
+    <ClInclude Include="src\physics\Particle.h" />
+    <ClInclude Include="src\physics\Precision.h" />
+    <ClInclude Include="src\physics\Vector3.h" />
+    <ClInclude Include="src\rendering\assets\PlaneMesh.h" />
+    <ClInclude Include="src\rendering\assets\RenderableParticle.h" />
+    <ClInclude Include="src\rendering\assets\Sphere.h" />
+    <ClInclude Include="src\rendering\assets\SphereMesh.h" />
+    <ClInclude Include="src\rendering\assets\SphereParticle.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
+    <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
+    <ClInclude Include="src\scenes\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

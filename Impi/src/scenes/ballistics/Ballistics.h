@@ -1,6 +1,6 @@
 #pragma once
-#include "../Scene.h"
-#include "../headers/rendering/assets/SphereMesh.h"
+#include "scenes/Scene.h"
+#include "rendering/assets/SphereMesh.h"
 
 class Ballistics : public Scene {
     

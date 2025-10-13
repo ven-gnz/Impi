@@ -18,19 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rendering\assets\RenderableParticle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="scenes\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\core\Shader.cpp">
@@ -39,41 +27,70 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scenes\ballistics\Ballistics.cpp">
+    <ClCompile Include="src\physics\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\Vector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\assets\RenderableParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\ballistics\Ballistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\Precision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\Particle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\rendering\assets\SphereMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\rendering\assets\Sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\rendering\assets\RenderableParticle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scenes\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\rendering\core\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scenes\ballistics\Ballistics.h">
+    <ClInclude Include="includes\glad\glad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\glad\gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Precision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\assets\PlaneMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\assets\RenderableParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\assets\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\assets\SphereMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\assets\SphereParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\ballistics\Ballistics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
+    <None Include="scenes\*\shaders\*.*" />
+    <None Include="src\scenes\ballistics\shaders\shader.frag" />
+    <None Include="src\scenes\ballistics\shaders\shader.vert" />
+    <None Include="src\scenes\commons\shaders\basic.frag" />
+    <None Include="src\scenes\commons\shaders\basic.vert" />
   </ItemGroup>
 </Project>

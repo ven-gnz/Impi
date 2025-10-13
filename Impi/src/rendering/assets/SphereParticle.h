@@ -1,5 +1,5 @@
 #pragma once
-
+#include <rendering/assets/RenderableParticle.h>
 // Luokka erikoistaa renderableparticlen jahka sinne asti p‰‰st‰‰n.
 
 class SphereParticle : public RenderableParticle

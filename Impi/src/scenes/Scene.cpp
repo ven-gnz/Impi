@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include <src/scenes/Scene.h>
 
 /*
 	Pyrkimys formalisoida RR kurssilla vastaan tullut "Scene" ajatus. Nyt kun meillä selvästi on tulossa eri
@@ -9,10 +9,11 @@ Scene::Scene(std::string init_name,
 	const char* vertexPath,
 	const char* fragmentPath,
 	const char* geometryPath) 
-	: name(init_name), shader(vertexPath,fragmentPath,geometryPath)
-
+	: name(init_name), shader(vertexPath,fragmentPath,geometryPath),
+	groundShader("src/scenes/commons/shaders/basic.vert", "src/scenes/commons/shaders/basic.frag",nullptr)
 {
-
+	groundmesh_ptr = new PlaneMesh();
+	groundmesh_ptr->createPlane(10.f, -0.25);
 
 
 }
@@ -34,12 +35,15 @@ void Scene::update(float dt)
 void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 {
 
+	groundShader.use();
+	groundShader.setMat4("projection", projection);
+	groundShader.setMat4("view", view);
+
+	groundmesh_ptr->draw();
+
 	shader.use();
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
-
-
-
 	
 	glBindVertexArray(spheremesh_ptr->vao);
 	for (auto& r : renderables)

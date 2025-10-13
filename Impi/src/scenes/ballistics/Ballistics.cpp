@@ -1,10 +1,10 @@
 #include "Ballistics.h"
-#include "../src/rendering/assets/SphereParticle.h"
+#include <rendering/assets/SphereMesh.h>
 
 Ballistics::Ballistics()
     :Scene("Ballistics",
-        "scenes/ballistics/shaders/shader.vert",
-        "scenes/ballistics/shaders/shader.frag",
+        "src/scenes/ballistics/shaders/shader.vert",
+        "src/scenes/ballistics/shaders/shader.frag",
         nullptr)
 {
     {

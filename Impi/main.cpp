@@ -5,9 +5,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <../scenes/Scene.h>
+#include <scenes/Scene.h>
 #include "src/rendering/core/Shader.h"
-#include "scenes/ballistics/Ballistics.h"
+#include "src/scenes/ballistics/Ballistics.h"
 #include <iostream>
 #include <stdlib.h>
 

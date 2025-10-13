@@ -1,7 +1,7 @@
 #pragma once
 #include <glad/glad.h>
-#include "particle.h"
-#include "rendering/assets/SphereMesh.h"
+#include "physics/Particle.h"
+#include "SphereMesh.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
