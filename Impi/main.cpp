@@ -26,6 +26,7 @@ float near = 0.1f;
 float far = 100.0f;
 float aspect = windowWidth / (float)windowHeight;
 float fov = glm::radians(45.0f);
+float delta;
 
 Camera camera{};
 
@@ -81,8 +82,10 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
      
         float currentTime = (float)glfwGetTime();
-        float delta = currentTime - lastTime;
+        delta = currentTime - lastTime;
         lastTime = currentTime;
+
+        processInput(window);
 
         projection = glm::perspective(fov, aspect, near, far);
         view = camera.GetViewMatrix();
@@ -115,6 +118,18 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, true);
+    }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        camera.ProcessKeyboard(FORWARD, delta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        camera.ProcessKeyboard(BACKWARD, delta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        camera.ProcessKeyboard(LEFT, delta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        camera.ProcessKeyboard(RIGHT, delta);
     }
 }
 

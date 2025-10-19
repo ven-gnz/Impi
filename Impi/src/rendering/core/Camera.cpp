@@ -17,7 +17,6 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 Camera::Camera()
 {
 
-
 	Position = defaultPos;
 	Up = defaultUp;
 	WorldUp = glm::vec3(Up.x, Up.y, Up.z);
