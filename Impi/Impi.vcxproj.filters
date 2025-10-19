@@ -110,6 +110,7 @@
     <None Include="src\scenes\*\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\commons\shaders\grid.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\metal.png">

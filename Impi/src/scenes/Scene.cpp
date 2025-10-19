@@ -10,7 +10,7 @@ Scene::Scene(std::string init_name,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), shader(vertexPath,fragmentPath,geometryPath),
-	groundShader("src/scenes/commons/shaders/basic.vert", "src/scenes/commons/shaders/basic.frag",nullptr)
+	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag",nullptr)
 {
 	groundmesh_ptr = new PlaneMesh();
 	groundmesh_ptr->createPlane(10.f, -0.25);
