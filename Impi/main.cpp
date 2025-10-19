@@ -31,7 +31,6 @@ float delta;
 Camera camera{};
 
 
-
 int main(void)
 {
 
@@ -47,7 +46,6 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    
     
     window = glfwCreateWindow(windowWidth, windowHeight, "Impi", NULL, NULL);
     if (!window)
@@ -97,7 +95,6 @@ int main(void)
 
         glfwPollEvents();
     }
-
 
     sphereMesh.destroySphereMesh();
     glfwDestroyWindow(window);
