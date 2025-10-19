@@ -137,10 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="src\physics\Firework.cpp" />
     <ClCompile Include="src\physics\Particle.cpp" />
     <ClCompile Include="src\physics\Vector3.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
+    <ClCompile Include="src\rendering\core\Camera.cpp" />
     <ClCompile Include="src\rendering\core\Shader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
@@ -157,6 +159,7 @@
     <ClInclude Include="src\rendering\assets\Sphere.h" />
     <ClInclude Include="src\rendering\assets\SphereMesh.h" />
     <ClInclude Include="src\rendering\assets\SphereParticle.h" />
+    <ClInclude Include="src\rendering\core\Camera.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
     <ClInclude Include="src\scenes\Scene.h" />

@@ -8,6 +8,7 @@
 #include <scenes/Scene.h>
 #include "src/rendering/core/Shader.h"
 #include "src/scenes/ballistics/Ballistics.h"
+#include <rendering/core/Camera.h>
 #include <iostream>
 #include <stdlib.h>
 
@@ -26,10 +27,7 @@ float far = 100.0f;
 float aspect = windowWidth / (float)windowHeight;
 float fov = glm::radians(45.0f);
 
-glm::vec3 cameraPos(0.0f, 1.0f, 5.0f);
-glm::vec3 cameraTarget(0.0f, 0.0f, 0.0f);
-glm::vec3 up(0.0f, 1.0f, 0.0f);
-
+Camera camera{};
 
 
 
@@ -41,8 +39,6 @@ int main(void)
     _get_pgmptr(&path);
     std::cout << path << std::endl;
 // debug : pwd
-    
-   
 
     GLFWwindow* window;
 
@@ -89,7 +85,7 @@ int main(void)
         lastTime = currentTime;
 
         projection = glm::perspective(fov, aspect, near, far);
-        view = glm::lookAt(cameraPos, cameraTarget, up);
+        view = camera.GetViewMatrix();
 
         current_scene->update(delta);
         current_scene->draw(projection, view);

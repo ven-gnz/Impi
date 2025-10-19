@@ -27,7 +27,6 @@ Ballistics::Ballistics()
         float dumping = 0.95f; // dummy +- damping - iterating on the name still
         float ima = 16.0f;
 
-       
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 
             Particle p;
