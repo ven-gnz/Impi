@@ -78,28 +78,41 @@ void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const 
 	data.padding = 0.0f;
 
 	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
-	/*
-	, its used I think
-	GLint size = 0, usage = 0;
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniforms), &data);
-	glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_SIZE, &size);
-	glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_USAGE, &usage);
-	
-	
-	
-	ViewUniforms* ptr = (ViewUniforms*)glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_ONLY);
-	if (ptr) {
-		std::cout << "view[0][0]: " << ptr->view[0][0] << std::endl;
-		std::cout << "projection[0][0]: " << ptr->projection[0][0] << std::endl;
-		std::cout << "cameraPos.x: " << ptr->cameraPos.x << std::endl;
-		glUnmapBuffer(GL_UNIFORM_BUFFER);
-	}
-	 std::cout << "UBO size: " << size << ", usage: " << usage << std::endl;
-	 */
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-	
+}
 
+void Scene::view_UBO_Debug_Data()
+{
+	ViewUniforms* ptr = (ViewUniforms*)glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_ONLY);
+	if (ptr) {
+		std::cout << "=== view ===" << std::endl;
+		for (int col = 0; col < 4; ++col) {
+			for (int row = 0; row < 4; ++row) {
+				std::cout << "view[" << row << "][" << col << "] = " << ptr->view[col][row] << std::endl;
+			}
+		}
+
+		std::cout << "=== projection ===" << std::endl;
+		for (int col = 0; col < 4; ++col) {
+			for (int row = 0; row < 4; ++row) {
+				std::cout << "projection[" << row << "][" << col << "] = " << ptr->projection[col][row] << std::endl;
+			}
+		}
+
+		std::cout << "=== camera position ===" << std::endl;
+		std::cout << "cameraPos.x = " << ptr->cameraPos.x << std::endl;
+		std::cout << "cameraPos.y = " << ptr->cameraPos.y << std::endl;
+		std::cout << "cameraPos.z = " << ptr->cameraPos.z << std::endl;
+
+		glUnmapBuffer(GL_UNIFORM_BUFFER);
+	}
+	else {
+		std::cerr << "Failed to map UBO!" << std::endl;
+	}
+
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods)

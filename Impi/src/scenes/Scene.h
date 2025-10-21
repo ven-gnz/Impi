@@ -34,7 +34,7 @@ public:
 	std::vector<Particle> particles;
 	std::vector<RenderableParticle> renderables;
 	void initUBO();
-	
+	void view_UBO_Debug_Data();
 	void updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const;
 	void update(float dt);
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) const;
