@@ -15,7 +15,7 @@ Scene::Scene(std::string init_name,
 	groundmesh_ptr = new PlaneMesh();
 	groundmesh_ptr->createPlane(10.f, -0.25);
 
-
+	initUBO();
 }
 
 void Scene::update(float dt)
@@ -32,17 +32,12 @@ void Scene::update(float dt)
 }
 
 
-void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
+void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) const
 {
 
-	groundShader.use();
-	groundShader.setMat4("projection", projection);
-	groundShader.setMat4("view", view);
-	int viewLoc = glGetUniformLocation(groundShader.ID, "view");
-	int projLoc = glGetUniformLocation(groundShader.ID, "projection");
-	std::cout << "ID " << groundShader.ID << std::endl;
-	std::cout << "View : " << viewLoc << "projection : " << projLoc<< std::endl;
+	updateUBO(view, projection, cameraPos);
 
+	groundShader.use();
 	groundmesh_ptr->draw();
 
 	shader.use();
@@ -63,6 +58,48 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 std::string Scene::getName() const
 {
 	return name;
+}
+
+void Scene::initUBO() {
+	glGenBuffers(1, &viewUBO);
+	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(ViewUniforms), nullptr, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, viewUBO);
+}
+
+void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const {
+
+	ViewUniforms data;
+	data.view = view;
+	data.projection = projection;
+	data.cameraPos = cameraPos;
+	data.padding = 0.0f;
+
+	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
+	/*
+	, its used I think
+	GLint size = 0, usage = 0;
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniforms), &data);
+	glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_SIZE, &size);
+	glGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_USAGE, &usage);
+	
+	
+	
+	ViewUniforms* ptr = (ViewUniforms*)glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_ONLY);
+	if (ptr) {
+		std::cout << "view[0][0]: " << ptr->view[0][0] << std::endl;
+		std::cout << "projection[0][0]: " << ptr->projection[0][0] << std::endl;
+		std::cout << "cameraPos.x: " << ptr->cameraPos.x << std::endl;
+		glUnmapBuffer(GL_UNIFORM_BUFFER);
+	}
+	 std::cout << "UBO size: " << size << ", usage: " << usage << std::endl;
+	 */
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	
+
 }
 
 void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods)

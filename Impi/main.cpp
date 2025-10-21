@@ -93,7 +93,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         current_scene->update(delta);
-        current_scene->draw(projection, view);
+        current_scene->draw(projection, view, camera.getPosition());
 
         
 
