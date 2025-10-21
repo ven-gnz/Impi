@@ -23,4 +23,5 @@ public:
 	void setVec3(const std::string& name, float a, float b, float c) const;
 	void setVec2(const std::string& name, glm::vec2 vec) const;
 
+
 };

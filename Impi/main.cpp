@@ -22,10 +22,10 @@ void processInput(GLFWwindow* window);
 
 static const int windowHeight = 720;
 static const int windowWidth = 1080;
-float near = 0.1f;
-float far = 10.0f;
+float near = 0.5f;
+float far = 50.0f;
 float aspect = windowWidth / (float)windowHeight;
-float fov = glm::radians(45.0f);
+float fov = glm::radians(60.0f);
 float delta;
 
 Camera camera{};
@@ -66,14 +66,22 @@ int main(void)
     
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   
+    glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glDisable(GL_CULL_FACE);
     float lastTime = (float)glfwGetTime();
 
     Ballistics ballistics;
     current_scene = &ballistics;
 
-    glm::mat4 projection;
-    glm::mat4 view;
+
+
+    glm::mat4 projection = glm::perspective(fov, aspect, near, far);
+    glm::mat4 view = camera.GetViewMatrix();
+
+    current_scene->initUBO();
+    current_scene->groundShader.use();
+    current_scene->updateUBO(view, projection, camera.getPosition());
 
     while (!glfwWindowShouldClose(window))
     {
@@ -90,12 +98,13 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         current_scene->update(delta);
-        current_scene->draw(projection, view, camera.getPosition());
+        current_scene->draw(view, projection, camera.getPosition());
 
 
         glfwSwapBuffers(window);
 
         glfwPollEvents();
+
     }
 
     sphereMesh.destroySphereMesh();
@@ -113,11 +122,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void processInput(GLFWwindow* window)
 {
+    
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, true);
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        
         camera.ProcessKeyboard(FORWARD, delta);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {

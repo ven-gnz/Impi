@@ -29,7 +29,7 @@ public:
 	glm::vec3 Direction;
 
 
-	static constexpr glm::vec3 defaultPos = glm::vec3(0.0f, 1.0f, 5.0f);
+	static constexpr glm::vec3 defaultPos = glm::vec3(0.0f, 1.05f, 5.0f);
 	static constexpr glm::vec3 defaultTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 	static constexpr glm::vec3 defaultUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	static constexpr glm::vec3 defaultFront = glm::vec3(0.0f, 0.0f, -1.0f);

@@ -13,9 +13,10 @@ Scene::Scene(std::string init_name,
 	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
 {
 	groundmesh_ptr = new PlaneMesh();
-	groundmesh_ptr->createPlane(10.f, -0.25);
+	groundmesh_ptr->createPlane();
 
 	initUBO();
+	groundShader.use();
 }
 
 void Scene::update(float dt)
@@ -32,18 +33,23 @@ void Scene::update(float dt)
 }
 
 
-void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) const
+void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const
 {
 
 	updateUBO(view, projection, cameraPos);
 	view_UBO_Debug_Data();
 
 	groundShader.use();
+	glBindVertexArray(groundmesh_ptr->vao);
 	groundmesh_ptr->draw();
+	
+	
+	
+	glBindVertexArray(0);
+
+	
 
 	/*
-	
-	
 
 
 	shader.use();
@@ -58,7 +64,7 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::
 	}
 	*/
 
-	glBindVertexArray(0);
+	
 }
 
 std::string Scene::getName() const
@@ -67,12 +73,17 @@ std::string Scene::getName() const
 }
 
 void Scene::initUBO() {
+
 	glGenBuffers(1, &viewUBO);
 	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(ViewUniforms), nullptr, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, viewUBO);
+
+	GLuint blockIndex = glGetUniformBlockIndex(groundShader.ID, "ViewUniforms");
+	glUniformBlockBinding(groundShader.ID, blockIndex, 0);
+
 }
 
 void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const {
