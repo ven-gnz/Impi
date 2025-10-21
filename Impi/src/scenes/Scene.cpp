@@ -10,7 +10,7 @@ Scene::Scene(std::string init_name,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), shader(vertexPath,fragmentPath,geometryPath),
-	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag",nullptr)
+	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
 {
 	groundmesh_ptr = new PlaneMesh();
 	groundmesh_ptr->createPlane(10.f, -0.25);
@@ -38,6 +38,10 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 	groundShader.use();
 	groundShader.setMat4("projection", projection);
 	groundShader.setMat4("view", view);
+	int viewLoc = glGetUniformLocation(groundShader.ID, "view");
+	int projLoc = glGetUniformLocation(groundShader.ID, "projection");
+	std::cout << "ID " << groundShader.ID << std::endl;
+	std::cout << "View : " << viewLoc << "projection : " << projLoc<< std::endl;
 
 	groundmesh_ptr->draw();
 
@@ -51,6 +55,7 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view) const
 		shader.setMat4("model", r.model);
 		r.mesh->draw();
 	}
+
 
 	glBindVertexArray(0);
 }

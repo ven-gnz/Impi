@@ -50,6 +50,7 @@ glm::mat4 Camera::lookAt(glm::vec3 Pos, glm::vec3 Target, glm::vec3 WorldUp) {
 	  r.z, u.z, d.z, 0.0,
 	  0.0, 0.0, 0.0, 1.0,
 	};
+
 	glm::mat4x4 rotation = {
 	  1.0, 0.0, 0.0, 0.0,
 	  0.0, 1.0, 0.0, 0.0,

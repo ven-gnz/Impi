@@ -11,9 +11,6 @@ Ballistics::Ballistics()
         sphere_mesh.createMesh(1.0f);
         sphere_mesh.uploadToGPU();
         spheremesh_ptr = &sphere_mesh;
-
-        ground_mesh.createPlane(10.0f, -0.25);
-        groundmesh_ptr = &ground_mesh;
         
     }
 }

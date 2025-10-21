@@ -64,6 +64,7 @@ int main(void)
     }
 
     glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    
@@ -77,7 +78,8 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        
      
         float currentTime = (float)glfwGetTime();
         delta = currentTime - lastTime;
@@ -88,8 +90,12 @@ int main(void)
         projection = glm::perspective(fov, aspect, near, far);
         view = camera.GetViewMatrix();
 
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         current_scene->update(delta);
         current_scene->draw(projection, view);
+
+        
 
         glfwSwapBuffers(window);
 
