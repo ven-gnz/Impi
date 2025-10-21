@@ -130,11 +130,11 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-	<ItemGroup>
-		<None Include="src\scenes\**\shaders\*.*" >
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="src\scenes\**\shaders\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\physics\Firework.cpp" />
@@ -145,6 +145,7 @@
     <ClCompile Include="src\rendering\core\Camera.cpp" />
     <ClCompile Include="src\rendering\core\Shader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\rendering\core\ViewUniforms.h" />
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
   </ItemGroup>

@@ -36,7 +36,7 @@ public:
 	void updateViewUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos);
 	void upstreamViewUniform() const;
 	void update(float dt);
-	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) const;
+	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos);
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);

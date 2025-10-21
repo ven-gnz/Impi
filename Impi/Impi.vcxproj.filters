@@ -48,6 +48,9 @@
     <ClCompile Include="src\rendering\core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\core\ViewUniforms.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -97,20 +100,29 @@
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*">
-      <Filter>Resource Files</Filter>
-    </None>
+    <None Include="src\scenes\ballistics\shaders\shader.vert" />
     <None Include="src\scenes\commons\shaders\grid.frag" />
+    <None Include="src\scenes\commons\shaders\grid.vert" />
+    <None Include="src\scenes\commons\shaders\metal.png" />
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*" />
+    <None Include="src\scenes\*\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\metal.png">

@@ -64,20 +64,17 @@ int main(void)
     }
 
     
-    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glDisable(GL_CULL_FACE);
     float lastTime = (float)glfwGetTime();
 
-    Ballistics ballistics;
-    current_scene = &ballistics;
-
-
-
     glm::mat4 projection = glm::perspective(fov, aspect, near, far);
     glm::mat4 view = camera.GetViewMatrix();
+
+    Ballistics ballistics;
+    current_scene = &ballistics;
 
     current_scene->initUBO();
     current_scene->groundShader.use();

@@ -48,7 +48,7 @@ void Scene::updateViewUniform(const glm::mat4& view, const glm::mat4& projection
 	ViewUniform.padding = 0.0f;
 }
 
-void upstreamViewUniform() const
+void Scene::upstreamViewUniform() const
 {
 	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniform_VPC), &ViewUniform);
@@ -56,10 +56,11 @@ void upstreamViewUniform() const
 }
 
 
-void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const
+void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos)
 {
 
-	updateUBO(view, projection, cameraPos);
+	updateViewUniform(view, projection, cameraPos);
+	upstreamViewUniform();
 	view_UBO_Debug_Data();
 
 	groundShader.use();
@@ -69,7 +70,7 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 	glBindVertexArray(0);
 	
 
-	/*
+	
 
 
 	shader.use();
@@ -82,7 +83,7 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 		shader.setMat4("model", r.model);
 		r.mesh->draw();
 	}
-	*/
+	
 
 	
 }
@@ -123,35 +124,26 @@ void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const 
 
 void Scene::view_UBO_Debug_Data() const
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
-	ViewUniforms* ptr = (ViewUniforms*)glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_ONLY);
-	if (ptr) {
-		std::cout << "=== view ===" << std::endl;
-		for (int col = 0; col < 4; ++col) {
-			for (int row = 0; row < 4; ++row) {
-				std::cout << "view[" << row << "][" << col << "] = " << ptr->view[col][row] << std::endl;
-			}
+	std::cout << "=== view ===" << std::endl;
+	for (int col = 0; col < 4; ++col) {
+		for (int row = 0; row < 4; ++row) {
+			std::cout << "view[" << row << "][" << col << "] = "
+				<< ViewUniform.view[col][row] << std::endl;
 		}
-
-		std::cout << "=== projection ===" << std::endl;
-		for (int col = 0; col < 4; ++col) {
-			for (int row = 0; row < 4; ++row) {
-				std::cout << "projection[" << row << "][" << col << "] = " << ptr->projection[col][row] << std::endl;
-			}
-		}
-
-		std::cout << "=== camera position ===" << std::endl;
-		std::cout << "cameraPos.x = " << ptr->cameraPos.x << std::endl;
-		std::cout << "cameraPos.y = " << ptr->cameraPos.y << std::endl;
-		std::cout << "cameraPos.z = " << ptr->cameraPos.z << std::endl;
-
-		glUnmapBuffer(GL_UNIFORM_BUFFER);
-	}
-	else {
-		std::cerr << "Failed to map UBO!" << std::endl;
 	}
 
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	std::cout << "=== projection ===" << std::endl;
+	for (int col = 0; col < 4; ++col) {
+		for (int row = 0; row < 4; ++row) {
+			std::cout << "projection[" << row << "][" << col << "] = "
+				<< ViewUniform.projection[col][row] << std::endl;
+		}
+	}
+
+	std::cout << "=== camera position ===" << std::endl;
+	std::cout << "cameraPos.x = " << ViewUniform.cameraPos.x << std::endl;
+	std::cout << "cameraPos.y = " << ViewUniform.cameraPos.y << std::endl;
+	std::cout << "cameraPos.z = " << ViewUniform.cameraPos.z << std::endl;
 }
 
 void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
