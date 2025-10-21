@@ -41,6 +41,11 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::
 	groundShader.use();
 	groundmesh_ptr->draw();
 
+	/*
+	
+	
+
+
 	shader.use();
 	shader.setMat4("projection", projection);
 	shader.setMat4("view", view);
@@ -51,7 +56,7 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::
 		shader.setMat4("model", r.model);
 		r.mesh->draw();
 	}
-
+	*/
 
 	glBindVertexArray(0);
 }

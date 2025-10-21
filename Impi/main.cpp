@@ -63,10 +63,9 @@ int main(void)
         return -1;
     }
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
+    
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
    
     float lastTime = (float)glfwGetTime();
 
@@ -93,7 +92,6 @@ int main(void)
         current_scene->update(delta);
         current_scene->draw(projection, view, camera.getPosition());
 
-        
 
         glfwSwapBuffers(window);
 
