@@ -1,25 +1,20 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <rendering/core/ViewUniforms.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <rendering/core/Shader.h>
 #include <rendering/assets/RenderableParticle.h>
 #include <rendering/assets/PlaneMesh.h>
 
-
-
-struct ViewUniforms {
-	glm::mat4 view;
-	glm::mat4 projection;
-	alignas(16) glm::vec3 cameraPos;
-	float padding;
-};
-
 class Scene {
 public:
 
 	Scene(const std::string name,
+		glm::mat4 view,
+		glm::mat4 projection,
+		glm::vec3 cameraPos,
 		const char* vertexPath = nullptr,
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);
@@ -27,6 +22,7 @@ public:
 	Shader groundShader;
 	SphereMesh* spheremesh_ptr = nullptr;
 	PlaneMesh* groundmesh_ptr = nullptr;
+	ViewUniform_VPC ViewUniform;
 
 	unsigned int viewUBO = 0;
 
@@ -36,6 +32,9 @@ public:
 	void initUBO();
 	void view_UBO_Debug_Data() const;
 	void updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const;
+
+	void updateViewUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos);
+	void upstreamViewUniform() const;
 	void update(float dt);
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) const;
 	std::string getName() const;

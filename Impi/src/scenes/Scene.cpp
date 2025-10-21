@@ -6,12 +6,21 @@
 */
 
 Scene::Scene(std::string init_name,
+	glm::mat4 view,
+	glm::mat4 projection,
+	glm::vec3 cameraPos,
 	const char* vertexPath,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), shader(vertexPath,fragmentPath,geometryPath),
 	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
 {
+
+	ViewUniform.view = view;
+	ViewUniform.projection = projection;
+	ViewUniform.cameraPos = cameraPos;
+	ViewUniform.padding = 0.0f;
+
 	groundmesh_ptr = new PlaneMesh();
 	groundmesh_ptr->createPlane();
 
@@ -32,6 +41,20 @@ void Scene::update(float dt)
 	}
 }
 
+void Scene::updateViewUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) {
+	ViewUniform.view = view;
+	ViewUniform.projection = projection;
+	ViewUniform.cameraPos = cameraPos;
+	ViewUniform.padding = 0.0f;
+}
+
+void upstreamViewUniform() const
+{
+	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniform_VPC), &ViewUniform);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
+
 
 void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const
 {
@@ -43,10 +66,7 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 	glBindVertexArray(groundmesh_ptr->vao);
 	groundmesh_ptr->draw();
 	
-	
-	
 	glBindVertexArray(0);
-
 	
 
 	/*
@@ -74,28 +94,29 @@ std::string Scene::getName() const
 
 void Scene::initUBO() {
 
+
 	glGenBuffers(1, &viewUBO);
 	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(ViewUniforms), nullptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(ViewUniform), nullptr, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, viewUBO);
 
 	GLuint blockIndex = glGetUniformBlockIndex(groundShader.ID, "ViewUniforms");
-	glUniformBlockBinding(groundShader.ID, blockIndex, 0);
+
+	if (blockIndex != GL_INVALID_INDEX) {
+		glUniformBlockBinding(groundShader.ID, blockIndex, 0);
+	}
+	else {
+		std::cerr << "[WARN] ViewUniforms block not found in groundShader!\n";
+	}
 
 }
 
 void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const {
 
-	ViewUniforms data;
-	data.view = view;
-	data.projection = projection;
-	data.cameraPos = cameraPos;
-	data.padding = 0.0f;
-
 	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniforms), &data);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniform_VPC), &ViewUniform);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 }
