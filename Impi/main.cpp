@@ -23,7 +23,7 @@ void processInput(GLFWwindow* window);
 static const int windowHeight = 720;
 static const int windowWidth = 1080;
 float near = 0.1f;
-float far = 100.0f;
+float far = 10.0f;
 float aspect = windowWidth / (float)windowHeight;
 float fov = glm::radians(45.0f);
 float delta;
@@ -78,8 +78,6 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
-        
-        
      
         float currentTime = (float)glfwGetTime();
         delta = currentTime - lastTime;

@@ -36,6 +36,7 @@ void Scene::draw(const glm::mat4& projection, const glm::mat4& view, const glm::
 {
 
 	updateUBO(view, projection, cameraPos);
+	view_UBO_Debug_Data();
 
 	groundShader.use();
 	groundmesh_ptr->draw();
@@ -83,8 +84,9 @@ void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const 
 
 }
 
-void Scene::view_UBO_Debug_Data()
+void Scene::view_UBO_Debug_Data() const
 {
+	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
 	ViewUniforms* ptr = (ViewUniforms*)glMapBuffer(GL_UNIFORM_BUFFER, GL_READ_ONLY);
 	if (ptr) {
 		std::cout << "=== view ===" << std::endl;

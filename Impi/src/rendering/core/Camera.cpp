@@ -32,8 +32,8 @@ Camera::Camera()
 }
 
 glm::mat4 Camera::GetViewMatrix() {
-	//return glm::lookAt(Position, Position+Front, Up);
-	return lookAt(Position, Position + Front, Up);
+	return glm::lookAt(Position, Position+Front, Up);
+	//return lookAt(Position, Position + Front, Up);
 }
 
 glm::mat4 Camera::lookAt(glm::vec3 Pos, glm::vec3 Target, glm::vec3 WorldUp) {
