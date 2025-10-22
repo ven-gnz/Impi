@@ -21,11 +21,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-int windowHeight = 1080;
-int windowWidth = 720;
+int windowHeight = 720;
+int windowWidth = 1080;
 
 
-static ViewPort default_viewport = ViewPort{ windowHeight,windowWidth };
+static ViewPort default_viewport = ViewPort{windowWidth,windowHeight};
 float delta;
 
 Camera camera {default_viewport};

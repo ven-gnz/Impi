@@ -30,7 +30,7 @@ Camera::Camera(ViewPort viewPort)
 	Right = glm::cross(WorldUp, Direction);
 	vp = viewPort;
 
-	 near = 0.5f;
+	 near = 0.01f;
 	 far = 50.0f;
 	 aspect = (float) vp.SCR_WIDTH / (float) vp.SCR_HEIGHT;
 	 fov = glm::radians(60.0f);
