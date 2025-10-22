@@ -51,6 +51,9 @@
     <ClCompile Include="src\rendering\core\ViewUniforms.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\core\ViewPort.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -106,7 +109,6 @@
     <None Include="src\scenes\commons\shaders\metal.png" />
     <None Include="src\scenes\*\shaders\*.*" />
     <None Include="src\scenes\*\shaders\*.*" />
-    <None Include="src\scenes\*\shaders\*.*" />
     <None Include="src\scenes\*\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
@@ -117,6 +119,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />

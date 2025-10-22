@@ -15,6 +15,6 @@ struct PlaneMesh {
     void draw() const {
         // forming the quad in vertex shader
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        // glBindVertexArray(0);
+        
     }
 };

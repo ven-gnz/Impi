@@ -6,9 +6,7 @@
 */
 
 Scene::Scene(std::string init_name,
-	glm::mat4 view,
-	glm::mat4 projection,
-	glm::vec3 cameraPos,
+	Camera camera,
 	const char* vertexPath,
 	const char* fragmentPath,
 	const char* geometryPath) 
@@ -16,9 +14,9 @@ Scene::Scene(std::string init_name,
 	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
 {
 
-	ViewUniform.view = view;
-	ViewUniform.projection = projection;
-	ViewUniform.cameraPos = cameraPos;
+	ViewUniform.view = camera.GetViewMatrix();
+	// ViewUniform.projection = glm::lookAt();
+	ViewUniform.cameraPos = camera.getPosition();
 	ViewUniform.padding = 0.0f;
 
 	groundmesh_ptr = new PlaneMesh();
@@ -67,11 +65,6 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 	glBindVertexArray(groundmesh_ptr->vao);
 	groundmesh_ptr->draw();
 	
-	glBindVertexArray(0);
-	
-
-	
-
 
 	shader.use();
 	shader.setMat4("projection", projection);
@@ -83,7 +76,9 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 		shader.setMat4("model", r.model);
 		r.mesh->draw();
 	}
-	
+
+
+	glBindVertexArray(0);
 
 	
 }
@@ -109,7 +104,7 @@ void Scene::initUBO() {
 		glUniformBlockBinding(groundShader.ID, blockIndex, 0);
 	}
 	else {
-		std::cerr << "[WARN] ViewUniforms block not found in groundShader!\n";
+		std::cerr << "[WARN] ViewUniforms block not found in grid shader!\n";
 	}
 
 }

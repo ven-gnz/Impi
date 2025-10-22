@@ -7,14 +7,13 @@
 #include <rendering/core/Shader.h>
 #include <rendering/assets/RenderableParticle.h>
 #include <rendering/assets/PlaneMesh.h>
+#include <rendering/core/Camera.h>
 
 class Scene {
 public:
 
 	Scene(const std::string name,
-		glm::mat4 view,
-		glm::mat4 projection,
-		glm::vec3 cameraPos,
+		Camera camera,
 		const char* vertexPath = nullptr,
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);

@@ -14,7 +14,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 	updateCameraVectors();
 }
 
-Camera::Camera()
+Camera::Camera(ViewPort vp)
 {
 
 	Position = defaultPos;
@@ -29,11 +29,21 @@ Camera::Camera()
 	Direction = glm::normalize(Position + Front);
 	Right = glm::cross(WorldUp, Direction);
 
+	 near = 0.5f;
+	 far = 50.0f;
+	 aspect = (float) vp.SCR_WIDTH / (float) vp.SCR_HEIGHT;
+	 fov = glm::radians(60.0f);
+
 }
 
 glm::mat4 Camera::GetViewMatrix() {
 	return glm::lookAt(Position, Position+Front, Up);
 	//return lookAt(Position, Position + Front, Up);
+}
+
+glm::mat4 Camera::getProjection()
+{
+	return glm::perspective(fov, aspect, near, far);
 }
 
 glm::mat4 Camera::lookAt(glm::vec3 Pos, glm::vec3 Target, glm::vec3 WorldUp) {

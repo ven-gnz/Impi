@@ -9,6 +9,7 @@
 #include "src/rendering/core/Shader.h"
 #include "src/scenes/ballistics/Ballistics.h"
 #include <rendering/core/Camera.h>
+#include <rendering/core/ViewPort.h>
 #include <iostream>
 #include <stdlib.h>
 
@@ -20,15 +21,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-static const int windowHeight = 720;
-static const int windowWidth = 1080;
-float near = 0.5f;
-float far = 50.0f;
-float aspect = windowWidth / (float)windowHeight;
-float fov = glm::radians(60.0f);
+int windowHeight = 720;
+int windowWidth = 1080;
 float delta;
 
-Camera camera{};
+Camera camera {ViewPort{windowHeight,windowWidth}};
 
 
 int main(void)
@@ -70,15 +67,11 @@ int main(void)
     glDisable(GL_CULL_FACE);
     float lastTime = (float)glfwGetTime();
 
-    glm::mat4 projection = glm::perspective(fov, aspect, near, far);
+   
     glm::mat4 view = camera.GetViewMatrix();
 
-    Ballistics ballistics;
+    Ballistics ballistics(camera);
     current_scene = &ballistics;
-
-    current_scene->initUBO();
-    current_scene->groundShader.use();
-    current_scene->updateUBO(view, projection, camera.getPosition());
 
     while (!glfwWindowShouldClose(window))
     {
@@ -89,13 +82,12 @@ int main(void)
 
         processInput(window);
 
-        projection = glm::perspective(fov, aspect, near, far);
         view = camera.GetViewMatrix();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         current_scene->update(delta);
-        current_scene->draw(view, projection, camera.getPosition());
+        current_scene->draw(camera);
 
 
         glfwSwapBuffers(window);
