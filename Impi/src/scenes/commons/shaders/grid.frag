@@ -3,6 +3,8 @@
 layout(location = 0) out vec4 FragColor;
 
 in vec3 WorldPos;
+in vec3 CamPos;
+in float GridSize;
 
 float minimumPixelsBetweenCells = 2.0;
 float gridCellSize = 0.25;
@@ -25,6 +27,12 @@ vec2 satv(vec2 x)
 {
     vec2 v = clamp(x, vec2(0.0), vec2(1.0));
     return v;
+}
+
+float satf(float x)
+{
+    float f = clamp(x, 0.0, 1.0);
+    return f;
 }
 
 
@@ -76,8 +84,8 @@ void main()
     }
     
 
-    float OpacityFalloff = (1.0 - satf(length(WorldPos.xz - CameraPos.xz) / gGridSize));
+    float OpacityFalloff = (1.0 - satf(length(WorldPos.xz - CamPos.xz) / GridSize));
 
     Color.a *= OpacityFalloff;
-    
+    FragColor = Color;
  }

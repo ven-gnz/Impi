@@ -11,6 +11,7 @@ layout(std140, binding = 0) uniform ViewUniforms
 
 out vec3 WorldPos;
 out vec3 CamPos;
+out float GridSize;
 
 
 
@@ -35,12 +36,14 @@ void main()
     vPos_init.z += cameraPos.z;
 
     // without some y offset, the plane gets clipped. Took ~ 8 hours to find bug?
-    vPos_init.y -= 0.1;
+
+    // Now manually set to exactly halfway of default cameraPos. Will investigate further.
+    vPos_init.y -= 0.5;
 
     vec4 vPos4 = vec4(vPos_init, 1.0);
     
     WorldPos = vPos_init;
-    
+    GridSize = gridSize;
     gl_Position = projection * view * vPos4;
     
 }
