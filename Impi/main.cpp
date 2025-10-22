@@ -64,7 +64,8 @@ int main(void)
 
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     float lastTime = (float)glfwGetTime();
 
@@ -81,7 +82,7 @@ int main(void)
         processInput(window);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        glClearColor(1.0, 1.0, 1.0, 1.0);
         current_scene->update(delta);
         current_scene->draw();
 
