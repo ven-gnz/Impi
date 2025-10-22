@@ -21,17 +21,19 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-int windowHeight = 720;
-int windowWidth = 1080;
+int windowHeight = 1080;
+int windowWidth = 720;
+
+
+static ViewPort default_viewport = ViewPort{ windowHeight,windowWidth };
 float delta;
 
-Camera camera {ViewPort{windowHeight,windowWidth}};
+Camera camera {default_viewport};
 
 
 int main(void)
 {
 
- 
     char* path;
     _get_pgmptr(&path);
     std::cout << path << std::endl;
@@ -62,13 +64,9 @@ int main(void)
 
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glDisable(GL_CULL_FACE);
-    float lastTime = (float)glfwGetTime();
-
    
-    glm::mat4 view = camera.GetViewMatrix();
+
+    float lastTime = (float)glfwGetTime();
 
     Ballistics ballistics(camera);
     current_scene = &ballistics;
@@ -82,12 +80,10 @@ int main(void)
 
         processInput(window);
 
-        view = camera.GetViewMatrix();
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         current_scene->update(delta);
-        current_scene->draw(camera);
+        current_scene->draw();
 
 
         glfwSwapBuffers(window);

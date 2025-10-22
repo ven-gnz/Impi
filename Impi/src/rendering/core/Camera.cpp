@@ -14,7 +14,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 	updateCameraVectors();
 }
 
-Camera::Camera(ViewPort vp)
+Camera::Camera(ViewPort viewPort)
 {
 
 	Position = defaultPos;
@@ -28,6 +28,7 @@ Camera::Camera(ViewPort vp)
 	Zoom = ZOOM;
 	Direction = glm::normalize(Position + Front);
 	Right = glm::cross(WorldUp, Direction);
+	vp = viewPort;
 
 	 near = 0.5f;
 	 far = 50.0f;
@@ -72,7 +73,8 @@ glm::mat4 Camera::lookAt(glm::vec3 Pos, glm::vec3 Target, glm::vec3 WorldUp) {
 
 }
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+{
 	float velocity = MovementSpeed * deltaTime;
 	if (direction == FORWARD) {
 		Position += Front * velocity;

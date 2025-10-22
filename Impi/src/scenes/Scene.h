@@ -13,10 +13,12 @@ class Scene {
 public:
 
 	Scene(const std::string name,
-		Camera camera,
+		Camera& camera,
 		const char* vertexPath = nullptr,
 		const char* fragmentPath = nullptr,
 		const char* geometryPath = nullptr);
+
+	Camera& camera;
 	Shader shader;
 	Shader groundShader;
 	SphereMesh* spheremesh_ptr = nullptr;
@@ -30,12 +32,11 @@ public:
 	std::vector<RenderableParticle> renderables;
 	void initUBO();
 	void view_UBO_Debug_Data() const;
-	void updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const;
 
-	void updateViewUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos);
+	void updateViewUniform();
 	void upstreamViewUniform() const;
 	void update(float dt);
-	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos);
+	void draw();
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);

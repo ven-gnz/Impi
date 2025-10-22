@@ -1,9 +1,9 @@
 #include "Ballistics.h"
 #include <rendering/assets/SphereMesh.h>
 
-Ballistics::Ballistics()
+Ballistics::Ballistics(Camera& camera)
     :Scene("Ballistics",
-        Camera camera,
+        camera,
         "src/scenes/ballistics/shaders/shader.vert",
         "src/scenes/ballistics/shaders/shader.frag",
         nullptr)

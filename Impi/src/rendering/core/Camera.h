@@ -46,6 +46,8 @@ public:
 	float aspect;
 	float fov;
 
+	ViewPort vp;
+
 	Camera(ViewPort vp);
 	Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch);
 	

@@ -6,16 +6,16 @@
 */
 
 Scene::Scene(std::string init_name,
-	Camera camera,
+	Camera& camera,
 	const char* vertexPath,
 	const char* fragmentPath,
 	const char* geometryPath) 
-	: name(init_name), shader(vertexPath,fragmentPath,geometryPath),
+	: name(init_name), camera(camera), shader(vertexPath,fragmentPath,geometryPath),
 	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
 {
-
+	
 	ViewUniform.view = camera.GetViewMatrix();
-	// ViewUniform.projection = glm::lookAt();
+	ViewUniform.projection = camera.getProjection();
 	ViewUniform.cameraPos = camera.getPosition();
 	ViewUniform.padding = 0.0f;
 
@@ -39,10 +39,10 @@ void Scene::update(float dt)
 	}
 }
 
-void Scene::updateViewUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) {
-	ViewUniform.view = view;
-	ViewUniform.projection = projection;
-	ViewUniform.cameraPos = cameraPos;
+void Scene::updateViewUniform() {
+	ViewUniform.view = camera.GetViewMatrix();
+	ViewUniform.projection = camera.getProjection();
+	ViewUniform.cameraPos = camera.getPosition();
 	ViewUniform.padding = 0.0f;
 }
 
@@ -54,21 +54,22 @@ void Scene::upstreamViewUniform() const
 }
 
 
-void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos)
+void Scene::draw()
 {
 
-	updateViewUniform(view, projection, cameraPos);
+	updateViewUniform();
 	upstreamViewUniform();
-	view_UBO_Debug_Data();
+	// view_UBO_Debug_Data();
 
 	groundShader.use();
 	glBindVertexArray(groundmesh_ptr->vao);
 	groundmesh_ptr->draw();
+	glBindVertexArray(0);
 	
 
 	shader.use();
-	shader.setMat4("projection", projection);
-	shader.setMat4("view", view);
+	shader.setMat4("projection", camera.getProjection());
+	shader.setMat4("view", camera.GetViewMatrix());
 	
 	glBindVertexArray(spheremesh_ptr->vao);
 	for (auto& r : renderables)
@@ -77,8 +78,8 @@ void Scene::draw(const glm::mat4& view, const glm::mat4& projection, const glm::
 		r.mesh->draw();
 	}
 
-
 	glBindVertexArray(0);
+	
 
 	
 }
@@ -106,14 +107,6 @@ void Scene::initUBO() {
 	else {
 		std::cerr << "[WARN] ViewUniforms block not found in grid shader!\n";
 	}
-
-}
-
-void Scene::updateUBO(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const {
-
-	glBindBuffer(GL_UNIFORM_BUFFER, viewUBO);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(ViewUniform_VPC), &ViewUniform);
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 }
 
