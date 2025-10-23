@@ -6,8 +6,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <scenes/Scene.h>
-#include "src/rendering/core/Shader.h"
-#include "src/scenes/ballistics/Ballistics.h"
+#include "rendering/core/Shader.h"
+#include "scenes/ballistics/Ballistics.h"
+#include "scenes/fireworks/FireWorkScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <iostream>
@@ -23,6 +24,8 @@ void processInput(GLFWwindow* window);
 
 int windowHeight = 720;
 int windowWidth = 1080;
+
+static int scene_ptr = 0;
 
 
 static ViewPort default_viewport = ViewPort{windowWidth,windowHeight};
@@ -69,8 +72,17 @@ int main(void)
 
     float lastTime = (float)glfwGetTime();
 
+    
+
     Ballistics ballistics(camera);
     current_scene = &ballistics;
+
+    FireWorkScene firework(camera);
+
+    std::vector<Scene> scenes;
+    scenes.push_back(ballistics);
+    scenes.push_back(firework);
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -125,6 +137,10 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         camera.ProcessKeyboard(RIGHT, delta);
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+
     }
 }
 
