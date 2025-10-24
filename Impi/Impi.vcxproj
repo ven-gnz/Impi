@@ -139,7 +139,8 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\physics\Firework.cpp" />
     <ClCompile Include="src\physics\Particle.cpp" />
-    <ClCompile Include="src\physics\Vector3.cpp" />
+    <ClCompile Include="src\math\random.cpp" />
+    <ClCompile Include="src\math\Vector3.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Camera.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="src\rendering\core\ViewPort.h" />
     <ClCompile Include="src\rendering\core\ViewUniforms.h" />
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
+    <ClCompile Include="src\scenes\fireworks\FireWorkScene.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +157,8 @@
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="src\physics\Particle.h" />
     <ClInclude Include="src\physics\Precision.h" />
-    <ClInclude Include="src\physics\Vector3.h" />
+    <ClInclude Include="src\math\random.h" />
+    <ClInclude Include="src\math\Vector3.h" />
     <ClInclude Include="src\rendering\assets\PlaneMesh.h" />
     <ClInclude Include="src\rendering\assets\RenderableParticle.h" />
     <ClInclude Include="src\rendering\assets\Sphere.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="src\rendering\core\Camera.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
+    <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />
   </ItemGroup>
   <ItemGroup>

@@ -77,11 +77,11 @@ int main(void)
     Ballistics ballistics(camera);
     current_scene = &ballistics;
 
-    FireWorkScene firework(camera);
+    // FireWorkScene firework(camera);
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
-    scenes.push_back(firework);
+    // scenes.push_back(firework);
 
 
     while (!glfwWindowShouldClose(window))

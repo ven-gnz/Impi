@@ -1,6 +1,4 @@
-#include "RenderableParticle.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include "physics/Vector3.h"
+
 
 /*
 Perinnällä mennään, ehkä tähän löytyy joku toimivampi ratkaisu myöhemmin.
