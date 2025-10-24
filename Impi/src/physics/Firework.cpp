@@ -1,14 +1,18 @@
 #include <physics/Particle.h>
 #include <assert.h>
 #include <vector>
+#include <src/math/random.h>
 
 using namespace Impi;
 class Firework : public Particle
+
+	
 {
 public:
 
 	real age;
 	unsigned type;
+	Random simplerandom = Random();
 
 	bool update(real duration)
 	{
@@ -43,11 +47,7 @@ struct FireworkRule
 	real damping = 1.0;
 	std::vector<Payload> payloads;
 
-
-	
-	
-
-	void create(Firework& firework, const Firework* parent = nullptr) const
+	void create(Firework& firework, const Firework* parent = nullptr, Random& ran) const
 	{
 		firework.type = type;
 		firework.age = 1.5f; // -> need randomized age
@@ -64,14 +64,14 @@ struct FireworkRule
 			firework.setPosition(start);
 		}
 
-		// Vector3 velocity = random vector(minVelocity, maxVelocity);
-		//if (parent) velocity += parent->getVelocity();
-		//firework.setVelocity(velocity);
+		Vector3 velocity = ran.randomVector3(minVelocity, maxVelocity);
+		if (parent) velocity += parent->getVelocity();
+		firework.setVelocity(velocity);
 
-		//firework.setMass(1);
-		//firework.setDamping(damping);
-		//firework.setAcceleration(gravity);
-		//firework.clearAccumulator();
+		firework.setInvMass(1);
+		firework.setDamping(damping);
+		firework.setAcceleration(Vector3(0.0, -9.8, 0.0));
+		firework.clearAccumulator();
 
 	};
 };

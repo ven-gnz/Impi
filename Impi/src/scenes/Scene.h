@@ -35,8 +35,8 @@ public:
 
 	void updateViewUniform();
 	void upstreamViewUniform() const;
-	void update(float dt);
-	void draw();
+	virtual void update(float dt);
+	virtual void draw();
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);

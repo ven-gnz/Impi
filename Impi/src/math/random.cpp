@@ -93,7 +93,7 @@ unsigned Random::randomInt(unsigned max)
 	return randomBits() % max;
 }
 
-Vector3 Random::randomVector(const Vector3& min, const Vector3& max)
+Vector3 Random::randomVector3(const Vector3& min, const Vector3& max)
 {
 	return Vector3(
 		randomReal(min.x, max.x),

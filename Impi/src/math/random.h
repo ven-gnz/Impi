@@ -26,7 +26,7 @@ namespace Impi
 
 		real randomReal(real min, real max);
 
-		Vector3 randomVector(const Vector3& min, const Vector3& max);
+		Vector3 randomVector3(const Vector3& min, const Vector3& max);
 
 	private:
 		int p1, p2;
