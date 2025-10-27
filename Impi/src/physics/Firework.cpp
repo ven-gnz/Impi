@@ -1,56 +1,18 @@
-#include <physics/Particle.h>
-#include <assert.h>
-#include <vector>
-#include <src/math/random.h>
+#include <src/physics/Firework.h>
 
-using namespace Impi;
-class Firework : public Particle
 
-	
+
+bool Firework::update(real duration)
 {
-public:
+	integrate(duration);
+	age -= duration;
+	return (age < 0) || (position.y < 0);
+}
 
-	real age;
-	unsigned type;
-	Random simplerandom = Random();
-
-	bool update(real duration)
-	{
-		integrate(duration);
-
-		age -= duration;
-		return (age < 0) || (position.y < 0);
-	}
-
-};
-
-struct FireworkRule
-{
-
-	struct Payload
-	{
-		unsigned type;
-		unsigned count;
-
-		void set(unsigned type, unsigned count)
-		{
-			Payload::type = type;
-			Payload::count = count;
-		}
-	};
-
-	unsigned type = 0;
-	real minAge = 0;
-	real maxAge = 0;
-	Vector3 minVelocity;
-	Vector3 maxVelocity;
-	real damping = 1.0;
-	std::vector<Payload> payloads;
-
-	void create(Firework& firework, const Firework* parent = nullptr, Random& ran) const
+	void FireworkRule::create(Firework& firework, const Firework* parent, Random& ran) const
 	{
 		firework.type = type;
-		firework.age = 1.5f; // -> need randomized age
+		firework.age = ran.randomReal(minAge,maxAge);
 
 		if (parent)
 		{
@@ -59,7 +21,7 @@ struct FireworkRule
 		else
 		{
 			Vector3 start;
-			int x = 0; // another randomization
+			int x = (int) ran.randomInt(3) -1;
 			start.x = 5.0f * static_cast<real>(x);
 			firework.setPosition(start);
 		}
@@ -70,11 +32,12 @@ struct FireworkRule
 
 		firework.setInvMass(1);
 		firework.setDamping(damping);
-		firework.setAcceleration(Vector3(0.0, -9.8, 0.0));
+		Vector3 Gravity = Vector3(real(0.0), real(-9.8) , real(0.0));
+		firework.setAcceleration(Gravity);
 		firework.clearAccumulator();
 
-	};
-};
+	}
+
 
 
 

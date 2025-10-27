@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\gl.h" />
     <ClInclude Include="includes\glad\glad.h" />
+    <ClInclude Include="src\physics\Firework.h" />
     <ClInclude Include="src\physics\Particle.h" />
     <ClInclude Include="src\Precision.h" />
     <ClInclude Include="src\math\random.h" />
