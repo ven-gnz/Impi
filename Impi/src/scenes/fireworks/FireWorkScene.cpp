@@ -4,7 +4,16 @@
 using namespace Impi;
 
 FireWorkScene::FireWorkScene(
-    Camera& camera)
+    Camera& camera,
+    const char* vertexPath,
+    const char* fragmentPath,
+    const char* geometryPath)
+    : Scene("Fireworks",
+        camera,
+        "src/scenes/fireworks/shaders/fireworks.vert",
+        "src/scenes/fireworks/shaders/fireworks.frag",
+        nullptr
+    )
 {
     
     nextFirework = 0;
@@ -59,6 +68,20 @@ void FireWorkScene::create(unsigned type, const Firework* parent)
 {
     // delegate
     create(type, 1, parent);
+}
+
+void FireWorkScene::init_datastream()
+{
+
+    glGenVertexArrays(1, &fireworkscene_VAO);
+    glGenBuffers(1, &fireworkscene_VBO);
+
+    glBindVertexArray(fireworkscene_VAO);
+    glBindBuffer(fireworkscene_VBO);
+
+    glBufferData(GL_ARRAY_BUFFER, maxFireworks * sizeof(RenderableFirework), nullptr, GL_DYNAMIC_DRAW);
+
+
 }
 
 
