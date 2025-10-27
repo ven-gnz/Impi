@@ -164,6 +164,8 @@
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\fireworks\shaders\fireworks.vert" />
+    <None Include="src\scenes\fireworks\shaders\fireworks.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\metal.png">

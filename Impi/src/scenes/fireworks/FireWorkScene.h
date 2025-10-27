@@ -17,12 +17,11 @@ public:
 	size_t nextFirework;
 	Random simplerandom;
 
-	std::vector<RenderableFirework> fireworkBuffer;
+	std::vector<RenderableFirework> renderableFireworks;
 	GLuint fireworkscene_VAO = 0;
 	GLuint fireworkscene_VBO = 0;
 
 
-	unsigned nextFirework;
 	const static unsigned ruleCount = 9;
 	FireworkRule rules[ruleCount];
 
@@ -46,5 +45,11 @@ public:
 
 
 	void init_datastream();
+
+	void fill_renderbuffer();
+	void upstream_renderbuffer();
+
+	glm::vec3 getCol(unsigned type);
+
 	void draw() override;
 };

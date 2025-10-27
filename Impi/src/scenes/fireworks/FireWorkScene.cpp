@@ -77,12 +77,85 @@ void FireWorkScene::init_datastream()
     glGenBuffers(1, &fireworkscene_VBO);
 
     glBindVertexArray(fireworkscene_VAO);
-    glBindBuffer(fireworkscene_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER,fireworkscene_VBO);
 
     glBufferData(GL_ARRAY_BUFFER, maxFireworks * sizeof(RenderableFirework), nullptr, GL_DYNAMIC_DRAW);
 
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderableFirework), (void*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderableFirework), (void*)offsetof(RenderableFirework, color));
+    glBindVertexArray(0);
+    
+}
+
+glm::vec3 FireWorkScene::getCol(unsigned type)
+{
+    switch (type)
+    {
+    case 1: return { 1.0f, 0.0f, 0.0f };
+    case 2: return { 1.0f, 0.5f, 0.0f };
+    case 3: return { 1.0f, 1.0f, 0.0f };
+    case 4: return { 0.0f, 1.0f, 0.0f };
+    case 5: return { 0.0f, 1.0f, 1.0f };
+    case 6: return { 0.4f, 0.4f, 1.0f };
+    case 7: return { 1.0f, 0.0f, 1.0f };
+    case 8: return { 1.0f, 1.0f, 1.0f };
+    case 9: return { 1.0f, 0.5f, 0.5f };
+    default: return { 1.0f, 0.5f, 0.5f };
+    }
+}
+
+void FireWorkScene::fill_renderbuffer()
+{
+    auto toGLM = [](const Vector3& v) { return glm::vec3(v.x, v.y, v.z); };
+    renderableFireworks.clear();
+    renderableFireworks.reserve(fireworks.size());
+
+    for (Firework &f : fireworks)
+    {
+        if (f.type > 0)
+        {
+            RenderableFirework r = { toGLM(f.getPosition()), getCol(f.type)};
+            renderableFireworks.push_back(r);
+        }
+    }
+    
+}
+
+void FireWorkScene::upstream_renderbuffer()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, fireworkscene_VBO);
+    glBufferSubData(
+        GL_ARRAY_BUFFER,
+        0,
+        renderableFireworks.size() * sizeof(renderableFireworks),
+        renderableFireworks.data()
+    );
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void FireWorkScene::draw()
+{
+    shader.use();
+
+    updateViewUniform();
+    upstreamViewUniform();
+    upstream_renderbuffer();
+
+
+    glBindVertexArray(fireworkscene_VAO);
+    glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(renderableFireworks.size()));
+    glBindVertexArray(0);
+}
+
+void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
+{
 
 }
+
+
 
 
 
