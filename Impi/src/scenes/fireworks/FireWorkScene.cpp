@@ -4,10 +4,7 @@
 using namespace Impi;
 
 FireWorkScene::FireWorkScene(
-    Camera& camera,
-    const char* vertexPath,
-    const char* fragmentPath,
-    const char* geometryPath)
+    Camera& camera)
     : Scene("Fireworks",
         camera,
         "src/scenes/fireworks/shaders/fireworks.vert",
@@ -19,6 +16,9 @@ FireWorkScene::FireWorkScene(
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
+    initFireWorkRules();
+    shader.use();
+    init_datastream();
 
 }
 
@@ -28,6 +28,7 @@ void FireWorkScene::update(real dt)
 
     for (std::vector<Firework>::iterator fire_iter = fireworks.begin(); fire_iter != fireworks.end(); ++fire_iter)
     {
+        
         Firework& firework = *fire_iter;
 
         if (firework.type == 0) continue;
@@ -47,6 +48,7 @@ void FireWorkScene::update(real dt)
             }
         }
     }
+
 }
 
 
@@ -63,6 +65,7 @@ void FireWorkScene::create(unsigned type, unsigned count, const Firework* parent
         nextFirework = (nextFirework + 1) % fireworks.size();
     }
 }
+
 
 void FireWorkScene::create(unsigned type, const Firework* parent)
 {
@@ -109,16 +112,19 @@ glm::vec3 FireWorkScene::getCol(unsigned type)
 
 void FireWorkScene::fill_renderbuffer()
 {
+    
     auto toGLM = [](const Vector3& v) { return glm::vec3(v.x, v.y, v.z); };
     renderableFireworks.clear();
     renderableFireworks.reserve(fireworks.size());
 
     for (Firework &f : fireworks)
     {
+        
         if (f.type > 0)
         {
             RenderableFirework r = { toGLM(f.getPosition()), getCol(f.type)};
             renderableFireworks.push_back(r);
+            
         }
     }
     
@@ -130,7 +136,7 @@ void FireWorkScene::upstream_renderbuffer()
     glBufferSubData(
         GL_ARRAY_BUFFER,
         0,
-        renderableFireworks.size() * sizeof(renderableFireworks),
+        renderableFireworks.size() * sizeof(RenderableFirework),
         renderableFireworks.data()
     );
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -142,26 +148,32 @@ void FireWorkScene::draw()
 
     updateViewUniform();
     upstreamViewUniform();
+    // view_UBO_Debug_Data();
+    fill_renderbuffer();
     upstream_renderbuffer();
 
 
     glBindVertexArray(fireworkscene_VAO);
+    glPointSize(5.0f);
     glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(renderableFireworks.size()));
     glBindVertexArray(0);
+
 }
 
 void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
-
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
+        unsigned fireworkType = 2;
+        create(fireworkType, 1, nullptr);
+        
+    }
 }
-
-
 
 
 
 void FireWorkScene::initFireWorkRules()
 {
-    std::vector<FireworkRule> rules;
 
     rules.push_back(
         FireworkRule

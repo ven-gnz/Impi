@@ -69,19 +69,22 @@ int main(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_PROGRAM_POINT_SIZE);
 
     float lastTime = (float)glfwGetTime();
 
     
 
     Ballistics ballistics(camera);
-    current_scene = &ballistics;
+   
 
-    // FireWorkScene firework(camera);
+    FireWorkScene firework(camera);
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
     // scenes.push_back(firework);
+
+    current_scene = &firework;
 
 
     while (!glfwWindowShouldClose(window))
@@ -94,7 +97,7 @@ int main(void)
         processInput(window);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(0.05, 0.05, 0.05, 1.0);
         current_scene->update(delta);
         current_scene->draw();
 

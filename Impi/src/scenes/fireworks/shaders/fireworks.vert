@@ -16,6 +16,7 @@ out vec3 fragColor;
 void main()
 {
     fragColor = fCol;
+    gl_PointSize = 5.0f;
     gl_Position = projection * view * vec4(aPos, 1.0);
 
 }

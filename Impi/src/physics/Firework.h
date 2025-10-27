@@ -34,7 +34,5 @@ struct FireworkRule
         const Firework* parent,
         Random& ran) const;
 
-    void create(unsigned type,
-        unsigned count,
-        const Firework* parent);
+
 };

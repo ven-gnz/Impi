@@ -136,8 +136,6 @@
     <None Include="src\scenes\**\shaders\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="src\scenes\fireworks\shaders\fireworks.frag" />
-    <None Include="src\scenes\fireworks\shaders\fireworks.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />

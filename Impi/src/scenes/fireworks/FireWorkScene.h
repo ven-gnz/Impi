@@ -23,13 +23,12 @@ public:
 
 
 	const static unsigned ruleCount = 9;
-	FireworkRule rules[ruleCount];
+	// FireworkRule rules[ruleCount];
+
+	std::vector<FireworkRule> rules;
 
 	
-	FireWorkScene(Camera& camera,
-		const char* vertexPath,
-		const char* fragmentPath,
-		const char* geometryPath);
+	FireWorkScene(Camera& camera);
 
 	void onMouseButton(GLFWwindow* window, int button, int action, int mods) override;
 
@@ -41,8 +40,9 @@ public:
 	/** Dispatches a firework from the origin. */
 	void create(unsigned type, const Firework* parent = NULL);
 
-	void update(real dt) override;
 
+
+	void update(real dt) override;
 
 	void init_datastream();
 

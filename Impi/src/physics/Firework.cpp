@@ -1,5 +1,5 @@
 #include <src/physics/Firework.h>
-
+#include <iostream>
 
 
 bool Firework::update(real duration)
@@ -12,6 +12,7 @@ bool Firework::update(real duration)
 	void FireworkRule::create(Firework& firework, const Firework* parent, Random& ran) const
 	{
 		firework.type = type;
+		std::cout << "FireworkRule::create called, type set to " << firework.type << std::endl;
 		firework.age = ran.randomReal(minAge,maxAge);
 
 		if (parent)
@@ -38,13 +39,6 @@ bool Firework::update(real duration)
 
 	}
 
-	void FireworkRule::create(unsigned type,
-		unsigned count,
-		const Firework* parent)
-
-	{
-
-	}
 
 
 
