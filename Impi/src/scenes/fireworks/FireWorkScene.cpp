@@ -6,8 +6,9 @@ using namespace Impi;
 FireWorkScene::FireWorkScene(
     Camera& camera)
 {
-    fireworks.resize(maxFireworks);
+    
     nextFirework = 0;
+    fireworks.resize(maxFireworks);
     simplerandom = Random();
 
 }
