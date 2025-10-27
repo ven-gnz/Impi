@@ -12,7 +12,7 @@ public:
 		glm::vec3 color;
 	};
 
-	const size_t maxFireworks = 1024;
+	const size_t maxFireworks = 2048;
 	std::vector<Firework> fireworks;
 	size_t nextFirework;
 	Random simplerandom;

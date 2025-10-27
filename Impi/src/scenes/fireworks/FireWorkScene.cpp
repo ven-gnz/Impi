@@ -164,7 +164,7 @@ void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, in
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
-        unsigned fireworkType = 2;
+        unsigned fireworkType = 1;
         create(fireworkType, 1, nullptr);
         
     }
@@ -172,9 +172,21 @@ void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, in
 
 
 
+
+
 void FireWorkScene::initFireWorkRules()
 {
 
+
+
+
+
+
+
+    /*
+    Millington defaults
+    */
+    
     rules.push_back(
         FireworkRule
         {
@@ -287,6 +299,8 @@ void FireWorkScene::initFireWorkRules()
              //payloads
         }
         );
+
+   
 
 
 
