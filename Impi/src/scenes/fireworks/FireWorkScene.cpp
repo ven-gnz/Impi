@@ -1,11 +1,65 @@
 #include "FireWorkScene.h"
+#include "src/physics/Firework.h"
 
 using namespace Impi;
 
-FireWorkScene::FireWorkScene(Camera& camera)
+FireWorkScene::FireWorkScene(
+    Camera& camera)
 {
+    fireworks.resize(maxFireworks);
+    nextFirework = 0;
+    simplerandom = Random();
 
 }
+
+void FireWorkScene::update(real dt)
+{
+    if (dt <= 0.0f) return;
+
+    for (std::vector<Firework>::iterator fire_iter = fireworks.begin(); fire_iter != fireworks.end(); ++fire_iter)
+    {
+        Firework& firework = *fire_iter;
+
+        if (firework.type == 0) continue;
+
+        if (firework.update(dt))
+        {
+            FireworkRule& rule = rules[firework.type - 1];
+            firework.type = 0;
+
+            for (std::vector<FireworkRule::Payload>::iterator payload_iter = rule.payloads.begin();
+                payload_iter != rule.payloads.end();
+                ++payload_iter)
+            {
+                FireworkRule::Payload& payload = *payload_iter;
+                create(payload.type, payload.count, &firework);
+
+            }
+        }
+    }
+}
+
+
+void FireWorkScene::create(unsigned type, unsigned count, const Firework* parent)
+{
+
+    for (unsigned i = 0; i < count; i++)
+    {
+        Firework& firework = fireworks[nextFirework];
+        FireworkRule& rule = rules[type - 1];
+        //delegate further
+        rule.create(firework, parent, simplerandom);
+
+        nextFirework = (nextFirework + 1) % fireworks.size();
+    }
+}
+
+void FireWorkScene::create(unsigned type, const Firework* parent)
+{
+    // delegate
+    create(type, 1, parent);
+}
+
 
 
 void FireWorkScene::initFireWorkRules()

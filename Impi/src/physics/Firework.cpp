@@ -38,6 +38,14 @@ bool Firework::update(real duration)
 
 	}
 
+	void FireworkRule::create(unsigned type,
+		unsigned count,
+		const Firework* parent)
+
+	{
+
+	}
+
 
 
 
