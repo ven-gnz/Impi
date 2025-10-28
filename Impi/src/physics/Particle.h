@@ -25,7 +25,7 @@ public:
 
 	void setVelocity(const Vector3& v) { velocity = v; }
 
-	const Vector3 getVelocity() const { return velocity;  }
+	const Vector3 getVelocity() const { return velocity; }
 
 	void setDamping(const float damp) { damping = damp; }
 
