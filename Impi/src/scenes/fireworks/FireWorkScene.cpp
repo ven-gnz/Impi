@@ -167,6 +167,9 @@ void FireWorkScene::draw()
 
 void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureMouse) return;
+
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
         unsigned fireworkType = 1;

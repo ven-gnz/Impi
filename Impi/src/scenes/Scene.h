@@ -8,6 +8,7 @@
 #include <rendering/assets/RenderableParticle.h>
 #include <rendering/assets/PlaneMesh.h>
 #include <rendering/core/Camera.h>
+#include <imgui.h>
 
 class Scene {
 public:

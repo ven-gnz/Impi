@@ -26,18 +26,7 @@ Scene::Scene(std::string init_name,
 	groundShader.use();
 }
 
-void Scene::update(float dt)
-{
-	for (auto& particle : particles)
-	{
-		particle.integrate(dt);
-	}
-
-	for (auto& renderable : renderables)
-	{
-		renderable.updateModelMatrix();
-	}
-}
+void Scene::update(float dt) {}
 
 void Scene::updateViewUniform() {
 	ViewUniform.view = camera.GetViewMatrix();
@@ -54,35 +43,7 @@ void Scene::upstreamViewUniform() const
 }
 
 
-void Scene::draw()
-{
-
-	updateViewUniform();
-	upstreamViewUniform();
-	// view_UBO_Debug_Data();
-
-	groundShader.use();
-	glBindVertexArray(groundmesh_ptr->vao);
-	groundmesh_ptr->draw();
-	glBindVertexArray(0);
-	
-
-	shader.use();
-	shader.setMat4("projection", camera.getProjection());
-	shader.setMat4("view", camera.GetViewMatrix());
-	
-	glBindVertexArray(spheremesh_ptr->vao);
-	for (auto& r : renderables)
-	{
-		shader.setMat4("model", r.model);
-		r.mesh->draw();
-	}
-
-	glBindVertexArray(0);
-	
-
-	
-}
+void Scene::draw(){ }
 
 std::string Scene::getName() const
 {
@@ -134,10 +95,6 @@ void Scene::view_UBO_Debug_Data() const
 	std::cout << "cameraPos.z = " << ViewUniform.cameraPos.z << std::endl;
 }
 
-void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
-{
-
-}
-
+void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods) {}
 void Scene::onActivate() {}
 
