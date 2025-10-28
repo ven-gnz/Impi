@@ -10,6 +10,9 @@ includes/
 *.vxcproj
 *.vxcproj.filters
 
+#IMGUI
+imgui.ini
+
 # User-specific files
 *.rsuser
 *.suo
