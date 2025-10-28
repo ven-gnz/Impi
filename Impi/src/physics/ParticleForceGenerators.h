@@ -80,3 +80,14 @@ public:
 	ParticleBuoyancy(real maxDepth, real volume, real waterHeight, real liquidDensity);
 	virtual void updateForce(Particle* particle, real duration);
 };
+
+class ParticleFakeSpring : public ParticleForceGenerator
+{
+	Vector3* anchor;
+	real springConstant;
+	real damping;
+
+public:
+	ParticleFakeSpring(Vector3* anchor, real springConstant, real damping);
+	virtual void updateForce(Particle* particle, real duration);
+};
