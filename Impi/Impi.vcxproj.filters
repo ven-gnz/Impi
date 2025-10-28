@@ -66,6 +66,24 @@
     <ClCompile Include="src\physics\ParticleForceGenerators.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="includes\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui\backends\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="includes\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -130,13 +148,22 @@
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
-    <None Include="src\scenes\ballistics\shaders\shader.vert" />
-    <None Include="src\scenes\commons\shaders\grid.frag" />
-    <None Include="src\scenes\commons\shaders\grid.vert" />
-    <None Include="src\scenes\commons\shaders\metal.png" />
-    <None Include="src\scenes\fireworks\shaders\fireworks.frag" />
-    <None Include="src\scenes\fireworks\shaders\fireworks.vert" />
-    <None Include="src\scenes\*\shaders\*.*">
+    <None Include="src\scenes\ballistics\shaders\shader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\commons\shaders\grid.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\commons\shaders\grid.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\commons\shaders\metal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\fireworks\shaders\fireworks.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\fireworks\shaders\fireworks.vert">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="src\scenes\**\shaders\*.*" />
@@ -176,6 +203,14 @@
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />

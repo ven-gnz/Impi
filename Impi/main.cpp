@@ -13,6 +13,9 @@
 #include <rendering/core/ViewPort.h>
 #include <iostream>
 #include <stdlib.h>
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
 
 
 SphereMesh sphereMesh;
@@ -65,6 +68,15 @@ int main(void)
         return -1;
     }
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 420");
+
+
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
@@ -86,29 +98,59 @@ int main(void)
 
     current_scene = &firework;
 
+    bool show_demo = true;
 
     while (!glfwWindowShouldClose(window))
     {
-     
+
         float currentTime = (float)glfwGetTime();
         delta = currentTime - lastTime;
         lastTime = currentTime;
 
         processInput(window);
-
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.05, 0.05, 0.05, 1.0);
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        
         current_scene->update(delta);
         current_scene->draw();
 
+        ImGui::Begin("UI Test");
+        ImGui::Text("Current Scene : %s", typeid(*current_scene).name());
+
+        if (ImGui::Button("Switch to Ballistics")) {
+            current_scene = &ballistics;
+        }
+        if (ImGui::Button("Switch to Fireworks")) {
+            current_scene = &firework;
+        }
+
+        ImGui::Separator();
+        ImGui::Text("Delta Time: %.3f ms/frame", delta * 1000.0f);
+        ImGui::End();
+
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 
         glfwSwapBuffers(window);
-
         glfwPollEvents();
+       
 
     }
 
     sphereMesh.destroySphereMesh();
+
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+   
     glfwDestroyWindow(window);
 
     glfwTerminate();
