@@ -67,3 +67,16 @@ public:
 	ParticleBungee(Particle* other, real springConstant, real restLength);
 	virtual void updateForce(Particle* particle, real duration);
 };
+
+class ParticleBuoyancy : public ParticleForceGenerator
+{
+	real maxDepth;
+	real volume;
+	real waterHeight;
+	real liquidDensity;
+
+public:
+
+	ParticleBuoyancy(real maxDepth, real volume, real waterHeight, real liquidDensity);
+	virtual void updateForce(Particle* particle, real duration);
+};
