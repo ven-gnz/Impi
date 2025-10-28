@@ -30,7 +30,7 @@ bool Firework::update(real duration)
 		if (parent) velocity += parent->getVelocity();
 		firework.setVelocity(velocity);
 
-		firework.setInvMass(1);
+		firework.setMass(1);
 		firework.setDamping(damping);
 		Vector3 Gravity = Vector3(real(0.0), real(-9.8) , real(0.0));
 		firework.setAcceleration(Gravity);

@@ -23,7 +23,7 @@ Ballistics::Ballistics(Camera& camera)
         Vector3 particleSpawn(Vector3(0, 0, 0));
         Vector3 particleVelocity(Vector3(0.0, 1.0, -1.0));
         float dumping = 0.95f; // dummy +- damping - iterating on the name still
-        float ima = 16.0f;
+        float mass = 16.0f;
 
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 
@@ -31,7 +31,7 @@ Ballistics::Ballistics(Camera& camera)
             p.setPosition(particleSpawn);
             p.setVelocity(particleVelocity);
             p.setDamping(dumping);
-            p.setInvMass(ima);
+            p.setMass(mass);
             particles.push_back(p);
             Particle* ptr = &particles.back();
             renderables.push_back(RenderableParticle(ptr, spheremesh_ptr, 0.5f));

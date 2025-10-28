@@ -63,6 +63,9 @@
     <ClCompile Include="src\physics\ParticleForceRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics\ParticleForceGenerators.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -133,7 +136,6 @@
     <None Include="src\scenes\commons\shaders\metal.png" />
     <None Include="src\scenes\fireworks\shaders\fireworks.frag" />
     <None Include="src\scenes\fireworks\shaders\fireworks.vert" />
-    <None Include="src\scenes\*\shaders\*.*" />
     <None Include="src\scenes\*\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
@@ -174,6 +176,14 @@
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />

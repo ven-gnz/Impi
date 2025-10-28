@@ -143,6 +143,7 @@
     <ClCompile Include="src\physics\Particle.cpp" />
     <ClCompile Include="src\math\random.cpp" />
     <ClCompile Include="src\math\Vector3.cpp" />
+    <ClCompile Include="src\physics\ParticleForceGenerators.cpp" />
     <ClCompile Include="src\physics\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />

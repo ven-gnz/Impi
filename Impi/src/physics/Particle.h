@@ -29,7 +29,11 @@ public:
 
 	void setDamping(const float damp) { damping = damp; }
 
-	void setInvMass(const float im) { inverseMass = im; }
+	real getMass() { return inverseMass; }
+
+	void setMass(const real mass) { inverseMass = (real)1.0/mass; }
+
+	bool hasFiniteMass() { return inverseMass > 0.0; }
 
 	void addForce(const Vector3& force);
 
