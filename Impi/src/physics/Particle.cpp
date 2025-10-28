@@ -14,4 +14,11 @@ void Particle::integrate(real duration)
 
 	velocity *= real_pow(damping, duration);
 
+	clearAccumulator();
+
+}
+
+void Particle::addForce(const Vector3& force)
+{
+	accumulatedForce += force;
 }

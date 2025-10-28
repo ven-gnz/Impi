@@ -31,6 +31,8 @@ public:
 
 	void setInvMass(const float im) { inverseMass = im; }
 
+	void addForce(const Vector3& force);
+
 	void setAcceleration(const Vector3& ac) { acceleration = ac; }
 
 	void clearAccumulator() { accumulatedForce = Vector3(0.0, 0.0, 0.0); }
