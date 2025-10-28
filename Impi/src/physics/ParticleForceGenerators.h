@@ -29,3 +29,41 @@ public:
 	ParticleDrag(real k1, real k2);
 	virtual void updateForce(Particle* particle, real duration);
 };
+
+
+class ParticleSpring : public ParticleForceGenerator
+{
+	Particle* other;
+	real springConstant;
+	real restLength;
+
+public:
+	ParticleSpring(Particle* other, real springConstant, real restLength);
+	virtual void updateForce(Particle* particle, real duration);
+};
+
+
+
+class ParticleAnchoredSpring : public ParticleForceGenerator
+{
+	Vector3* anchor;
+	real springConstant;
+	real restLength;
+
+public:
+
+	ParticleAnchoredSpring(Vector3* anchor, real springConstant, real restLength);
+	virtual void updateForce(Particle* particle, real duration);
+};
+
+class ParticleBungee : public ParticleForceGenerator
+{
+	Particle* other;
+	real springConstant;
+	real restLength;
+
+public:
+
+	ParticleBungee(Particle* other, real springConstant, real restLength);
+	virtual void updateForce(Particle* particle, real duration);
+};
