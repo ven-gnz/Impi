@@ -40,7 +40,7 @@ public:
 	/** Dispatches a firework from the origin. */
 	void create(unsigned type, const Firework* parent = NULL);
 
-
+	void onActivate() override;
 
 	void update(real dt) override;
 

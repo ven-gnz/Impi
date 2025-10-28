@@ -12,7 +12,7 @@ FireWorkScene::FireWorkScene(
         nullptr
     )
 {
-    
+    camera.Position.z += 30;
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
@@ -20,6 +20,11 @@ FireWorkScene::FireWorkScene(
     shader.use();
     init_datastream();
 
+}
+
+void FireWorkScene::onActivate()
+{
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 30.0f);
 }
 
 void FireWorkScene::update(real dt)

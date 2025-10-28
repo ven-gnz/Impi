@@ -9,4 +9,5 @@ public:
     SphereMesh sphere_mesh;
     PlaneMesh ground_mesh;
     void onMouseButton(GLFWwindow* window, int button, int action, int mods) override;
+    void onActivate() override;
 };

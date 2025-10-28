@@ -40,5 +40,6 @@ public:
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
+	virtual void onActivate();
 
 };

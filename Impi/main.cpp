@@ -124,9 +124,11 @@ int main(void)
 
         if (ImGui::Button("Switch to Ballistics")) {
             current_scene = &ballistics;
+            current_scene->onActivate();
         }
         if (ImGui::Button("Switch to Fireworks")) {
             current_scene = &firework;
+            current_scene->onActivate();
         }
 
         ImGui::Separator();

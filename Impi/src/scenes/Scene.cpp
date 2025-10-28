@@ -139,3 +139,5 @@ void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 }
 
+void Scene::onActivate() {}
+

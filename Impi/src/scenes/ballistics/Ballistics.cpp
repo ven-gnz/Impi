@@ -16,6 +16,11 @@ Ballistics::Ballistics(Camera& camera)
     }
 }
 
+void Ballistics::onActivate()
+{
+    camera.Position = camera.defaultPos;
+}
+
 
     void Ballistics::onMouseButton(GLFWwindow * window, int button, int action, int mods)
     {
