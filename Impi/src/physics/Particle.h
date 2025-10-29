@@ -4,6 +4,11 @@
 
 using namespace Impi;
 
+/**
+ * @class Particle
+ * @brief Represents a simple particle with position, velocity, mass and damping
+ *
+ */
 class Particle
 {
 protected:
@@ -16,7 +21,17 @@ protected:
 
 public:
 
-	
+	/**
+	* @brief Constructs a new Particle.
+	*
+	* @param position	initial position(World Space)
+	* @param mass		mass of the object(handled inversely)
+	* @param velocity	initial velocity
+	* @param dam		initial damping
+	*/
+	Particle(const Vector3& pos, real mass, const Vector3& vel, real dam);
+
+	Particle();
 
 	void integrate(real duration);
 

@@ -3,16 +3,14 @@
 
 using namespace Impi;
 
-FireWorkScene::FireWorkScene(
-    Camera& camera)
+FireWorkScene::FireWorkScene(Camera& camera)
     : Scene("Fireworks",
         camera,
         "src/scenes/fireworks/shaders/fireworks.vert",
         "src/scenes/fireworks/shaders/fireworks.frag",
-        nullptr
-    )
+        nullptr)
 {
-    camera.Position.z += 30;
+    camera.Position.z += 1;
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
@@ -24,7 +22,9 @@ FireWorkScene::FireWorkScene(
 
 void FireWorkScene::onActivate()
 {
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 30.0f);
+    
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 1.0f);
+    std::cout << camera.Position.z << "camera z";
 }
 
 void FireWorkScene::update(real dt)
@@ -180,15 +180,8 @@ void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, in
 
 
 
-
-
 void FireWorkScene::initFireWorkRules()
 {
-
-
-
-
-
 
 
     /*

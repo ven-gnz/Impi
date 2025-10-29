@@ -1,0 +1,37 @@
+#pragma once
+#include "scenes/Scene.h"
+#include "physics/ParticleForceGenerators.h"
+#include "rendering/assets/SphereMesh.h"
+#include "physics/Particle.h"
+
+class RopeScene : public Scene
+
+{
+	Vector3 cubePos;
+	Vector3 spherePos;
+
+	Particle sphere;
+	Particle cube;
+
+	Vector3 sphereStartingPos;
+
+	real defaultSpringConstant;
+	real defaultRestLength;
+
+	real springConstant;
+	real restLength;
+
+	SphereMesh sphere_mesh;
+
+public :
+	RopeScene(Camera& camera);
+
+	ParticleAnchoredSpring from_cube_to_sphere;
+	ParticleGravity scene_gravity;
+
+	virtual void draw() override;
+	virtual void update(real dt) override;
+	virtual void onActivate() override;
+
+
+};

@@ -84,6 +84,12 @@
     <ClCompile Include="includes\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\rope\Rope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\ropescene\RopeScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -143,29 +149,17 @@
     <ClInclude Include="src\physics\ParticleForceGenerators.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\rope\Rope.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\ropescene\RopeScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
-    <None Include="src\scenes\ballistics\shaders\shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\grid.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\grid.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\metal.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\fireworks\shaders\fireworks.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\fireworks\shaders\fireworks.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
@@ -225,6 +219,24 @@
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
   </ItemGroup>

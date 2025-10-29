@@ -9,8 +9,6 @@ public:
 
 	SphereParticle(Particle* physicParticle, SphereMesh* mesh, float r = 1.0f)
 		: RenderableParticle(physicParticle,mesh,r)
-	{
-		
-	}
+	{	}
 
 };

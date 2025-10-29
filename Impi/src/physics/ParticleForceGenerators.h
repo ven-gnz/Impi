@@ -9,6 +9,7 @@ public:
 	virtual void updateForce(Particle* particle, real duration) = 0;
 };
 
+
 class ParticleGravity : public ParticleForceGenerator
 {
 	Vector3 gravity;

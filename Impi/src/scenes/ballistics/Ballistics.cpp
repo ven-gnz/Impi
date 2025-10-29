@@ -18,17 +18,13 @@ Ballistics::Ballistics(Camera& camera)
     }
 }
 
-void Ballistics::update(float dt)
+void Ballistics::update(real dt)
 {
     for (auto& particle : particles)
     {
         particle.integrate(dt);
     }
-
-    for (auto& renderable : renderables)
-    {
-        renderable.updateModelMatrix();
-    }
+   
 }
 
 void Ballistics::draw()
@@ -44,6 +40,11 @@ void Ballistics::draw()
     shader.use();
     shader.setMat4("projection", camera.getProjection());
     shader.setMat4("view", camera.GetViewMatrix());
+
+    for (auto& renderable : renderables)
+    {
+        renderable.updateModelMatrix();
+    }
 
     glBindVertexArray(spheremesh_ptr->vao);
     for (auto& r : renderables)

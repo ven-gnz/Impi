@@ -9,6 +9,7 @@
 #include "rendering/core/Shader.h"
 #include "scenes/ballistics/Ballistics.h"
 #include "scenes/fireworks/FireWorkScene.h"
+#include "scenes/ropescene/RopeScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <iostream>
@@ -18,7 +19,6 @@
 #include "backends/imgui_impl_opengl3.h"
 
 
-SphereMesh sphereMesh;
 Scene* current_scene = nullptr;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -88,9 +88,8 @@ int main(void)
     
 
     Ballistics ballistics(camera);
-   
-
     FireWorkScene firework(camera);
+    RopeScene rop(camera);
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
@@ -98,7 +97,7 @@ int main(void)
 
     current_scene = &firework;
 
-    bool show_demo = true;
+    
 
     while (!glfwWindowShouldClose(window))
     {
@@ -131,6 +130,11 @@ int main(void)
             current_scene->onActivate();
         }
 
+        if (ImGui::Button("Rope")) {
+            current_scene = &rop;
+            current_scene->onActivate();
+        }
+
         ImGui::Separator();
         ImGui::Text("Delta Time: %.3f ms/frame", delta * 1000.0f);
         ImGui::End();
@@ -146,7 +150,7 @@ int main(void)
 
     }
 
-    sphereMesh.destroySphereMesh();
+    
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

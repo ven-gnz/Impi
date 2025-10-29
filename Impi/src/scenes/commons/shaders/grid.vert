@@ -32,8 +32,8 @@ void main()
 
     vec3 vPos_init = Pos[Index] * gridSize;
 
-    vPos_init.x += cameraPos.x;
-    vPos_init.z += cameraPos.z;
+    //vPos_init.x += cameraPos.x;
+    //vPos_init.z += cameraPos.z;
 
     // without some y offset, the plane gets clipped. Took ~ 8 hours to find bug?
 
