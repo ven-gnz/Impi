@@ -29,8 +29,6 @@ Scene::Scene(std::string init_name,
 void Scene::update(float dt)  {}
 
 
-
-
 void Scene::draw(Renderer& renderer, Camera& camera){ }
 
 std::string Scene::getName() const

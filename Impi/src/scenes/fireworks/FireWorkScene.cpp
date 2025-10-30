@@ -28,7 +28,7 @@ FireWorkScene::FireWorkScene(Camera& camera)
 void FireWorkScene::onActivate()
 {
     Scene::onActivate();
-    renderableFireworks.clear();
+    
     camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
     std::cout << camera.Position.z << "camera z";
     
@@ -79,7 +79,6 @@ void FireWorkScene::create(unsigned type, unsigned count, const Firework* parent
 
 void FireWorkScene::create(unsigned type, const Firework* parent)
 {
-    // delegate
     create(type, 1, parent);
 }
 
