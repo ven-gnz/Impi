@@ -51,5 +51,5 @@ public:
 
 	glm::vec4 getCol(unsigned type);
 
-	void draw() override;
+	void draw(Renderer& renderer, Camera& camera) override;
 };

@@ -12,11 +12,13 @@
 #include "scenes/ropescene/RopeScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
+#include <rendering/core/Renderer.h>
 #include <iostream>
 #include <stdlib.h>
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
+
 
 
 Scene* current_scene = nullptr;
@@ -48,8 +50,7 @@ int main(void)
     GLFWwindow* window;
 
 
-    if (!glfwInit())
-        return -1;
+    if (!glfwInit()) return -1;
 
     
     window = glfwCreateWindow(windowWidth, windowHeight, "Impi", NULL, NULL);
@@ -75,8 +76,6 @@ int main(void)
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 420");
-
-
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
@@ -85,7 +84,7 @@ int main(void)
 
     float lastTime = (float)glfwGetTime();
 
-    
+    Renderer renderer;
 
     Ballistics ballistics(camera);
     FireWorkScene firework(camera);
@@ -95,10 +94,8 @@ int main(void)
     scenes.push_back(ballistics);
     // scenes.push_back(firework);
 
-    current_scene = &firework;
-
-    
-
+    current_scene = &ballistics;
+    current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {
 
@@ -114,9 +111,11 @@ int main(void)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+
         
         current_scene->update(delta);
-        current_scene->draw();
+        current_scene->draw(renderer,camera);
 
         ImGui::Begin("UI Test");
         ImGui::Text("Current Scene : %s", typeid(*current_scene).name());
@@ -136,7 +135,7 @@ int main(void)
         }
 
         ImGui::Separator();
-        ImGui::Text("Delta Time: %.3f ms/frame", delta * 1000.0f);
+        // ImGui::Text("Delta Time: %.3f ms/frame", delta * 1000.0f);
         ImGui::End();
 
 

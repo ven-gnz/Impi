@@ -27,6 +27,7 @@ RopeScene::RopeScene(Camera& camera)
 
 void RopeScene::onActivate()
 {
+    Scene::onActivate();
     sphere.setPosition(Vector3(2, 3, 0));
     sphere.setVelocity(Vector3(0, 0, 0));
     camera.Position = camera.defaultPos;
@@ -48,11 +49,10 @@ void RopeScene::update(real dt)
 }
 
 
-void RopeScene::draw()
+void RopeScene::draw(Renderer& renderer, Camera& camera)
 {
 
-    updateViewUniform();
-    upstreamViewUniform();
+    renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
 
     groundShader.use();
     glBindVertexArray(groundmesh_ptr->vao);

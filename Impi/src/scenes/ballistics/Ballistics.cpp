@@ -26,19 +26,15 @@ void Ballistics::update(real dt)
     }
 }
 
-void Ballistics::draw()
+void Ballistics::draw(Renderer& renderer, Camera& camera)
 {
-    updateViewUniform();
-    upstreamViewUniform();
-    // view_UBO_Debug_Data();
+    renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
 
     groundShader.use();
     glBindVertexArray(groundmesh_ptr->vao);
     groundmesh_ptr->draw();
 
     shader.use();
-    shader.setMat4("projection", camera.getProjection());
-    shader.setMat4("view", camera.GetViewMatrix());
 
     for (auto& renderable : renderables)
     {
@@ -57,6 +53,7 @@ void Ballistics::draw()
 
 void Ballistics::onActivate()
 {
+    Scene::onActivate();
     particles.clear();
     renderables.clear();
     camera.Position = camera.defaultPos;

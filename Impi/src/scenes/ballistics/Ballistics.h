@@ -11,5 +11,5 @@ public:
     void onMouseButton(GLFWwindow* window, int button, int action, int mods) override;
     void onActivate() override;
     void update(real dt) override;
-    void draw() override;
+    void draw(Renderer& renderer, Camera& camera) override;
 };

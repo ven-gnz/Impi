@@ -14,21 +14,24 @@ FireWorkScene::FireWorkScene(Camera& camera)
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
-    initUBO();
+    
     initFireWorkRules();
+
     shader.use();
     init_datastream();
     renderableFireworks.reserve(fireworks.size());
     fill_renderbuffer();
     upstream_renderbuffer();
+    
 }
 
 void FireWorkScene::onActivate()
 {
+    Scene::onActivate();
+    renderableFireworks.clear();
     camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
     std::cout << camera.Position.z << "camera z";
-    //fireworks.clear();
-    //renderableFireworks.clear();
+    
 }
 
 void FireWorkScene::update(real dt)
@@ -96,7 +99,7 @@ void FireWorkScene::init_datastream()
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderableFirework), (void*)offsetof(RenderableFirework, color));
-    glBindVertexArray(0);
+   
     
 }
 
@@ -149,12 +152,11 @@ void FireWorkScene::upstream_renderbuffer()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void FireWorkScene::draw()
+void FireWorkScene::draw(Renderer& renderer, Camera& camera)
 {
-    shader.use();
+    renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
+    shader.use(); 
 
-    updateViewUniform();
-    upstreamViewUniform();
     //view_UBO_Debug_Data();
     fill_renderbuffer();
     upstream_renderbuffer();

@@ -154,6 +154,7 @@
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Camera.cpp" />
+    <ClCompile Include="src\rendering\core\Renderer.cpp" />
     <ClCompile Include="src\rendering\core\Shader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\rendering\core\ViewPort.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\rendering\assets\SphereMesh.h" />
     <ClInclude Include="src\rendering\assets\SphereParticle.h" />
     <ClInclude Include="src\rendering\core\Camera.h" />
+    <ClInclude Include="src\rendering\core\Renderer.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
     <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />

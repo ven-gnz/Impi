@@ -8,6 +8,7 @@
 #include <rendering/assets/RenderableParticle.h>
 #include <rendering/assets/PlaneMesh.h>
 #include <rendering/core/Camera.h>
+#include <rendering/core/Renderer.h>
 #include <imgui.h>
 
 class Scene {
@@ -31,13 +32,10 @@ public:
 	std::string name;
 	std::vector<Particle> particles;
 	std::vector<RenderableParticle> renderables;
-	void initUBO();
-	void view_UBO_Debug_Data() const;
+	
 
-	void updateViewUniform();
-	void upstreamViewUniform() const;
 	virtual void update(float dt);
-	virtual void draw();
+	virtual void draw(Renderer& renderer, Camera& camera);
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);

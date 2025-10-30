@@ -29,7 +29,7 @@ public :
 	ParticleAnchoredSpring from_cube_to_sphere;
 	ParticleGravity scene_gravity;
 
-	virtual void draw() override;
+	virtual void draw(Renderer& renderer, Camera& camera) override;
 	virtual void update(real dt) override;
 	virtual void onActivate() override;
 
