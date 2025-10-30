@@ -31,7 +31,7 @@ Camera::Camera(ViewPort viewPort)
 	vp = viewPort;
 
 	 near = 0.1f;
-	 far = 50.0f;
+	 far = 200.0f; // for fireworks, more?
 	 aspect = (float) vp.SCR_WIDTH / (float) vp.SCR_HEIGHT;
 	 fov = glm::radians(60.0f);
 

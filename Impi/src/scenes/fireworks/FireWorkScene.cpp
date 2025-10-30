@@ -10,7 +10,7 @@ FireWorkScene::FireWorkScene(Camera& camera)
         "src/scenes/fireworks/shaders/fireworks.frag",
         nullptr)
 {
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
@@ -25,10 +25,10 @@ FireWorkScene::FireWorkScene(Camera& camera)
 
 void FireWorkScene::onActivate()
 {
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
     std::cout << camera.Position.z << "camera z";
-    fireworks.clear();
-    renderableFireworks.clear();
+    //fireworks.clear();
+    //renderableFireworks.clear();
 }
 
 void FireWorkScene::update(real dt)
@@ -155,7 +155,7 @@ void FireWorkScene::draw()
 
     updateViewUniform();
     upstreamViewUniform();
-    view_UBO_Debug_Data();
+    //view_UBO_Debug_Data();
     fill_renderbuffer();
     upstream_renderbuffer();
 
@@ -182,19 +182,13 @@ void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, in
 
 void FireWorkScene::initFireWorkRules()
 {
-
-
-    /*
-    Millington defaults
-    */
-    
     rules.push_back(
         FireworkRule
         {
         1, // type
         0.5f, 1.4f, // age range
-        Vector3(-5, 25, -5), // min velocity
-        Vector3(5, 28, 5), // max velocity
+        Vector3(-5, 15, -5), // min velocity
+        Vector3(5, 20, 5), // max velocity
         0.1, // damping
         {{3,5 }, {5,5}} //payloads
         }
@@ -205,8 +199,8 @@ void FireWorkScene::initFireWorkRules()
         {
         2, // type
         0.5f, 1.0f, // age range
-        Vector3(-5, 10, -5), // min velocity
-        Vector3(5, 20, 5), // max velocity
+        Vector3(-5, 8, -5), // min velocity
+        Vector3(5, 16, 5), // max velocity
         0.8, // damping
         {{4,2}} //payloads
         }
@@ -222,7 +216,7 @@ void FireWorkScene::initFireWorkRules()
         0.1 // damping
              //payloads
         }
-        );
+    );
 
     rules.push_back(
         FireworkRule
@@ -234,7 +228,7 @@ void FireWorkScene::initFireWorkRules()
         0.2 // damping
          //payloads
         }
-        );
+    );
 
 
     rules.push_back(
@@ -243,22 +237,22 @@ void FireWorkScene::initFireWorkRules()
         5, // type
         0.5f, 1.0f, // age range
         Vector3(-20, 2, -5), // min velocity
-        Vector3(20, 18, 5), // max velocity
+        Vector3(20, 12, 5), // max velocity
         0.01, // damping
         {{3,5 }} //payloads
         }
-        );
+    );
 
 
     rules.push_back(
         FireworkRule
         {
         6, // type
-        3, 5, // age range
+        2, 4, // age range
         Vector3(-5, 5, -5), // min velocity
         Vector3(5, 10, 5), // max velocity
         0.95, // damping
-         //payloads
+        //payloads
         }
         );
 
@@ -267,13 +261,13 @@ void FireWorkScene::initFireWorkRules()
         FireworkRule
         {
         7, // type
-        4, 5, // age range
-        Vector3(-5, 50, -5), // min velocity
-        Vector3(5, 60, 5), // max velocity
+        2, 4, // age range
+        Vector3(-5, 15, -5), // min velocity
+        Vector3(5, 25, 5), // max velocity
         0.01, // damping
         {{8,10 }} //payloads
         }
-        );
+    );
 
 
     rules.push_back(
@@ -286,20 +280,137 @@ void FireWorkScene::initFireWorkRules()
         0.01 // damping
              //payloads
         }
-        );
+    );
 
 
     rules.push_back(
         FireworkRule
         {
         9, // type
-        3, 5, // age range
-        Vector3(-15, 10, -5), // min velocity
-        Vector3(15, 15, 5), // max velocity
+        2, 3, // age range
+        Vector3(-15, 8, -5), // min velocity
+        Vector3(15, 9, 5), // max velocity
         0.95 // damping
              //payloads
         }
-        );
+    );
+
+    /*
+    Millington defaults
+    */
+    
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    1, // type
+    //    0.5f, 1.4f, // age range
+    //    Vector3(-5, 25, -5), // min velocity
+    //    Vector3(5, 28, 5), // max velocity
+    //    0.1, // damping
+    //    {{3,5 }, {5,5}} //payloads
+    //    }
+    //);
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    2, // type
+    //    0.5f, 1.0f, // age range
+    //    Vector3(-5, 10, -5), // min velocity
+    //    Vector3(5, 20, 5), // max velocity
+    //    0.8, // damping
+    //    {{4,2}} //payloads
+    //    }
+    //);
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    3, // type
+    //    0.5f, 1.5f, // age range
+    //    Vector3(-5, -5, -5), // min velocity
+    //    Vector3(5, 5, 5), // max velocity
+    //    0.1 // damping
+    //         //payloads
+    //    }
+    //    );
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    4, // type
+    //    0.25f, 0.5f, // age range
+    //    Vector3(-20, 5, -5), // min velocity
+    //    Vector3(20, 5, 5), // max velocity
+    //    0.2 // damping
+    //     //payloads
+    //    }
+    //    );
+
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    5, // type
+    //    0.5f, 1.0f, // age range
+    //    Vector3(-20, 2, -5), // min velocity
+    //    Vector3(20, 18, 5), // max velocity
+    //    0.01, // damping
+    //    {{3,5 }} //payloads
+    //    }
+    //    );
+
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    6, // type
+    //    3, 5, // age range
+    //    Vector3(-5, 5, -5), // min velocity
+    //    Vector3(5, 10, 5), // max velocity
+    //    0.95, // damping
+    //     //payloads
+    //    }
+    //    );
+
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    7, // type
+    //    4, 5, // age range
+    //    Vector3(-5, 50, -5), // min velocity
+    //    Vector3(5, 60, 5), // max velocity
+    //    0.01, // damping
+    //    {{8,10 }} //payloads
+    //    }
+    //    );
+
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    8, // type
+    //    0.25f, 0.5f, // age range
+    //    Vector3(-1, -1, -1), // min velocity
+    //    Vector3(1, 1, 1), // max velocity
+    //    0.01 // damping
+    //         //payloads
+    //    }
+    //    );
+
+
+    //rules.push_back(
+    //    FireworkRule
+    //    {
+    //    9, // type
+    //    3, 5, // age range
+    //    Vector3(-15, 10, -5), // min velocity
+    //    Vector3(15, 15, 5), // max velocity
+    //    0.95 // damping
+    //         //payloads
+    //    }
+    //    );
 
    
 
