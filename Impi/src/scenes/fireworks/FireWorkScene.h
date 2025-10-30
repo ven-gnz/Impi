@@ -8,8 +8,8 @@ class FireWorkScene : public Scene
 public:
 
 	struct RenderableFirework {
-		glm::vec3 pos;
-		glm::vec3 color;
+		glm::vec4 pos;
+		glm::vec4 color;
 	};
 
 	const size_t maxFireworks = 2048;
@@ -49,7 +49,7 @@ public:
 	void fill_renderbuffer();
 	void upstream_renderbuffer();
 
-	glm::vec3 getCol(unsigned type);
+	glm::vec4 getCol(unsigned type);
 
 	void draw() override;
 };

@@ -24,7 +24,6 @@ void Ballistics::update(real dt)
     {
         particle.integrate(dt);
     }
-   
 }
 
 void Ballistics::draw()

@@ -26,7 +26,7 @@ Scene::Scene(std::string init_name,
 	groundShader.use();
 }
 
-void Scene::update(float dt) {}
+void Scene::update(float dt)  {}
 
 void Scene::updateViewUniform() {
 	ViewUniform.view = camera.GetViewMatrix();

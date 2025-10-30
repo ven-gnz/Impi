@@ -11,7 +11,7 @@ RopeScene::RopeScene(Camera& camera)
     defaultSpringConstant(16.0), defaultRestLength(1.25),
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
-    sphere(Vector3(2,3,0),1.5,Vector3(0,0,0),0.01),
+    sphere(Vector3(2,3,0),1.5,Vector3(3,1,0),0.01),
     cube(Vector3(0,0,0), 125.0, Vector3(0,0,0), 0.05)
 {
     

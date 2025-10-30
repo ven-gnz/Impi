@@ -27,14 +27,15 @@ bool Firework::update(real duration)
 		}
 
 		Vector3 velocity = ran.randomVector3(minVelocity, maxVelocity);
+		std::cout << "velocity of firework : " << velocity.x << velocity.y << velocity.z << std::endl;
 		if (parent) velocity += parent->getVelocity();
 		firework.setVelocity(velocity);
 
-		firework.setMass(1);
+		firework.setMass(0.9f);
 		firework.setDamping(damping);
 		Vector3 Gravity = Vector3(real(0.0), real(-9.8) , real(0.0));
 		firework.setAcceleration(Gravity);
-		firework.clearAccumulator();
+		// firework.clearAccumulator();
 
 	}
 

@@ -40,9 +40,9 @@ Camera camera {default_viewport};
 int main(void)
 {
 
-    char* path;
-    _get_pgmptr(&path);
-    std::cout << path << std::endl;
+    //char* path;
+    //_get_pgmptr(&path);
+    //std::cout << path << std::endl;
 // debug : pwd
 
     GLFWwindow* window;
@@ -146,7 +146,6 @@ int main(void)
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-       
 
     }
 

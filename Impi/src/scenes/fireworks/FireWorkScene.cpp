@@ -10,50 +10,52 @@ FireWorkScene::FireWorkScene(Camera& camera)
         "src/scenes/fireworks/shaders/fireworks.frag",
         nullptr)
 {
-    camera.Position.z += 1;
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
+    initUBO();
     initFireWorkRules();
     shader.use();
     init_datastream();
-
+    renderableFireworks.reserve(fireworks.size());
+    fill_renderbuffer();
+    upstream_renderbuffer();
 }
 
 void FireWorkScene::onActivate()
 {
-    
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 1.0f);
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
     std::cout << camera.Position.z << "camera z";
+    fireworks.clear();
+    renderableFireworks.clear();
 }
 
 void FireWorkScene::update(real dt)
 {
-    if (dt <= 0.0f) return;
 
-    for (std::vector<Firework>::iterator fire_iter = fireworks.begin(); fire_iter != fireworks.end(); ++fire_iter)
+    if (dt <= 0.0f) return;
+    // changed this to be closer to original demo to rule out a suspect in bug hunt.
+    for (size_t i = 0; i < fireworks.size(); ++i)
     {
         
-        Firework& firework = *fire_iter;
-
+        Firework& firework = fireworks[i];
         if (firework.type == 0) continue;
 
-        if (firework.update(dt))
+        bool expired = firework.update(dt);
+        
+        if (expired)
         {
             FireworkRule& rule = rules[firework.type - 1];
             firework.type = 0;
 
-            for (std::vector<FireworkRule::Payload>::iterator payload_iter = rule.payloads.begin();
-                payload_iter != rule.payloads.end();
-                ++payload_iter)
+            for (const auto& payload : rule.payloads)
             {
-                FireworkRule::Payload& payload = *payload_iter;
                 create(payload.type, payload.count, &firework);
-
             }
         }
     }
-
+    
 }
 
 
@@ -66,7 +68,7 @@ void FireWorkScene::create(unsigned type, unsigned count, const Firework* parent
         FireworkRule& rule = rules[type - 1];
         //delegate further
         rule.create(firework, parent, simplerandom);
-
+    
         nextFirework = (nextFirework + 1) % fireworks.size();
     }
 }
@@ -98,29 +100,28 @@ void FireWorkScene::init_datastream()
     
 }
 
-glm::vec3 FireWorkScene::getCol(unsigned type)
+glm::vec4 FireWorkScene::getCol(unsigned type)
 {
     switch (type)
     {
-    case 1: return { 1.0f, 0.0f, 0.0f };
-    case 2: return { 1.0f, 0.5f, 0.0f };
-    case 3: return { 1.0f, 1.0f, 0.0f };
-    case 4: return { 0.0f, 1.0f, 0.0f };
-    case 5: return { 0.0f, 1.0f, 1.0f };
-    case 6: return { 0.4f, 0.4f, 1.0f };
-    case 7: return { 1.0f, 0.0f, 1.0f };
-    case 8: return { 1.0f, 1.0f, 1.0f };
-    case 9: return { 1.0f, 0.5f, 0.5f };
-    default: return { 1.0f, 0.5f, 0.5f };
+    case 1: return { 1.0f, 0.0f, 0.0f, 1.0 };
+    case 2: return { 1.0f, 0.5f, 0.0f, 1.0 };
+    case 3: return { 1.0f, 1.0f, 0.0f, 1.0 };
+    case 4: return { 0.0f, 1.0f, 0.0f, 1.0 };
+    case 5: return { 0.0f, 1.0f, 1.0f, 1.0 };
+    case 6: return { 0.4f, 0.4f, 1.0f, 1.0 };
+    case 7: return { 1.0f, 0.0f, 1.0f, 1.0 };
+    case 8: return { 1.0f, 1.0f, 1.0f, 1.0 };
+    case 9: return { 1.0f, 0.5f, 0.5f, 1.0 };
+    default: return { 1.0f, 0.5f, 0.5f, 1.0 };
     }
 }
 
 void FireWorkScene::fill_renderbuffer()
 {
     
-    auto toGLM = [](const Vector3& v) { return glm::vec3(v.x, v.y, v.z); };
+    auto toGLM = [](const Vector3& v) { return glm::vec4(v.x, v.y, v.z, 1.0); };
     renderableFireworks.clear();
-    renderableFireworks.reserve(fireworks.size());
 
     for (Firework &f : fireworks)
     {
@@ -128,11 +129,12 @@ void FireWorkScene::fill_renderbuffer()
         if (f.type > 0)
         {
             RenderableFirework r = { toGLM(f.getPosition()), getCol(f.type)};
+            /*std::cout << "Rendering firework at: " << r.pos.x << ", "
+                << r.pos.y << ", " << r.pos.z << std::endl;*/
             renderableFireworks.push_back(r);
             
         }
     }
-    
 }
 
 void FireWorkScene::upstream_renderbuffer()
@@ -153,10 +155,9 @@ void FireWorkScene::draw()
 
     updateViewUniform();
     upstreamViewUniform();
-    // view_UBO_Debug_Data();
+    view_UBO_Debug_Data();
     fill_renderbuffer();
     upstream_renderbuffer();
-
 
     glBindVertexArray(fireworkscene_VAO);
     glPointSize(5.0f);
@@ -174,7 +175,6 @@ void FireWorkScene::onMouseButton(GLFWwindow* window, int button, int action, in
     {
         unsigned fireworkType = 1;
         create(fireworkType, 1, nullptr);
-        
     }
 }
 
