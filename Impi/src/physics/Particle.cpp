@@ -34,3 +34,8 @@ void Particle::addForce(const Vector3& force)
 {
 	accumulatedForce += force;
 }
+
+Vector3 Particle::getAcceleration()
+{
+	return acceleration;
+}

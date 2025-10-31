@@ -52,6 +52,8 @@ public:
 
 	void addForce(const Vector3& force);
 
+	Vector3 getAcceleration();
+
 	void setAcceleration(const Vector3& ac) { acceleration = ac; }
 
 	void clearAccumulator() { accumulatedForce = Vector3(0.0, 0.0, 0.0); }
