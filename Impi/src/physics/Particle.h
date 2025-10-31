@@ -33,7 +33,7 @@ public:
 
 	Particle();
 
-	void integrate(real duration);
+	virtual void integrate(real duration);
 
 	const Vector3& getPosition() const { return position; }
 	void setPosition(const Vector3& np) { position = np; }
