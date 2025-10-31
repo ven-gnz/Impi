@@ -149,6 +149,7 @@
     <ClCompile Include="src\physics\Particle.cpp" />
     <ClCompile Include="src\math\random.cpp" />
     <ClCompile Include="src\math\Vector3.cpp" />
+    <ClCompile Include="src\physics\ParticleContacts.cpp" />
     <ClCompile Include="src\physics\ParticleForceGenerators.cpp" />
     <ClCompile Include="src\physics\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="src\physics\Firework.h" />
     <ClInclude Include="src\physics\Particle.h" />
+    <ClInclude Include="src\physics\ParticleContacts.h" />
     <ClInclude Include="src\physics\ParticleForceGenerators.h" />
     <ClInclude Include="src\physics\ParticleForceRegistry.h" />
     <ClInclude Include="src\Precision.h" />
