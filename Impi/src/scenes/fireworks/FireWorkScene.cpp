@@ -10,7 +10,7 @@ FireWorkScene::FireWorkScene(Camera& camera)
         "src/scenes/fireworks/shaders/fireworks.frag",
         nullptr)
 {
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 30.0f);
     nextFirework = 0;
     fireworks.resize(maxFireworks);
     simplerandom = Random();
@@ -29,7 +29,7 @@ void FireWorkScene::onActivate()
 {
     Scene::onActivate();
     
-    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, -30.0f);
+    camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 30.0f);
     std::cout << camera.Position.z << "camera z";
     
 }
