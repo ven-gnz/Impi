@@ -28,7 +28,7 @@ namespace Impi
 		void componentProductUpdate(const Vector3& vec);
 
 		Vector3 componentProduct(const Vector3& vec) const;
-		real scalarProduct(const Vector3& vector) const;
+		real dot(const Vector3& vector) const;
 		real operator*(const Vector3& vector) const;
 
 		Vector3 cross(const Vector3& vector) const;
@@ -38,6 +38,7 @@ namespace Impi
 		real magnitude() const;
 		real squared_Magnitude() const;
 		void normalize();
+		Vector3 normalized();
 
 	};
 

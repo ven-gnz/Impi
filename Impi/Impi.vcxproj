@@ -145,7 +145,9 @@
     <ClCompile Include="includes\imgui\imgui_draw.cpp" />
     <ClCompile Include="includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="includes\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\physics\Cloth.cpp" />
     <ClCompile Include="src\physics\ClothParticle.cpp" />
+    <ClCompile Include="src\physics\Constraint.cpp" />
     <ClCompile Include="src\physics\Firework.cpp" />
     <ClCompile Include="src\physics\Particle.cpp" />
     <ClCompile Include="src\math\random.cpp" />
@@ -163,7 +165,7 @@
     <ClCompile Include="src\rendering\core\ViewPort.h" />
     <ClCompile Include="src\rendering\core\ViewUniforms.h" />
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
-    <ClCompile Include="src\scenes\cloth\Cloth.cpp" />
+    <ClCompile Include="src\scenes\cloth\ClothScene.cpp" />
     <ClCompile Include="src\scenes\fireworks\FireWorkScene.cpp" />
     <ClCompile Include="src\scenes\ropescene\RopeScene.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
@@ -171,6 +173,9 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\gl.h" />
     <ClInclude Include="includes\glad\glad.h" />
+    <ClInclude Include="src\physics\Cloth.h" />
+    <ClInclude Include="src\physics\ClothParticle.h" />
+    <ClInclude Include="src\physics\Constraint.h" />
     <ClInclude Include="src\physics\Firework.h" />
     <ClInclude Include="src\physics\Particle.h" />
     <ClInclude Include="src\physics\ParticleContacts.h" />
@@ -189,7 +194,7 @@
     <ClInclude Include="src\rendering\core\Renderer.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
-    <ClInclude Include="src\scenes\cloth\Cloth.h" />
+    <ClInclude Include="src\scenes\cloth\ClothScene.h" />
     <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />
     <ClInclude Include="src\scenes\ropescene\RopeScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />

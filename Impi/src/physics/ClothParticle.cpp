@@ -3,11 +3,12 @@
 
 
 	
-	ClothParticle::ClothParticle(const Vector3& pos, real iMass = 1.0)
+	ClothParticle::ClothParticle(const Vector3& pos, real iMass)
 	{
 		position = pos;
 		previousPos = pos;
 		iMass = inverseMass;
+		movable = true;
 		velocity = Vector3(0, 0, 0);
 		acceleration = Vector3(0, 0, 0);
 		accumulatedForce = Vector3(0, 0, 0);
@@ -16,6 +17,8 @@
 
 	void ClothParticle::integrate(real dt)
 	{
+
+		if (!movable) return;
 
 		Vector3 accel = acceleration;
 

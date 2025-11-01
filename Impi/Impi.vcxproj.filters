@@ -96,10 +96,16 @@
     <ClCompile Include="src\physics\ParticleLinks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scenes\cloth\Cloth.cpp">
+    <ClCompile Include="src\scenes\cloth\ClothScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\physics\ClothParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\Constraint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\Cloth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,7 +179,16 @@
     <ClInclude Include="src\physics\ParticleLinks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\cloth\Cloth.h">
+    <ClInclude Include="src\scenes\cloth\ClothScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Constraint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\ClothParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Cloth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -248,6 +263,16 @@
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />

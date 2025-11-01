@@ -49,7 +49,6 @@ public:
 	real length;
 
 public:
-	real currentLength() const;
 
 	virtual unsigned fillContact(ParticleContact* contact, unsigned limit) const;
 };

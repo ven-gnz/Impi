@@ -24,10 +24,39 @@ public:
 
 	Vector3 getTriangleNormal(ClothParticle* p1, ClothParticle* p2, ClothParticle* p3);
 
-	void drawTriangle(ClothParticle* p1, ClothParticle* p2, ClothParticle* p3, const Vector3 color);
-	void addForcePerTriangle();
+	void updateClothParticles(real dt);
 
-	void updateClothParticles();
+
+	/**
+	* Adds a per triangle force for the cloth
+	*/
+	void addDottedForce(const Vector3& forceDirection);
+
+	/**
+	* Adds a force acting on all particles separately
+	*/
+	void addForceToCloth(Vector3 force);
+
+
+	// My first template (:
+
+	/**
+	 * Convenience function that iterates over all triangles
+	* in the cloth grid, and calls the user-provided `func` with three Particle* ptrs corresponding to the triangle vertices.
+	* @param func: any callable that takes (Particle*, Particle*, Particle*)
+	*/
+	template<typename F>
+	void forEachTriangle(F&& func)
+	{
+		for (int x = 1; x < particles_width; x++)
+		{
+			for (int y = 1; y < particles_height; y++)
+			{
+				func(getParticle(x, y - 1), getParticle(x - 1, y - 1), getParticle(x - 1, y));
+				func(getParticle(x, y), getParticle(x, y - 1), getParticle(x - 1, y));
+			}
+		}
+	}
 
 
 };

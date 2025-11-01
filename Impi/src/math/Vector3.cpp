@@ -72,7 +72,7 @@ using namespace Impi;
 				return Vector3(x * vec.x, y * vec.y, z * vec.z);
 			}
 
-			real Vector3::scalarProduct(const Vector3& vector) const
+			real Vector3::dot(const Vector3& vector) const
 			{
 				return x * vector.x + y * vector.y + z * vector.z;
 			}
@@ -122,6 +122,16 @@ using namespace Impi;
 				{
 					(*this) *= ((real)1) / l;
 				}
+			}
+
+			Vector3 Vector3::normalized()
+			{
+				float l = magnitude();
+				if (l > 0.0f)
+				{
+					return *this * (1/l);
+				}
+				return Vector3(0, 0, 0);
 			}
 
 	
