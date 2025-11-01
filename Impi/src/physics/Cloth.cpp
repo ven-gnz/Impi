@@ -5,7 +5,6 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 {
 	particles.resize(num_particles_width * num_particles_height);
 
-
 	// Particles : width and height are used to discretize the 
 	for (int x = 0; x < num_particles_width; x++)
 	{
@@ -31,7 +30,6 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 			addToConstraints(getParticle(x, y-1), getParticle(x-1, y));
 		}
 	}
-
 
 	// secondary neighbors
 	for (int x = 2; x < num_particles_width; x++)
@@ -111,7 +109,6 @@ void VerletCloth::addDottedForce(const Vector3& forceDirection)
 			p2->addForce(force);
 			p3->addForce(force);
 		});
-
 }
 
 void VerletCloth::addForceToCloth(Vector3 force)
@@ -121,3 +118,39 @@ void VerletCloth::addForceToCloth(Vector3 force)
 		p.addForce(force);
 	}
 }
+
+std::vector<Vector3> VerletCloth::getVertices() const
+{
+	std::vector<Vector3> verts;
+	verts.reserve(particles.size());
+	for (const auto& p : particles)
+		verts.push_back(p.getPosition());
+	return verts;
+}
+
+
+int VerletCloth::getParticleIndex(ClothParticle* p)
+{
+	return static_cast<int>(p - &particles[0]);
+}
+
+std::vector<Vector3> VerletCloth::getNormals()
+{
+	std::vector<Vector3> normals(particles.size(), Vector3(0,0,0));
+
+	forEachTriangle([&](ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
+		{
+			Vector3 n = getTriangleNormal(p1, p2, p3);
+
+			int i1 = getParticleIndex(p1);
+			int i2 = getParticleIndex(p2);
+			int i3 = getParticleIndex(p3);
+
+			normals[i1] += n;
+			normals[i2] += n;
+			normals[i3] += n;
+		});
+
+
+}
+

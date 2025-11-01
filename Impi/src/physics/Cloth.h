@@ -15,6 +15,10 @@ class VerletCloth
 	std::vector<ClothParticle> particles;
 	std::vector<Constraint> constraints;
 
+	/**
+	* Get the particle index on the flat particles array
+	*/
+	int getParticleIndex(ClothParticle* p);
 
 public:
 	VerletCloth(real width, real height, int num_particles_width, int num_particles_height);
@@ -37,6 +41,10 @@ public:
 	*/
 	void addForceToCloth(Vector3 force);
 
+	
+
+	std::vector<Vector3> getVertices() const;
+	std::vector<Vector3> getNormals();
 
 	// My first template (:
 

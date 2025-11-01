@@ -27,7 +27,6 @@ public:
 
 	std::vector<FireworkRule> rules;
 
-	
 	FireWorkScene(Camera& camera);
 
 	void onMouseButton(GLFWwindow* window, int button, int action, int mods) override;
