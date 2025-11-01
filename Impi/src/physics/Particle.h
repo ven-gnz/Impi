@@ -33,6 +33,9 @@ public:
 
 	Particle();
 
+	/**
+	* Integrates a particle with Implicit Euler integration.
+	*/
 	virtual void integrate(real duration);
 
 	const Vector3& getPosition() const { return position; }

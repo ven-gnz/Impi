@@ -1,17 +1,9 @@
-#include "Particle.h"
-
-/**
-* A particle for simulating cloths. Overrides default integration with Verlet.
-*/
-class ClothParticle : public Particle
-{
-protected:
-	Vector3 previousPos;
+#include "ClothParticle.h"
 
 
-public:
-	ClothParticle() = default;
-	ClothParticle(const Vector3& pos, real iMass = 1.0)
+
+	
+	ClothParticle::ClothParticle(const Vector3& pos, real iMass = 1.0)
 	{
 		position = pos;
 		previousPos = pos;
@@ -22,7 +14,7 @@ public:
 		damping = 0.95f;
 	}
 
-	void integrate(real dt) override
+	void ClothParticle::integrate(real dt)
 	{
 
 		Vector3 accel = acceleration;
@@ -41,4 +33,3 @@ public:
 	}
 
 	
-};
