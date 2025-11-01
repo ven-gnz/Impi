@@ -9,6 +9,7 @@ class ClothParticle : public Particle
 {
 protected:
 	Vector3 previousPos;
+	bool movable;
 
 
 public:
@@ -23,6 +24,8 @@ public:
 	* Verlet Integration requires information on the previous position. Updated inside method to satisfy constraint.
 	*/
 	void integrate(real dt) override;
+
+	void immobilise();
 
 
 };

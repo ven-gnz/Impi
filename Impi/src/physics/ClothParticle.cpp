@@ -32,4 +32,6 @@
 
 	}
 
+	void ClothParticle::immobilise() { movable = false; }
+
 	
