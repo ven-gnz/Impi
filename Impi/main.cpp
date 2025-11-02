@@ -28,8 +28,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-int windowHeight = 720;
-int windowWidth = 1080;
+int windowHeight = 1080;
+int windowWidth = 1920;
 
 static int scene_ptr = 0;
 
@@ -90,7 +90,7 @@ int main(void)
     Ballistics ballistics(camera);
     FireWorkScene firework(camera);
     RopeScene rop(camera);
-    ClothScene cl(camera, 300, 300);
+    ClothScene cl(camera, 55, 45);
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
@@ -136,10 +136,10 @@ int main(void)
             current_scene->onActivate();
         }
 
-        //if (ImGui::Button("Cloth")) {
-        //    current_scene = &cl;
-        //    current_scene->onActivate();
-        //}
+        if (ImGui::Button("Cloth")) {
+            current_scene = &cl;
+            current_scene->onActivate();
+        }
         
 
         ImGui::Separator();

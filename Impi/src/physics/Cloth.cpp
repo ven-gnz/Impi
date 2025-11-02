@@ -1,11 +1,12 @@
 #include "Cloth.h"
+#include "assert.h"
 
 VerletCloth::VerletCloth(real width, real height, int num_particles_width, int num_particles_height,Vector3 TopLeftCornerPos)
 	: width(width),height(height), particles_width(num_particles_width), particles_height(num_particles_height), TopLeftCornerPos(TopLeftCornerPos)
 {
 	particles.resize(num_particles_width * num_particles_height);
 
-	// Particles : width and height are used to discretize the 
+	
 	for (int x = 0; x < num_particles_width; x++)
 	{
 		for (int y = 0; y < num_particles_height; y++)
@@ -33,9 +34,9 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 	}
 
 	// secondary neighbors
-	for (int x = 2; x < num_particles_width; x++)
+	for (int x = 2; x < num_particles_width-1; x++)
 	{
-		for (int y = 2; y < num_particles_height; y++)
+		for (int y = 2; y < num_particles_height-1; y++)
 		{
 			addToConstraints(getParticle(x-2, y-2), getParticle(x , y - 2));
 			addToConstraints(getParticle(x-2, y-2), getParticle(x - 2, y));
@@ -48,7 +49,7 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 	for (int y = 0; y < 5; y++)
 	{
 		getParticle(0 + y, 0)->immobilise();
-		getParticle(0, num_particles_height - y)->immobilise();
+		getParticle(0, num_particles_height - 1 - y)->immobilise();
 	}
 
 }
@@ -75,11 +76,17 @@ void VerletCloth::addToConstraints(ClothParticle* p1, ClothParticle* p2)
 
 ClothParticle* VerletCloth::getParticle(int x, int y)
 {
+
+	assert(x >= 0 && x < particles_width);
+	assert(y >= 0 && y < particles_height);
 	return &particles[y * particles_width + x];
 }
 
 const ClothParticle* VerletCloth::getParticle(int x, int y) const
 {
+
+	assert(x >= 0 && x < particles_width);
+	assert(y >= 0 && y < particles_height);
 	return &particles[y * particles_width + x];
 }
 

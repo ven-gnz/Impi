@@ -47,5 +47,7 @@ public:
 
 	Vector3 windForce;
 
+	void onActivate() override;
+
 
 };

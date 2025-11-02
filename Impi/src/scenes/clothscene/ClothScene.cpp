@@ -5,15 +5,14 @@
 ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 	: Scene("ClothScene",
 		camera,
-		"src/scenes/clothscene/cloth.vert",
-		"src/scene/clothscene/cloth.frag",
+		"src/scenes/clothscene/shaders/cloth.vert",
+		"src/scenes/clothscene/shaders/cloth.frag",
 		nullptr), 
 		clothWidth(clothWidth), 
 		clothHeight(clothHeight),
-		cloth(clothWidth, clothHeight, 55, 45, Vector3(-15, 10, 0)),
+		cloth(clothWidth, clothHeight, 14, 10, Vector3(-15, 10, 0)),
 		windForce(2,3,0)
 {
-	std::cout << "Constructor reached" << std::endl;
 	shader.use();
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
 	indices = calculate_indices(cloth);
@@ -72,7 +71,14 @@ void ClothScene::init_datastream()
 }
 
 
+void ClothScene::onActivate()
+{
+	Scene::onActivate();
 
+	camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
+	//std::cout << camera.Position.z << "camera z";
+
+}
 
 
 void ClothScene::fill_renderbuffer()
