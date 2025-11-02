@@ -9,27 +9,44 @@ class VerletCloth
 
 	int particles_width;
 	int particles_height;
+	real width;
+	real height;
 
 	const int constraint_iterations = 10;
 
 	std::vector<ClothParticle> particles;
 	std::vector<Constraint> constraints;
 
-	/**
-	* Get the particle index on the flat particles array
-	*/
-	int getParticleIndex(ClothParticle* p);
+	Vector3 TopLeftCornerPos;
+	
 
 public:
-	VerletCloth(real width, real height, int num_particles_width, int num_particles_height);
+	VerletCloth(real width, real height, int num_particles_width, int num_particles_height, Vector3 TopLeftCornerPos);
 
+
+	/**
+	* Get the particle by its relative position in grid for update and constructor
+	*/
 	ClothParticle* getParticle(int x, int y);
+
+
+	/**
+	* Const get particle pointer for template use
+	*/
+	const ClothParticle* getParticle(int x, int y) const;
+
+	/**
+	* Get the particle index on the flat particles array for EBO setup
+	*/
+	int getParticleIndex(const ClothParticle* p) const;
+
 	void addToConstraints(ClothParticle* p1, ClothParticle* p2);
 
-	Vector3 getTriangleNormal(ClothParticle* p1, ClothParticle* p2, ClothParticle* p3);
+	Vector3 getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3);
 
 	void updateClothParticles(real dt);
 
+	const std::vector<ClothParticle> getParticles() const;
 
 	/**
 	* Adds a per triangle force for the cloth
@@ -41,10 +58,14 @@ public:
 	*/
 	void addForceToCloth(Vector3 force);
 
-	
+	const int getWidthCount() const;
+	const int getHeightCount() const;
+
+	const real minX();
+	const real maxX();
 
 	std::vector<Vector3> getVertices() const;
-	std::vector<Vector3> getNormals();
+	std::vector<Vector3> getNormals() const; 
 
 	// My first template (:
 
@@ -54,7 +75,20 @@ public:
 	* @param func: any callable that takes (Particle*, Particle*, Particle*)
 	*/
 	template<typename F>
-	void forEachTriangle(F&& func)
+	void forEachTriangle(F&& func) const
+	{
+		for (int x = 1; x < particles_width; x++)
+		{
+			for (int y = 1; y < particles_height; y++)
+			{
+				func(getParticle(x, y - 1), getParticle(x - 1, y - 1), getParticle(x - 1, y));
+				func(getParticle(x, y), getParticle(x, y - 1), getParticle(x - 1, y));
+			}
+		}
+	}
+
+	template<typename F>
+	void mutateEachTriangle(F&& func)
 	{
 		for (int x = 1; x < particles_width; x++)
 		{

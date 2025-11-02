@@ -1,7 +1,7 @@
 #include "Cloth.h"
 
-VerletCloth::VerletCloth(real width, real height, int num_particles_width, int num_particles_height)
-	: particles_width(num_particles_width), particles_height(num_particles_height)
+VerletCloth::VerletCloth(real width, real height, int num_particles_width, int num_particles_height,Vector3 TopLeftCornerPos)
+	: width(width),height(height), particles_width(num_particles_width), particles_height(num_particles_height), TopLeftCornerPos(TopLeftCornerPos)
 {
 	particles.resize(num_particles_width * num_particles_height);
 
@@ -13,6 +13,7 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 			Vector3 pos = Vector3(width * (x / (float)num_particles_width),
 				-height * (y / (float)num_particles_height),
 				0);
+			pos += TopLeftCornerPos;
 			particles[y * num_particles_width + x] = ClothParticle(pos);
 		}
 	}
@@ -52,7 +53,7 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 
 }
 
-Vector3 VerletCloth::getTriangleNormal(ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
+Vector3 VerletCloth::getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
 {
 
 	Vector3 pos1 = p1->getPosition();
@@ -73,6 +74,11 @@ void VerletCloth::addToConstraints(ClothParticle* p1, ClothParticle* p2)
 }
 
 ClothParticle* VerletCloth::getParticle(int x, int y)
+{
+	return &particles[y * particles_width + x];
+}
+
+const ClothParticle* VerletCloth::getParticle(int x, int y) const
 {
 	return &particles[y * particles_width + x];
 }
@@ -100,7 +106,7 @@ void VerletCloth::updateClothParticles(real dt)
 
 void VerletCloth::addDottedForce(const Vector3& forceDirection)
 {
-	forEachTriangle([&](ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
+	mutateEachTriangle([&](ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
 		{
 			Vector3 normal = getTriangleNormal(p1, p2, p3);
 
@@ -129,18 +135,18 @@ std::vector<Vector3> VerletCloth::getVertices() const
 }
 
 
-int VerletCloth::getParticleIndex(ClothParticle* p)
+int VerletCloth::getParticleIndex(const ClothParticle* p) const
 {
 	return static_cast<int>(p - &particles[0]);
 }
 
-std::vector<Vector3> VerletCloth::getNormals()
+std::vector<Vector3> VerletCloth::getNormals() const
 {
 	std::vector<Vector3> normals(particles.size(), Vector3(0,0,0));
 
-	forEachTriangle([&](ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
+	forEachTriangle([&](const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
 		{
-			Vector3 n = getTriangleNormal(p1, p2, p3);
+			Vector3 n = getTriangleNormal(const p1, const p2, const p3);
 
 			int i1 = getParticleIndex(p1);
 			int i2 = getParticleIndex(p2);
@@ -151,6 +157,27 @@ std::vector<Vector3> VerletCloth::getNormals()
 			normals[i3] += n;
 		});
 
+	for (auto& n : normals)
+		n.normalize();
 
+	return normals;
+}
+
+const real VerletCloth::minX()
+{
+	return TopLeftCornerPos.x;
+}
+
+const real VerletCloth::maxX()
+{
+	return TopLeftCornerPos.x + width;
+}
+
+const int VerletCloth::getWidthCount() const{ return particles_width;  }
+const int VerletCloth::getHeightCount() const{ return particles_height; }
+
+const std::vector<ClothParticle> VerletCloth::getParticles() const
+{
+	return particles;
 }
 

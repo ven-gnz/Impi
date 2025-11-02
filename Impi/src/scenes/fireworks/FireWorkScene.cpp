@@ -154,7 +154,7 @@ void FireWorkScene::upstream_renderbuffer()
 void FireWorkScene::draw(Renderer& renderer, Camera& camera)
 {
     renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
-    shader.use(); 
+    shader.use();
 
     //view_UBO_Debug_Data();
     fill_renderbuffer();

@@ -165,7 +165,7 @@
     <ClCompile Include="src\rendering\core\ViewPort.h" />
     <ClCompile Include="src\rendering\core\ViewUniforms.h" />
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
-    <ClCompile Include="src\scenes\cloth\ClothScene.cpp" />
+    <ClCompile Include="src\scenes\clothscene\ClothScene.cpp" />
     <ClCompile Include="src\scenes\fireworks\FireWorkScene.cpp" />
     <ClCompile Include="src\scenes\ropescene\RopeScene.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
@@ -194,7 +194,7 @@
     <ClInclude Include="src\rendering\core\Renderer.h" />
     <ClInclude Include="src\rendering\core\Shader.h" />
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
-    <ClInclude Include="src\scenes\cloth\ClothScene.h" />
+    <ClInclude Include="src\scenes\clothscene\ClothScene.h" />
     <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />
     <ClInclude Include="src\scenes\ropescene\RopeScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />
