@@ -10,6 +10,7 @@
 #include "scenes/ballistics/Ballistics.h"
 #include "scenes/fireworks/FireWorkScene.h"
 #include "scenes/ropescene/RopeScene.h"
+#include "scenes/clothscene/ClothScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <rendering/core/Renderer.h>
@@ -89,6 +90,7 @@ int main(void)
     Ballistics ballistics(camera);
     FireWorkScene firework(camera);
     RopeScene rop(camera);
+    ClothScene cl(camera, 300, 300);
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
@@ -120,11 +122,11 @@ int main(void)
         ImGui::Begin("UI Test");
         ImGui::Text("Current Scene : %s", typeid(*current_scene).name());
 
-        if (ImGui::Button("Switch to Ballistics")) {
+        if (ImGui::Button("Ballistics")) {
             current_scene = &ballistics;
             current_scene->onActivate();
         }
-        if (ImGui::Button("Switch to Fireworks")) {
+        if (ImGui::Button("Fireworks")) {
             current_scene = &firework;
             current_scene->onActivate();
         }
@@ -133,6 +135,12 @@ int main(void)
             current_scene = &rop;
             current_scene->onActivate();
         }
+
+        //if (ImGui::Button("Cloth")) {
+        //    current_scene = &cl;
+        //    current_scene->onActivate();
+        //}
+        
 
         ImGui::Separator();
         

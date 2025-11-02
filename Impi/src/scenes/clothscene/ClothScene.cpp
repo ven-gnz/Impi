@@ -13,6 +13,7 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 		cloth(clothWidth, clothHeight, 55, 45, Vector3(-15, 10, 0)),
 		windForce(2,3,0)
 {
+	std::cout << "Constructor reached" << std::endl;
 	shader.use();
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
 	indices = calculate_indices(cloth);
@@ -79,7 +80,6 @@ void ClothScene::fill_renderbuffer()
 
 	const auto& parts = cloth.getParticles();
 	const auto  normals = cloth.getNormals();
-
 
 	renderableVertices.resize(cloth.getParticles().size());
 

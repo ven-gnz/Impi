@@ -41,8 +41,8 @@ void RopeScene::update(real dt)
     scene_gravity.updateForce(&sphere, dt);
     from_cube_to_sphere.updateForce(&sphere, dt);
 
-    std::cout << "sphere velocity ";
-    std::cout << sphere.getVelocity().x << sphere.getVelocity().y << sphere.getVelocity().z << std::endl;
+    //std::cout << "sphere velocity ";
+    //std::cout << sphere.getVelocity().x << sphere.getVelocity().y << sphere.getVelocity().z << std::endl;
 
     sphere.integrate(dt);
    
