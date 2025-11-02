@@ -29,10 +29,11 @@ class ClothScene : public Scene
 public:
 
 	std::vector<GLuint> indices;
+	std::vector<GLuint> calculate_indices(const VerletCloth& verletCloth);
 
 	ClothScene(Camera& camera, real clothWidth, real clothHeight);
 
-	void setClothColors(Vector3 color1, Vector3 color2);
+	//void setClothColors(Vector3 color1, Vector3 color2);
 
 	void init_datastream();
 
@@ -43,8 +44,6 @@ public:
 	void update(real dt) override;
 
 	void draw(Renderer& renderer, Camera& camera) override;
-
-	std::vector<GLuint> calculate_indices(const VerletCloth& verletCloth);
 
 	Vector3 windForce;
 

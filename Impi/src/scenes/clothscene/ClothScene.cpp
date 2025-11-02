@@ -1,5 +1,7 @@
 #include <src/scenes/clothscene/ClothScene.h>
 
+
+
 ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 	: Scene("ClothScene",
 		camera,
@@ -15,6 +17,29 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
 	indices = calculate_indices(cloth);
 	init_datastream();
+}
+
+
+std::vector<GLuint> ClothScene::calculate_indices(const VerletCloth& cloth)
+{
+
+	std::vector<GLuint> indices;
+	indices.reserve((cloth.getWidthCount() - 1) * (cloth.getHeightCount() - 1) * 6);
+
+
+	cloth.forEachTriangle([&](const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
+		{
+
+			int i1 = cloth.getParticleIndex(p1);
+			int i2 = cloth.getParticleIndex(p2);
+			int i3 = cloth.getParticleIndex(p3);
+
+			indices.push_back(static_cast<GLuint>(i1));
+			indices.push_back(static_cast<GLuint>(i2));
+			indices.push_back(static_cast<GLuint>(i3));
+		});
+
+	return indices;
 }
 
 void ClothScene::init_datastream()
@@ -46,27 +71,7 @@ void ClothScene::init_datastream()
 }
 
 
-std::vector<GLuint> calculate_indices(const VerletCloth& cloth)
-{
 
-	std::vector<GLuint> indices;
-	indices.reserve((cloth.getWidthCount() - 1) * (cloth.getHeightCount() - 1) * 6);
-
-
-	cloth.forEachTriangle([&](const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
-		{
-			
-			int i1 = cloth.getParticleIndex(p1);
-			int i2 = cloth.getParticleIndex(p2);
-			int i3 = cloth.getParticleIndex(p3);
-
-			indices.push_back(static_cast<GLuint>(i1));
-			indices.push_back(static_cast<GLuint>(i2));
-			indices.push_back(static_cast<GLuint>(i3));
-		});
-
-	return indices;
-}
 
 
 void ClothScene::fill_renderbuffer()

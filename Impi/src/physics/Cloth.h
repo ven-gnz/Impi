@@ -42,7 +42,7 @@ public:
 
 	void addToConstraints(ClothParticle* p1, ClothParticle* p2);
 
-	Vector3 getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3);
+	Vector3 getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3) const;
 
 	void updateClothParticles(real dt);
 

@@ -53,7 +53,7 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 
 }
 
-Vector3 VerletCloth::getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
+Vector3 VerletCloth::getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3) const
 {
 
 	Vector3 pos1 = p1->getPosition();
@@ -146,7 +146,7 @@ std::vector<Vector3> VerletCloth::getNormals() const
 
 	forEachTriangle([&](const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
 		{
-			Vector3 n = getTriangleNormal(const p1, const p2, const p3);
+			Vector3 n = getTriangleNormal(p1, p2, p3);
 
 			int i1 = getParticleIndex(p1);
 			int i2 = getParticleIndex(p2);
