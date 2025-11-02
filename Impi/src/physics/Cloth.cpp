@@ -45,12 +45,11 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 		}
 	}
 
-	// anchoring the topleft and bottom left corners
-	for (int y = 0; y < 5; y++)
-	{
-		getParticle(0 + y, 0)->immobilise();
-		getParticle(0, num_particles_height - 1 - y)->immobilise();
-	}
+	for (int x = 0; x < std::min(3, particles_width); x++)
+		getParticle(x, 0)->immobilise();
+
+	for (int y = 0; y < std::min(3, particles_height); y++)
+		getParticle(0, y)->immobilise();
 
 }
 

@@ -10,8 +10,8 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 		nullptr), 
 		clothWidth(clothWidth), 
 		clothHeight(clothHeight),
-		cloth(clothWidth, clothHeight, 14, 10, Vector3(-15, 10, 0)),
-		windForce(2,3,0)
+		cloth(clothWidth, clothHeight, 14, 10, Vector3(-30, 20, 0)),
+		windForce(0.1,0.2,0)
 {
 	shader.use();
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
@@ -129,7 +129,7 @@ void ClothScene::upstream_renderbuffer()
 void ClothScene::update(real dt)
 {
 	cloth.addDottedForce(windForce);
-	cloth.addForceToCloth(Vector3(0, -9.8, 0));
+	// cloth.addForceToCloth(Vector3(0, -9.8, 0));
 	cloth.updateClothParticles(dt);
 }
 
