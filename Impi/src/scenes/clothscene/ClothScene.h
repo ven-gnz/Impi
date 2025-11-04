@@ -33,8 +33,6 @@ public:
 
 	ClothScene(Camera& camera, real clothWidth, real clothHeight);
 
-	//void setClothColors(Vector3 color1, Vector3 color2);
-
 	void init_datastream();
 
 	void fill_renderbuffer();

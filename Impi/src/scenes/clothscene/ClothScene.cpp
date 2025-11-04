@@ -17,6 +17,10 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
 	indices = calculate_indices(cloth);
 	init_datastream();
+
+	auto* p = cloth.getParticle(0, 0);
+	std::cout << "First particle: pos=" << p->getPosition().x << ", "
+		<< p->getPosition().y << ", mass=" << 1.0f / p->getMass() << std::endl;
 }
 
 
@@ -129,7 +133,7 @@ void ClothScene::upstream_renderbuffer()
 void ClothScene::update(real dt)
 {
 	cloth.addDottedForce(windForce);
-	// cloth.addForceToCloth(Vector3(0, -9.8, 0));
+	cloth.addForceToCloth(Vector3(0, -0.2, 0));
 	cloth.updateClothParticles(dt);
 }
 

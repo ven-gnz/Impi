@@ -1,5 +1,6 @@
 #include "Cloth.h"
 #include "assert.h"
+#include "iostream"
 
 VerletCloth::VerletCloth(real width, real height, int num_particles_width, int num_particles_height,Vector3 TopLeftCornerPos)
 	: width(width),height(height), particles_width(num_particles_width), particles_height(num_particles_height), TopLeftCornerPos(TopLeftCornerPos)
@@ -51,6 +52,8 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 	for (int y = 0; y < std::min(3, particles_height); y++)
 		getParticle(0, y)->immobilise();
 
+
+
 }
 
 Vector3 VerletCloth::getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3) const
@@ -91,14 +94,14 @@ const ClothParticle* VerletCloth::getParticle(int x, int y) const
 
 void VerletCloth::updateClothParticles(real dt)
 {
-
+	std::cout << "First particle" << particles[0].getPosition().x << particles[0].getPosition().y << particles[0].getPosition().z;
 	std::vector<Constraint>::iterator constraint;
 
 	for (int i = 0; i < constraint_iterations; i++)
 	{
 		for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
 		{
-			(*constraint).SatisfyConstraint(); 
+			(*constraint).SatisfyConstraint();
 		}
 	}
 

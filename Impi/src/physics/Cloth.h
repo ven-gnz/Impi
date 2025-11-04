@@ -12,7 +12,7 @@ class VerletCloth
 	real width;
 	real height;
 
-	const int constraint_iterations = 10;
+	const int constraint_iterations = 15;
 
 	std::vector<ClothParticle> particles;
 	std::vector<Constraint> constraints;

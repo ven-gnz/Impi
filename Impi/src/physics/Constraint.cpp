@@ -15,6 +15,6 @@ void Constraint::SatisfyConstraint()
 	
 	Vector3 halfOfCorrDifV = correctingDifferenceVector * 0.5;
 	p1->setPosition(p1->getPosition() + halfOfCorrDifV);
-	p2->setPosition(p2->getPosition() + halfOfCorrDifV);
+	p2->setPosition(p2->getPosition() - halfOfCorrDifV);
 
 }
