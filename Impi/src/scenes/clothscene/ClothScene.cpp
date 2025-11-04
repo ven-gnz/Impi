@@ -11,16 +11,13 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 		clothWidth(clothWidth), 
 		clothHeight(clothHeight),
 		cloth(clothWidth, clothHeight, 14, 10, Vector3(-30, 20, 0)),
-		windForce(0.1,0.2,0)
+		windForce(-5,0,1)
 {
 	shader.use();
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
 	indices = calculate_indices(cloth);
 	init_datastream();
-
-	auto* p = cloth.getParticle(0, 0);
-	std::cout << "First particle: pos=" << p->getPosition().x << ", "
-		<< p->getPosition().y << ", mass=" << 1.0f / p->getMass() << std::endl;
+	
 }
 
 
@@ -29,7 +26,6 @@ std::vector<GLuint> ClothScene::calculate_indices(const VerletCloth& cloth)
 
 	std::vector<GLuint> indices;
 	indices.reserve((cloth.getWidthCount() - 1) * (cloth.getHeightCount() - 1) * 6);
-
 
 	cloth.forEachTriangle([&](const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3)
 		{
@@ -132,8 +128,11 @@ void ClothScene::upstream_renderbuffer()
 
 void ClothScene::update(real dt)
 {
+	windForce.y += glm::sin(dt) * 5;
+	windForce.x += glm::sin(dt) * 5;
+
 	cloth.addDottedForce(windForce);
-	cloth.addForceToCloth(Vector3(0, -0.2, 0));
+	cloth.addForceToCloth(Vector3(0, -9.8, 0));
 	cloth.updateClothParticles(dt);
 }
 

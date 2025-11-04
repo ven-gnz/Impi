@@ -46,11 +46,14 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 		}
 	}
 
-	for (int x = 0; x < std::min(3, particles_width); x++)
-		getParticle(x, 0)->immobilise();
-
-	for (int y = 0; y < std::min(3, particles_height); y++)
+	for (int y = 0; y < particles_height; y++)
+	{
 		getParticle(0, y)->immobilise();
+		getParticle(1, y)->immobilise();
+		getParticle(2, y)->immobilise();
+	}
+
+
 
 
 
@@ -94,7 +97,13 @@ const ClothParticle* VerletCloth::getParticle(int x, int y) const
 
 void VerletCloth::updateClothParticles(real dt)
 {
-	std::cout << "First particle" << particles[0].getPosition().x << particles[0].getPosition().y << particles[0].getPosition().z;
+
+	std::vector<ClothParticle>::iterator particle;
+	for (particle = particles.begin(); particle != particles.end(); particle++)
+	{
+		(*particle).integrate(dt); // calculate the position of each particle at the next time step.
+	}
+
 	std::vector<Constraint>::iterator constraint;
 
 	for (int i = 0; i < constraint_iterations; i++)
@@ -103,12 +112,6 @@ void VerletCloth::updateClothParticles(real dt)
 		{
 			(*constraint).SatisfyConstraint();
 		}
-	}
-
-	std::vector<ClothParticle>::iterator particle;
-	for (particle = particles.begin(); particle != particles.end(); particle++)
-	{
-		(*particle).integrate(dt); // calculate the position of each particle at the next time step.
 	}
 
 }
@@ -120,6 +123,7 @@ void VerletCloth::addDottedForce(const Vector3& forceDirection)
 			Vector3 normal = getTriangleNormal(p1, p2, p3);
 
 			Vector3 force = normal * (normal.normalized().dot(forceDirection));
+			if (p1->movable)
 			p1->addForce(force);
 			p2->addForce(force);
 			p3->addForce(force);
