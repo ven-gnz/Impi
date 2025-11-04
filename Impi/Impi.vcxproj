@@ -156,6 +156,7 @@
     <ClCompile Include="src\physics\ParticleForceGenerators.cpp" />
     <ClCompile Include="src\physics\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\physics\ParticleLinks.cpp" />
+    <ClCompile Include="src\physics\ParticleWorld.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Camera.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\physics\ParticleForceGenerators.h" />
     <ClInclude Include="src\physics\ParticleForceRegistry.h" />
     <ClInclude Include="src\physics\ParticleLinks.h" />
+    <ClInclude Include="src\physics\ParticleWorld.h" />
     <ClInclude Include="src\Precision.h" />
     <ClInclude Include="src\math\random.h" />
     <ClInclude Include="src\math\Vector3.h" />

@@ -16,6 +16,7 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 				-height * (y / (float)num_particles_height),
 				0);
 			pos += TopLeftCornerPos;
+			initialPositions.push_back(pos);
 			particles[y * num_particles_width + x] = ClothParticle(pos);
 		}
 	}
@@ -46,17 +47,17 @@ VerletCloth::VerletCloth(real width, real height, int num_particles_width, int n
 		}
 	}
 
-	for (int y = 0; y < particles_height; y++)
+
+
+}
+
+
+void VerletCloth::returnToStartingPositions()
+{
+	for (int i = 0; i < particles.size(); i++)
 	{
-		getParticle(0, y)->immobilise();
-		getParticle(1, y)->immobilise();
-		getParticle(2, y)->immobilise();
+		particles[i].setPosition(initialPositions[i]);
 	}
-
-
-
-
-
 }
 
 Vector3 VerletCloth::getTriangleNormal(const ClothParticle* p1, const ClothParticle* p2, const ClothParticle* p3) const
@@ -121,12 +122,10 @@ void VerletCloth::addDottedForce(const Vector3& forceDirection)
 	mutateEachTriangle([&](ClothParticle* p1, ClothParticle* p2, ClothParticle* p3)
 		{
 			Vector3 normal = getTriangleNormal(p1, p2, p3);
-
 			Vector3 force = normal * (normal.normalized().dot(forceDirection));
-			if (p1->movable)
-			p1->addForce(force);
-			p2->addForce(force);
-			p3->addForce(force);
+			if (p1->isMovable()) p1->addForce(force);
+			if (p2->isMovable()) p2->addForce(force);
+			if (p3->isMovable()) p3->addForce(force);
 		});
 }
 
@@ -134,7 +133,7 @@ void VerletCloth::addForceToCloth(Vector3 force)
 {
 	for (auto &p : particles)
 	{
-		p.addForce(force);
+		if (p.isMovable()) p.addForce(force);
 	}
 }
 

@@ -32,6 +32,7 @@ void Particle::integrate(real duration)
 
 void Particle::addForce(const Vector3& force)
 {
+
 	accumulatedForce += force;
 }
 

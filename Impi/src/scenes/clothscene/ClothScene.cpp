@@ -10,8 +10,8 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 		nullptr), 
 		clothWidth(clothWidth), 
 		clothHeight(clothHeight),
-		cloth(clothWidth, clothHeight, 14, 10, Vector3(-30, 20, 0)),
-		windForce(-5,0,1)
+		cloth(clothWidth, clothHeight, 14, 10, Vector3(-30, -15, 0)),
+		windForce(-1,1,-1)
 {
 	shader.use();
 	renderableVertices.reserve(sizeof(RenderableClothVertex) * cloth.getVertices().size());
@@ -74,7 +74,8 @@ void ClothScene::init_datastream()
 void ClothScene::onActivate()
 {
 	Scene::onActivate();
-
+	
+	cloth.returnToStartingPositions();
 	camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
 	//std::cout << camera.Position.z << "camera z";
 
@@ -128,8 +129,9 @@ void ClothScene::upstream_renderbuffer()
 
 void ClothScene::update(real dt)
 {
-	windForce.y += glm::sin(dt) * 5;
-	windForce.x += glm::sin(dt) * 5;
+	windForce.y += glm::sin(dt) * 2;
+	windForce.x += glm::sin(dt) * 2;
+	windForce.z -= glm::sin(dt) * 2;
 
 	cloth.addDottedForce(windForce);
 	cloth.addForceToCloth(Vector3(0, -9.8, 0));

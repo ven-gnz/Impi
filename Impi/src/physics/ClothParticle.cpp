@@ -22,5 +22,6 @@
 
 
 	void ClothParticle::immobilise() { movable = false; }
+	bool ClothParticle::isMovable() { return movable; }
 
 	

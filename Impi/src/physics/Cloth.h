@@ -17,6 +17,8 @@ class VerletCloth
 	std::vector<ClothParticle> particles;
 	std::vector<Constraint> constraints;
 
+	std::vector<Vector3> initialPositions;
+
 	Vector3 TopLeftCornerPos;
 	
 
@@ -47,6 +49,8 @@ public:
 	void updateClothParticles(real dt);
 
 	const std::vector<ClothParticle> getParticles() const;
+
+	void returnToStartingPositions();
 
 	/**
 	* Adds a per triangle force for the cloth
