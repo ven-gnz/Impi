@@ -1,6 +1,11 @@
 #pragma once
 #include "Particle.h"
 
+
+namespace Impi
+{
+
+
 class ParticleContactResolver;
 
 class ParticleContact
@@ -44,3 +49,13 @@ public:
 	void resolveContacts(ParticleContact* contactArray, unsigned numContacs, real duration);
 
 };
+
+class ParticleContactGenerator
+{
+
+public:
+
+	virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
+};
+
+}

@@ -5,7 +5,7 @@
 
 class ParticleForceRegistry
 {
-protected:
+public:
 
 	struct ParticleForceRegistration
 	{
