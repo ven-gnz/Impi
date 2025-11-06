@@ -40,7 +40,7 @@ namespace Impi {
 
 		ParticleRegistration* firstParticle;
 
-		void startFrame();
+	
 
 	public:
 		ParticleWorld(unsigned maxContacts, unsigned iterations = 0);
@@ -48,8 +48,6 @@ namespace Impi {
 		unsigned generateContacts();
 
 		void integrate(real duration);
-
-		void runPhysics(real duration);
 
 		void startFrame();
 
