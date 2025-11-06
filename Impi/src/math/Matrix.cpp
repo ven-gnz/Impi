@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include "Quaternion.h"
+
 
 using namespace Impi;
 
@@ -22,6 +22,29 @@ Matrix3::Matrix3()
     data[6] = data[7] = data[8] = 0;
 }
 
+Matrix3::Matrix3(const Vector3& compOne, const Vector3& compTwo,
+	const Vector3& compThree)
+{
+	setComponents(compOne, compTwo, compThree);
+}
+
+
+
+void Matrix3::setComponents(const Vector3& compOne, const Vector3& compTwo,
+	const Vector3& compThree)
+{
+	data[0] = compOne.x;
+	data[1] = compTwo.x;
+	data[2] = compThree.x;
+	data[3] = compOne.y;
+	data[4] = compTwo.y;
+	data[5] = compThree.y;
+	data[6] = compOne.z;
+	data[7] = compTwo.z;
+	data[8] = compThree.z;
+
+}
+
 
 Matrix3 Matrix3::operator*(const Matrix3& o)
 {
@@ -38,6 +61,41 @@ Matrix3 Matrix3::operator*(const Matrix3& o)
 			data[6] * o.data[2] + data[7] * o.data[5] + data[8] * o.data[8]
 		);
 	
+}
+
+void Matrix3::operator*=(const Matrix3& o)
+{
+	real t1;
+	real t2;
+	real t3;
+
+	t1 = data[0] * o.data[0] + data[1] * o.data[3] + data[2] * o.data[6];
+	t2 = data[0] * o.data[1] + data[1] * o.data[4] + data[2] * o.data[7];
+	t3 = data[0] * o.data[2] + data[1] * o.data[5] + data[2] * o.data[8];
+	data[0] = t1;
+	data[1] = t2;
+	data[2] = t3;
+
+	t1 = data[3] * o.data[0] + data[4] * o.data[3] + data[5] * o.data[6];
+	t2 = data[3] * o.data[1] + data[4] * o.data[4] + data[5] * o.data[7];
+	t3 = data[3] * o.data[2] + data[4] * o.data[5] + data[5] * o.data[8];
+	data[3] = t1;
+	data[4] = t2;
+	data[5] = t3;
+
+	t1 = data[6] * o.data[0] + data[7] * o.data[3] + data[8] * o.data[6];
+	t2 = data[6] * o.data[1] + data[7] * o.data[4] + data[8] * o.data[7];
+	t3 = data[6] * o.data[2] + data[7] * o.data[5] + data[8] * o.data[8];
+	data[6] = t1;
+	data[7] = t2;
+	data[8] = t3;
+}
+
+void Matrix3::operator+=(const Matrix3& o)
+{
+	data[0] += o.data[0]; data[1] += o.data[1]; data[2] += o.data[2];
+	data[3] += o.data[3]; data[4] += o.data[4]; data[5] += o.data[5];
+	data[6] += o.data[6]; data[7] += o.data[7]; data[8] += o.data[8];
 }
 
 Matrix3 Matrix3::inverse() const
@@ -102,6 +160,19 @@ Matrix3 Matrix3::transpose() const
 	Matrix3 result;
 	result.setTranspose(*this);
 	return result;
+}
+
+void Matrix3::setOrientation(const Quaternion& q)
+{
+	data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
+	data[1] = 2 * q.i * q.j + 2 * q.k * q.r;
+	data[2] = 2 * q.i * q.k - 2 * q.j * q.r;
+	data[3] = 2 * q.i * q.j - 2 * q.k * q.r;
+	data[4] = 1 - (2 * q.i * q.i + 2 * q.k * q.k);
+	data[5] = 2 * q.j * q.k + 2 * q.i * q.r;
+	data[6] = 2 * q.i * q.k + 2 * q.j * q.r;
+	data[7] = 2 * q.j * q.k - 2 * q.i * q.r;
+	data[8] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
 }
 
 
@@ -262,4 +333,65 @@ void Matrix4::fillGLArray(float array[16]) const
 		array[14] = (float)data[11];
 		array[15] = (float)1;
 	}
+}
+
+void Matrix4::setOrientationAndPos(const Quaternion& q, const Vector3& pos)
+{
+	
+		data[0] = 1 - (2 * q.j * q.j + 2 * q.k * q.k);
+		data[1] = 2 * q.i * q.j + 2 * q.k * q.r;
+		data[2] = 2 * q.i * q.k - 2 * q.j * q.r;
+		data[3] = pos.x;
+		data[4] = 2 * q.i * q.j - 2 * q.k * q.r;
+		data[5] = 1 - (2 * q.i * q.i + 2 * q.k * q.k);
+		data[6] = 2 * q.j * q.k + 2 * q.i * q.r;
+		data[7] = pos.y;
+		data[8] = 2 * q.i * q.k + 2 * q.j * q.r;
+		data[9] = 2 * q.j * q.k - 2 * q.i * q.r;
+		data[10] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
+		data[11] = pos.z;
+	
+}
+
+Vector3 Matrix4::transformDirection(const Vector3& vector) const
+{
+	return Vector3(
+		vector.x * data[0] +
+		vector.y * data[1] +
+		vector.z * data[2],
+		vector.x * data[4] +
+		vector.y * data[5] +
+		vector.z * data[6],
+		vector.x * data[8] +
+		vector.y * data[9] +
+		vector.z * data[10]
+	);
+}
+
+Vector3 Matrix4::transformInverse(const Vector3& vector) const
+{
+	Vector3 tmp = vector;
+	tmp.x -= data[3];
+	tmp.y -= data[7];
+	tmp.z -= data[11];
+	return Vector3(
+		tmp.x * data[0] +
+		tmp.y * data[4] +
+		tmp.z * data[8],
+		tmp.x * data[1] +
+		tmp.y * data[5] +
+		tmp.z * data[9],
+		tmp.x * data[2] +
+		tmp.y * data[6] +
+		tmp.z * data[10]
+	);
+}
+
+Vector3 Matrix4::localToWorldDirection(const Vector3& local, const Matrix4& transform)
+{
+	return transform.transformDirection(local);
+}
+Vector3 Matrix4::worldToLocalDirection(const Vector3& world, const Matrix4& transform)
+{
+	return transform.transformInverse(world);
 }

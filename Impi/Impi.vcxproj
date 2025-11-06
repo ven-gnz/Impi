@@ -146,6 +146,7 @@
     <ClCompile Include="includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="includes\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\math\Matrix.cpp" />
+    <ClCompile Include="src\math\Quaternion.cpp" />
     <ClCompile Include="src\physics\Cloth.cpp" />
     <ClCompile Include="src\physics\ClothParticle.cpp" />
     <ClCompile Include="src\physics\Constraint.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="includes\glad\gl.h" />
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="src\math\Matrix.h" />
+    <ClInclude Include="src\math\Quaternion.h" />
     <ClInclude Include="src\physics\Cloth.h" />
     <ClInclude Include="src\physics\ClothParticle.h" />
     <ClInclude Include="src\physics\Constraint.h" />

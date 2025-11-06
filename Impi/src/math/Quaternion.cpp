@@ -2,6 +2,9 @@
 
 using namespace Impi;
 
+Quaternion::Quaternion() : r(1), i(0), j(0), k(0) { }
+
+
 Quaternion::Quaternion(const real r, const real i, const real j, const real k)
     : r(r), i(i), j(j), k(k)
 {}

@@ -28,10 +28,23 @@ namespace Impi
 		Matrix3(const Vector3& compOne, const Vector3& compTwo,
 			const Vector3& compThree);
 
+		void setComponents(const Vector3& compOne, const Vector3& compTwo,
+			const Vector3& compThree);
+
 		Matrix3(real c0, real c1, real c2, real c3, real c4, real c5,
 			real c6, real c7, real c8);
 
+		/**
+		* Get the new multiplied matrix
+		*/
 		Matrix3 operator*(const Matrix3& o);
+
+
+		void operator+=(const Matrix3& o);
+
+		/** In place matrix multiply
+		*/
+		void operator*=(const Matrix3& o);
 
 		Matrix3 inverse() const;
 
@@ -45,6 +58,8 @@ namespace Impi
 
 		void setTranspose(const Matrix3& m);
 		Matrix3 transpose() const;
+
+		void setOrientation(const Quaternion& q);
 
 
 
@@ -82,6 +97,10 @@ public:
 	
 	void setInverse(const Matrix4& m);
 
+	Vector3 transformInverse(const Vector3& vector) const;
+
+	Vector3 transformDirection(const Vector3& vector) const;
+
 	Matrix4 inverse() const;
 
 	void invert();
@@ -91,7 +110,14 @@ public:
 
 	std::array<float, 16> getGLarray();
 
-	
+	void setOrientationAndPos(const Quaternion& q, const Vector3& pos);
+
+	Vector3 transformDirection(const Vector3& vector) const;
+
+	Vector3 localToWorldDirection(const Vector3& local, const Matrix4& transform);
+	Vector3 worldToLocalDirection(const Vector3& world, const Matrix4& transform);
+
+
 };
 
 }                                                                                                
