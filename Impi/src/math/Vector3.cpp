@@ -10,8 +10,7 @@ using namespace Impi;
 						const real z) : x(x), y(y), z(z), pad(0) { }
 
 	
-			// SIVUVAIKUTUKSELLISET
-			// Skalaaritulo
+	
 			void Vector3::operator*=(const real value)
 			{
 				x *= value;
@@ -47,7 +46,6 @@ using namespace Impi;
 				z *= vec.z;
 			}
 
-			//UUDEN VEKTORIN PALAUTTAVAT
 
 			Vector3 Vector3::operator+(const Vector3& v) const
 			{
@@ -64,8 +62,6 @@ using namespace Impi;
 				return Vector3(x - v.x, y - v.y, z - v.z);
 			}
 
-
-			// TULOT
 		
 			Vector3 Vector3::componentProduct(const Vector3& vec) const
 			{
@@ -94,8 +90,6 @@ using namespace Impi;
 				*this = cross(vector);
 			}
 			
-
-			// NORMIT
 
 			void Vector3::invert()
 			{
