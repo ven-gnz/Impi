@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include "Quaternion.h"
 
 using namespace Impi;
 

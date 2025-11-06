@@ -1,6 +1,7 @@
 #pragma once
 #include "Precision.h"
 #include "Vector3.h"
+#include "Quaternion.h"
 #include <array>
 
 namespace Impi
