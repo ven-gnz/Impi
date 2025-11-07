@@ -178,3 +178,26 @@ bool RigidBody::hasFiniteMass()
 {
     return inverseMass > 0.0f;
 }
+
+void RigidBody::integrate(real dt)
+{
+
+    lastFrameAcceleration = acceleration;
+    lastFrameAcceleration.addScaledVector(forceAccum, inverseMass);
+
+    Vector3 angularAcceleration = inverseInertiaTensorWorld.transform(torqueAccum);
+
+    velocity.addScaledVector(lastFrameAcceleration, dt);
+    rotation.addScaledVector(angularAcceleration, dt);
+
+    velocity *= real_pow(linearDamping, dt);
+    rotation *= real_pow(angularDamping, dt);
+
+    position.addScaledVector(velocity, dt);
+    orientation.addScaledVector(rotation, dt);
+
+    // normalize orientation and update matrixes, important!
+    calculateDerivedData();
+
+    clearAccumulators();
+}

@@ -61,7 +61,8 @@ namespace Impi
 
 		void setOrientation(const Quaternion& q);
 
-
+		Vector3 transform(const Vector3& vector) const;
+		Vector3 operator*(const Vector3& vector) const;
 
 	
 	};
@@ -116,6 +117,8 @@ public:
 
 	Vector3 localToWorldDirection(const Vector3& local, const Matrix4& transform);
 	Vector3 worldToLocalDirection(const Vector3& world, const Matrix4& transform);
+
+
 
 
 };

@@ -175,6 +175,20 @@ void Matrix3::setOrientation(const Quaternion& q)
 	data[8] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
 }
 
+Vector3 Matrix3::transform(const Vector3& vector) const
+{
+	return (*this) * vector;
+}
+
+Vector3 Matrix3::operator*(const Vector3& vector) const
+{
+	return Vector3(
+		vector.x * data[0] + vector.y * data[1] + vector.z * data[2],
+		vector.x * data[3] + vector.y * data[4] + vector.z * data[5],
+		vector.x * data[6] + vector.y * data[7] + vector.z * data[8]
+	);
+}
+
 
 
 
@@ -395,3 +409,4 @@ Vector3 Matrix4::worldToLocalDirection(const Vector3& world, const Matrix4& tran
 {
 	return transform.transformInverse(world);
 }
+
