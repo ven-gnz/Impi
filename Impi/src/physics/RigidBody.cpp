@@ -108,6 +108,22 @@ static inline void _transformInertiaTensor(Matrix3& iitWorld,
         t62 * rotmat.data[10];
 }
 
+Vector3 RigidBody::getPointInLocalSpace(const Vector3& point) const
+{
+    return transformMatrix.transformInverse(point);
+}
+
+Vector3 RigidBody::getPointInWorldSpace(const Vector3& point) const
+{
+    return transformMatrix.transform(point);
+}
+
+void RigidBody::integrate(real dt)
+{
+    
+   
+}
+
 
 
 void RigidBody::calculateDerivedData()
@@ -131,6 +147,18 @@ void RigidBody::addTorque(const Vector3& torque)
     torqueAccum += torque;
 }
 
+void RigidBody::clearAccumulators() {
+    
+    forceAccum = Vector3(0, 0, 0);
+    torqueAccum = Vector3(0, 0, 0);
+}
+
+void RigidBody::addForceAtBodyPoint(const Vector3& force, const Vector3& point)
+{
+    Vector3 pt = getPointInWorldSpace(point);
+    addForceAtPoint(force, pt);
+}
+
 void RigidBody::addForceAtPoint(const Vector3& force, const Vector3& point)
 {
     Vector3 pt = point;
@@ -140,3 +168,4 @@ void RigidBody::addForceAtPoint(const Vector3& force, const Vector3& point)
     torqueAccum += pt.cross(force);
 
 }
+

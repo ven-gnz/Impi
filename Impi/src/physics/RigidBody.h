@@ -24,6 +24,10 @@ namespace Impi
 
 		Quaternion orientation;
 
+		Vector3 acceleration;
+
+		Vector3 lastFrameAcceleration;
+
 		Vector3 velocity;
 
 		Vector3 rotation;
@@ -34,9 +38,16 @@ namespace Impi
 
 		Matrix4 transformMatrix;
 
+		
+
 	public:
 
+		Vector3 getPointInLocalSpace(const Vector3& point) const;
+		Vector3 getPointInWorldSpace(const Vector3& point) const;
+
 		void calculateDerivedData();
+
+		void integrate(real dt);
 
 		Matrix3 inverseInertiaTensor;
 
@@ -46,16 +57,18 @@ namespace Impi
 
 		void addForce(const Vector3& force);
 
-		void addForce();
-
 		void addTorque(const Vector3& torque);
 
 		void clearAccumulators();
+
+		void addForceAtBodyPoint(const Vector3& force, const Vector3& point);
 
 		/**
 		* Adds a give force to a given point, both in world space.
 		*/
 		void addForceAtPoint(const Vector3& force, const Vector3& point);
+
+
 
 	};
 
