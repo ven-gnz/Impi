@@ -169,3 +169,12 @@ void RigidBody::addForceAtPoint(const Vector3& force, const Vector3& point)
 
 }
 
+real RigidBody::getMass()
+{
+    return inverseMass;
+}
+
+bool RigidBody::hasFiniteMass()
+{
+    return inverseMass > 0.0f;
+}

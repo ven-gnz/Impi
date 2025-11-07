@@ -68,6 +68,10 @@ namespace Impi
 		*/
 		void addForceAtPoint(const Vector3& force, const Vector3& point);
 
+		bool hasFiniteMass();
+
+		real getMass();
+
 
 
 	};
