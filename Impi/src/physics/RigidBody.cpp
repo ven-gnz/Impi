@@ -114,3 +114,29 @@ void RigidBody::calculateDerivedData()
 {
     _calculateTransformMatrix(transformMatrix, position, orientation);
 }
+
+void RigidBody::setInertiaTensor(const Matrix3& inertiatensor)
+{
+    inverseInertiaTensor.setInverse(inertiatensor);
+    
+}
+
+void RigidBody::addForce(const Vector3& force)
+{
+    forceAccum += force;
+}
+
+void RigidBody::addTorque(const Vector3& torque)
+{
+    torqueAccum += torque;
+}
+
+void RigidBody::addForceAtPoint(const Vector3& force, const Vector3& point)
+{
+    Vector3 pt = point;
+    pt -= position;
+
+    forceAccum += force;
+    torqueAccum += pt.cross(force);
+
+}
