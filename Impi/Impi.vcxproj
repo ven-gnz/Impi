@@ -172,6 +172,7 @@
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp" />
     <ClCompile Include="src\scenes\clothscene\ClothScene.cpp" />
     <ClCompile Include="src\scenes\fireworks\FireWorkScene.cpp" />
+    <ClCompile Include="src\scenes\mobile\MobileScene.cpp" />
     <ClCompile Include="src\scenes\ropescene\RopeScene.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
   </ItemGroup>
@@ -206,6 +207,7 @@
     <ClInclude Include="src\scenes\ballistics\Ballistics.h" />
     <ClInclude Include="src\scenes\clothscene\ClothScene.h" />
     <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />
+    <ClInclude Include="src\scenes\mobile\MobileScene.h" />
     <ClInclude Include="src\scenes\ropescene\RopeScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />
   </ItemGroup>

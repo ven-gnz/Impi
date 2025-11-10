@@ -17,9 +17,9 @@ class MobileScene : public Scene
 	Vector3 mobile2_offset;
 	Vector3 center_to_2offset;
 
-	RigidBody centerpiece;
-	RigidBody attachment1;
-	RigidBody attachment2;
+	RigidBody* centerpiece;
+	RigidBody* attachment1;
+	RigidBody* attachment2;
 
 	real defaultSpringConstant;
 	real defaultRestLength;
@@ -31,8 +31,8 @@ class MobileScene : public Scene
 
 public:
 
-	Spring from_center_to_attach1;
-	Spring from_center_to_attach2;
+	Spring from_centerpiece_to_attach1;
+	Spring from_centerpiece_to_attach2;
 	Gravity scene_gravity;
 
 	MobileScene(Camera &camera);

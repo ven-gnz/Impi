@@ -15,6 +15,8 @@ namespace Impi
 		Vector3 gravity;
 
 	public:
+
+		Gravity();
 		Gravity(const Vector3& gravity);
 		virtual void updateForce(RigidBody* body, real duration);
 	};
@@ -27,6 +29,9 @@ namespace Impi
 		Vector3 otherConnectionPoint;
 		real springConstant;
 		real restLength;
+
+	public:
+		Spring();
 
 		Spring(const Vector3& localConnectionPt,
 			RigidBody* other,

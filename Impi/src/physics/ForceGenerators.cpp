@@ -2,6 +2,11 @@
 
 using namespace Impi;
 
+Gravity::Gravity()
+{
+	gravity = Vector3(0, -9.8, 0);
+}
+
 Gravity::Gravity(const Vector3& gravity)
 	: gravity(gravity) { }
 
