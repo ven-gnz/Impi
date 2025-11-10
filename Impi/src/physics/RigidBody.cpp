@@ -118,12 +118,6 @@ Vector3 RigidBody::getPointInWorldSpace(const Vector3& point) const
     return transformMatrix.transform(point);
 }
 
-void RigidBody::integrate(real dt)
-{
-    
-   
-}
-
 
 
 void RigidBody::calculateDerivedData()
@@ -134,7 +128,6 @@ void RigidBody::calculateDerivedData()
 void RigidBody::setInertiaTensor(const Matrix3& inertiatensor)
 {
     inverseInertiaTensor.setInverse(inertiatensor);
-    
 }
 
 void RigidBody::addForce(const Vector3& force)

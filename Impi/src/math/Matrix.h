@@ -113,8 +113,6 @@ public:
 
 	void setOrientationAndPos(const Quaternion& q, const Vector3& pos);
 
-	Vector3 transformDirection(const Vector3& vector) const;
-
 	Vector3 localToWorldDirection(const Vector3& local, const Matrix4& transform);
 	Vector3 worldToLocalDirection(const Vector3& world, const Matrix4& transform);
 

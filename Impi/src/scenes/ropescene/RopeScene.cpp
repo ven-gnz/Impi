@@ -43,7 +43,6 @@ void RopeScene::update(real dt)
 
     //std::cout << "sphere velocity ";
     //std::cout << sphere.getVelocity().x << sphere.getVelocity().y << sphere.getVelocity().z << std::endl;
-
     sphere.integrate(dt);
    
 }

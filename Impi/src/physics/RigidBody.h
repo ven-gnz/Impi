@@ -72,6 +72,14 @@ namespace Impi
 
 		real getMass();
 
+		void setPosition(Vector3& position) { position = position; };
+
+
+
+
+
+
+
 
 
 
