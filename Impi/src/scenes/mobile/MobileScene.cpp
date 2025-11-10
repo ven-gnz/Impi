@@ -20,8 +20,22 @@ MobileScene::MobileScene(Camera& camera)
         restLength2(defaultRestLength),
         from_centerpiece_to_attach1(center_to_1offset,attachment1,mobile1_offset,defaultSpringConstant,defaultRestLength),
         from_centerpiece_to_attach2(center_to_2offset,attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
+
 {
 
+}
+
+void MobileScene::draw(Renderer& renderer, Camera& camera)
+{ }
+
+void MobileScene::update(real dt) 
+{
+
+}
+
+void MobileScene::onActivate()
+{
+    centerpiece->setOrientation(Quaternion(1, 0, 0, 0));
 }
 
 

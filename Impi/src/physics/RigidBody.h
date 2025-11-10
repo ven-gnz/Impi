@@ -74,6 +74,8 @@ namespace Impi
 
 		void setPosition(Vector3& position) { position = position; };
 
+		void setOrientation(const Quaternion& o) { orientation = o; };
+
 
 
 
