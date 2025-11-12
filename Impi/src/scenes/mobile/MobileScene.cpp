@@ -69,6 +69,13 @@ MobileScene::MobileScene(Camera& camera)
     renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0));
+
+    std::cout << "centerpiece invMass = " << centerpiece.getMass() << std::endl;
+
+    std::cout << "InverseInertiaTensorWorld: "
+        << centerpiece.inverseInertiaTensorWorld.data[0] << " "
+        << centerpiece.inverseInertiaTensorWorld.data[4] << " "
+        << centerpiece.inverseInertiaTensorWorld.data[8] << std::endl;
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)

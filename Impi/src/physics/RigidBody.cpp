@@ -122,7 +122,16 @@ Vector3 RigidBody::getPointInWorldSpace(const Vector3& point) const
 
 void RigidBody::calculateDerivedData()
 {
+
+    orientation.normalise();
+
     _calculateTransformMatrix(transformMatrix, position, orientation);
+
+
+    _transformInertiaTensor(inverseInertiaTensorWorld,
+        orientation,
+        inverseInertiaTensor,
+        transformMatrix);
 }
 
 void RigidBody::setInertiaTensor(const Matrix3& inertiatensor)
