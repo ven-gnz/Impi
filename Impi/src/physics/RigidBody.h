@@ -30,6 +30,8 @@ namespace Impi
 
 		Vector3 velocity;
 
+		Vector3 angularVelocity;
+
 		Vector3 rotation;
 
 		Vector3 forceAccum;
@@ -77,6 +79,8 @@ namespace Impi
 		void setOrientation(const Quaternion& o) { orientation = o; };
 
 
+
+
 		/**
 		 * Fills the given matrix data structure with a
 		 * transformation representing the rigid body's position and
@@ -91,9 +95,9 @@ namespace Impi
 		 */
 		void getGLTransform(float matrix[16]) const;
 
-
 		Vector3 getPosition() { return position; }
-
+		
+		void setAngularVelocity(const Vector3& vel);
 		Quaternion getOrientation() { return orientation; }
 
 

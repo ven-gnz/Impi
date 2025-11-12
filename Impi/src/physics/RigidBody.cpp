@@ -222,3 +222,8 @@ void RigidBody::getGLTransform(float matrix[16]) const
     matrix[14] = (float)transformMatrix.data[11];
     matrix[15] = 1;
 }
+
+void RigidBody::setAngularVelocity(const Vector3& vel)
+{
+    angularVelocity = vel;
+}

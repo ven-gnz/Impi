@@ -84,26 +84,26 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 void MobileScene::update(real dt) 
 {
     Quaternion orientation = centerpiece.getOrientation();
-    //std::cout << "centerpiece i" << orientation.i << std::endl;
-    //std::cout << "centerpiece j" << orientation.j << std::endl;
-    //std::cout << "centerpiece r" << orientation.k << std::endl;
-    //std::cout << "centerpiece r" << orientation.r << std::endl;
+    std::cout << "centerpiece i" << orientation.i << std::endl;
+    std::cout << "centerpiece j" << orientation.j << std::endl;
+    std::cout << "centerpiece r" << orientation.k << std::endl;
+    std::cout << "centerpiece r" << orientation.r << std::endl;
 
-    //Vector3 pos = centerpiece.getPosition();
-    //std::cout << "Position: x=" << pos.x
-    //    << " y=" << pos.y
-    //    << " z=" << pos.z << std::endl;
+    Vector3 pos = centerpiece.getPosition();
+    std::cout << "Position: x=" << pos.x
+        << " y=" << pos.y
+        << " z=" << pos.z << std::endl;
 
-    //Vector3 pos1 = attachment1.getPosition();
-    //Vector3 pos2 = attachment2.getPosition();
+    Vector3 pos1 = attachment1.getPosition();
+    Vector3 pos2 = attachment2.getPosition();
 
-    //std::cout << "--- Attachment1 --- x=" << pos1.x
-    //    << " y=" << pos1.y
-    //    << " z=" << pos1.z << std::endl;
+    std::cout << "--- Attachment1 --- x=" << pos1.x
+        << " y=" << pos1.y
+        << " z=" << pos1.z << std::endl;
 
-    //std::cout << "--- Attachment2 --- x=" << pos2.x
-    //    << " y=" << pos2.y
-    //    << " z=" << pos2.z << std::endl;
+    std::cout << "--- Attachment2 --- x=" << pos2.x
+        << " y=" << pos2.y
+        << " z=" << pos2.z << std::endl;
 
     registry.updateForces(dt);
 
@@ -122,6 +122,7 @@ void MobileScene::onActivate()
 {
     Scene::onActivate();
     camera.Position = camera.defaultPos+ glm::vec3(0, 0, 12);
+    centerpiece.setAngularVelocity(Vector3(0, 2, 0));
 }
 
 
