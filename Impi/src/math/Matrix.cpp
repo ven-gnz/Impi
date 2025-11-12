@@ -20,7 +20,10 @@ Matrix3::Matrix3()
     data[0] = data[1] = data[2] = 0;
     data[3] = data[4] = data[5] = 0;
     data[6] = data[7] = data[8] = 0;
+
 }
+
+
 
 Matrix3::Matrix3(const Vector3& compOne, const Vector3& compTwo,
 	const Vector3& compThree)
@@ -28,7 +31,15 @@ Matrix3::Matrix3(const Vector3& compOne, const Vector3& compTwo,
 	setComponents(compOne, compTwo, compThree);
 }
 
+Matrix3 Matrix3::identity()
+{
+	Matrix3 m;
+	m.data[0] = 1; m.data[1] = 0; m.data[2] = 0;
+	m.data[3] = 0; m.data[4] = 1; m.data[5] = 0;
+	m.data[6] = 0; m.data[7] = 0; m.data[8] = 1;
+	return m;
 
+}
 
 void Matrix3::setComponents(const Vector3& compOne, const Vector3& compTwo,
 	const Vector3& compThree)

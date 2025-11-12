@@ -76,10 +76,16 @@ namespace Impi
 
 		void setPosition(Vector3& position);
 
-		void setOrientation(const Quaternion& o) { orientation = o; };
+		void setOrientation(const Quaternion& o);
+
+		void setMass(real mass);
+
+		Vector3 getRotation();
+
+		Vector3 getVelocity();
 
 
-
+		void setAngularDamping(real d);
 
 		/**
 		 * Fills the given matrix data structure with a

@@ -1,6 +1,6 @@
 #include "MobileScene.h"
 #include "glm/glm.hpp"
-
+#include "src/math/Matrix.h"
 
 
 MobileScene::MobileScene(Camera& camera)
@@ -32,14 +32,25 @@ MobileScene::MobileScene(Camera& camera)
 {
     centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
     centerpiece.setPosition(centerPoint);
+
+    Matrix3 i = Matrix3::identity();
+
+    float mass = real(25.0f);
+    centerpiece.setMass(mass);
+    centerpiece.setInertiaTensor(i);
+    centerpiece.setAngularDamping(0.8f);
     centerpiece.calculateDerivedData();
 
     attachment1.setOrientation(Quaternion(1, 0, 0, 0));
     attachment1.setPosition(mobile1_initialPos);
+    attachment1.setInertiaTensor(i);
+    attachment1.setMass(2.5f);
     attachment1.calculateDerivedData(); 
 
     attachment2.setOrientation(Quaternion(1, 0, 0, 0));
     attachment2.setPosition(mobile2_initialPos);
+    attachment2.setInertiaTensor(i);
+    attachment2.setMass(2.5f);
     attachment2.calculateDerivedData();
 
 
@@ -111,6 +122,14 @@ void MobileScene::update(real dt)
     attachment1.integrate(dt);
     attachment2.integrate(dt);
 
+    Vector3 av = centerpiece.getRotation();
+    Vector3 lv1 = attachment1.getVelocity();
+    Vector3 lv2 = attachment2.getVelocity();
+
+    std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
+    std::cout << "Attachment velocities: " << lv1.x << "," << lv1.y << "," << lv1.z
+        << " | " << lv2.x << "," << lv2.y << "," << lv2.z << std::endl;
+
     //Vector3 vel = centerpiece.getVelocity();
     //Vector3 angVel = centerpiece.getAngularVelocity();
     //std::cout << "Linear velocity: x=" << vel.x << " y=" << vel.y << " z=" << vel.z << std::endl;
@@ -121,6 +140,7 @@ void MobileScene::update(real dt)
 void MobileScene::onActivate()
 {
     Scene::onActivate();
+    attachment1.addForce(Vector3(10, 0, 0));
     camera.Position = camera.defaultPos+ glm::vec3(0, 0, 12);
     centerpiece.setAngularVelocity(Vector3(0, 2, 0));
 }
