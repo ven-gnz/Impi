@@ -19,9 +19,9 @@ class MobileScene : public Scene
 	Vector3 mobile2_offset;
 	Vector3 center_to_2offset;
 
-	RigidBody* centerpiece;
-	RigidBody* attachment1;
-	RigidBody* attachment2;
+	RigidBody centerpiece;
+	RigidBody attachment1;
+	RigidBody attachment2;
 
 	ForceRegistry registry;
 

@@ -92,7 +92,9 @@ namespace Impi
 		void getGLTransform(float matrix[16]) const;
 
 
+		Vector3 getPosition() { return position; }
 
+		Quaternion getOrientation() { return orientation; }
 
 
 

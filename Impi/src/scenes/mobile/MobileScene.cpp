@@ -6,8 +6,8 @@
 MobileScene::MobileScene(Camera& camera)
     : Scene("Mobil_1",
         camera,
-        "src/scenes/mobile/shaders/mobil.vert",
-        "src/scenes/mobile/shaders/mobil.frag",
+        "src/scenes/mobile/shaders/mobile.vert",
+        "src/scenes/mobile/shaders/mobile.frag",
         nullptr),
         centerPoint(Vector3(0,0,0)),
         mobile1_initialPos(Vector3(-2,-1,0)),
@@ -20,18 +20,21 @@ MobileScene::MobileScene(Camera& camera)
         defaultRestLength(2),
         restLength1(defaultRestLength),
         restLength2(defaultRestLength),
-        spring1(center_to_1offset,attachment1,mobile1_offset,defaultSpringConstant,defaultRestLength),
-        spring2(center_to_2offset,attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
+        spring1(center_to_1offset,&attachment1,mobile1_offset,defaultSpringConstant,defaultRestLength),
+        spring2(center_to_2offset,&attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
 
 {
-    centerpiece->setPosition(centerPoint);
-    attachment1->setPosition(mobile1_initialPos);
-    attachment2->setPosition(mobile2_initialPos);
+    centerpiece.setPosition(centerPoint);
+    attachment1.setPosition(mobile1_initialPos);
+    attachment2.setPosition(mobile2_initialPos);
 
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
 
+    renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 2.1));
+    renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 0.8));
+    renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 0.8));
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)
@@ -63,24 +66,31 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 
 void MobileScene::update(real dt) 
 {
-    centerpiece->clearAccumulators();
-    attachment1->clearAccumulators();
-    attachment2->clearAccumulators();
+    Quaternion orientation = centerpiece.getOrientation();
+    std::cout << "centerpiece i" << orientation.i << std::endl;
+    std::cout << "centerpiece j" << orientation.j << std::endl;
+    std::cout << "centerpiece r" << orientation.k << std::endl;
+    std::cout << "centerpiece r" << orientation.r << std::endl;
+
+
+    centerpiece.clearAccumulators();
+    attachment1.clearAccumulators();
+    attachment2.clearAccumulators();
 
     registry.updateForces(dt);
 
-    centerpiece->integrate(dt);
-    attachment1->integrate(dt);
-    attachment2->integrate(dt);
+    centerpiece.integrate(dt);
+    attachment1.integrate(dt);
+    attachment2.integrate(dt);
 }
 
 void MobileScene::onActivate()
 {
-    centerpiece->setOrientation(Quaternion(1, 0, 0, 0));
-    centerpiece->setPosition(centerPoint);
-    attachment1->setPosition(mobile1_initialPos);
-    attachment2->setPosition(mobile2_initialPos);
-    centerpiece->addTorque(Vector3(0, 2, 0));
+    centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
+    centerpiece.setPosition(centerPoint);
+    attachment1.setPosition(mobile1_initialPos);
+    attachment2.setPosition(mobile2_initialPos);
+    centerpiece.addTorque(Vector3(0, 2, 0));
 }
 
 
