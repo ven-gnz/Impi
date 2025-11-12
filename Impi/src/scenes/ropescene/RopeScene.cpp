@@ -67,9 +67,5 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     glBindVertexArray(sphere_mesh.vao);
     sphere_mesh.draw();
 
-    // Optional: draw a line between cube and sphere
-    // (if you have a debug line renderer)
-    // debugDrawLine(cubePos, sphere.position, Vector3(1,0,0));
-
     glBindVertexArray(0);
 }

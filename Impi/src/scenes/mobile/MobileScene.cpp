@@ -1,4 +1,6 @@
 #include "MobileScene.h"
+#include "glm/glm.hpp"
+
 
 
 MobileScene::MobileScene(Camera& camera)
@@ -18,24 +20,53 @@ MobileScene::MobileScene(Camera& camera)
         defaultRestLength(2),
         restLength1(defaultRestLength),
         restLength2(defaultRestLength),
-        from_centerpiece_to_attach1(center_to_1offset,attachment1,mobile1_offset,defaultSpringConstant,defaultRestLength),
-        from_centerpiece_to_attach2(center_to_2offset,attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
+        spring1(center_to_1offset,attachment1,mobile1_offset,defaultSpringConstant,defaultRestLength),
+        spring2(center_to_2offset,attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
 
 {
     centerpiece->setPosition(centerPoint);
     attachment1->setPosition(mobile1_initialPos);
     attachment2->setPosition(mobile2_initialPos);
+
+    sphere_mesh.createMesh(1.0f);
+    sphere_mesh.uploadToGPU();
+    spheremesh_ptr = &sphere_mesh;
+
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)
 {
+    renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
 
+    groundShader.use();
+    glBindVertexArray(groundmesh_ptr->vao);
+    groundmesh_ptr->draw();
+
+    shader.use();
+
+    glm::mat4 model = glm::translate(glm::mat4(1.0f),
+        glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z));
+
+    shader.setMat4("model", model);
+
+    glBindVertexArray(sphere_mesh.vao);
+    sphere_mesh.draw();
+
+    glBindVertexArray(0);
     
 }
 
 void MobileScene::update(real dt) 
 {
+    centerpiece->clearAccumulators();
+    attachment1->clearAccumulators();
+    attachment2->clearAccumulators();
 
+    registry.updateForces(dt);
+
+    centerpiece->integrate(dt);
+    attachment1->integrate(dt);
+    attachment2->integrate(dt);
 }
 
 void MobileScene::onActivate()
@@ -44,7 +75,7 @@ void MobileScene::onActivate()
     centerpiece->setPosition(centerPoint);
     attachment1->setPosition(mobile1_initialPos);
     attachment2->setPosition(mobile2_initialPos);
-    
+    centerpiece->addTorque(Vector3(0, 2, 0));
 }
 
 

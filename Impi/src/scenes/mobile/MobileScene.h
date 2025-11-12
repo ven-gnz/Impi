@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "src/physics/RigidBody.h"
 #include "src/physics/ForceGenerators.h"
+#include "src/physics/ForceRegistry.h"
 
 
 class MobileScene : public Scene
@@ -21,6 +22,8 @@ class MobileScene : public Scene
 	RigidBody* attachment1;
 	RigidBody* attachment2;
 
+	ForceRegistry registry;
+
 	real defaultSpringConstant;
 	real defaultRestLength;
 
@@ -30,9 +33,9 @@ class MobileScene : public Scene
 	SphereMesh sphere_mesh;
 
 public:
-
-	Spring from_centerpiece_to_attach1;
-	Spring from_centerpiece_to_attach2;
+	 // from centerpiece to attachment respective of num
+	Spring spring1;
+	Spring spring2;
 	Gravity scene_gravity;
 
 	MobileScene(Camera &camera);

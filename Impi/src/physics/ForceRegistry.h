@@ -5,12 +5,10 @@
 #include <vector>
 
 namespace Impi
-
 {
 
 
 class ForceRegistry
-
 {
 
 	struct ForceRegistration
