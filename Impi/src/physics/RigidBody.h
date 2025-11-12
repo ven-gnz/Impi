@@ -72,7 +72,7 @@ namespace Impi
 
 		real getMass();
 
-		void setPosition(Vector3& position) { position = position; };
+		void setPosition(Vector3& position);
 
 		void setOrientation(const Quaternion& o) { orientation = o; };
 

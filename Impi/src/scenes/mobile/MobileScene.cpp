@@ -9,15 +9,15 @@ MobileScene::MobileScene(Camera& camera)
         "src/scenes/mobile/shaders/mobile.vert",
         "src/scenes/mobile/shaders/mobile.frag",
         nullptr),
-        centerPoint(Vector3(0,10,0)),
-        mobile1_initialPos(Vector3(-4,4,0)),
+        centerPoint(Vector3(0,7,0)),
+        mobile1_initialPos(Vector3(-4,2,0)),
         mobile1_offset(1,0,0),
         center_to_1offset(-1,0,0),
-        mobile2_initialPos(Vector3(4,4,0)),
+        mobile2_initialPos(Vector3(4,2,0)),
         mobile2_offset(1,0,0),
         center_to_2offset(-1,0,0),
         defaultSpringConstant(15.5f),
-        defaultRestLength(6),
+        defaultRestLength(3),
         restLength1(defaultRestLength),
         restLength2(defaultRestLength),
         centerpiece(),
@@ -55,6 +55,8 @@ MobileScene::MobileScene(Camera& camera)
     renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0));
+
+
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)
@@ -82,26 +84,26 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 void MobileScene::update(real dt) 
 {
     Quaternion orientation = centerpiece.getOrientation();
-    std::cout << "centerpiece i" << orientation.i << std::endl;
-    std::cout << "centerpiece j" << orientation.j << std::endl;
-    std::cout << "centerpiece r" << orientation.k << std::endl;
-    std::cout << "centerpiece r" << orientation.r << std::endl;
+    //std::cout << "centerpiece i" << orientation.i << std::endl;
+    //std::cout << "centerpiece j" << orientation.j << std::endl;
+    //std::cout << "centerpiece r" << orientation.k << std::endl;
+    //std::cout << "centerpiece r" << orientation.r << std::endl;
 
-    Vector3 pos = centerpiece.getPosition();
-    std::cout << "Position: x=" << pos.x
-        << " y=" << pos.y
-        << " z=" << pos.z << std::endl;
+    //Vector3 pos = centerpiece.getPosition();
+    //std::cout << "Position: x=" << pos.x
+    //    << " y=" << pos.y
+    //    << " z=" << pos.z << std::endl;
 
-    Vector3 pos1 = attachment1.getPosition();
-    Vector3 pos2 = attachment2.getPosition();
+    //Vector3 pos1 = attachment1.getPosition();
+    //Vector3 pos2 = attachment2.getPosition();
 
-    std::cout << "--- Attachment1 --- x=" << pos1.x
-        << " y=" << pos1.y
-        << " z=" << pos1.z << std::endl;
+    //std::cout << "--- Attachment1 --- x=" << pos1.x
+    //    << " y=" << pos1.y
+    //    << " z=" << pos1.z << std::endl;
 
-    std::cout << "--- Attachment2 --- x=" << pos2.x
-        << " y=" << pos2.y
-        << " z=" << pos2.z << std::endl;
+    //std::cout << "--- Attachment2 --- x=" << pos2.x
+    //    << " y=" << pos2.y
+    //    << " z=" << pos2.z << std::endl;
 
     registry.updateForces(dt);
 

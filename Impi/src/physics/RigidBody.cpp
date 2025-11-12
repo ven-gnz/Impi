@@ -140,6 +140,11 @@ void RigidBody::addTorque(const Vector3& torque)
     torqueAccum += torque;
 }
 
+void RigidBody::setPosition(Vector3& pos)
+{
+    position = pos;
+}
+
 void RigidBody::clearAccumulators() {
     
     forceAccum = Vector3(0, 0, 0);
