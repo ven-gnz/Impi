@@ -22,11 +22,16 @@ MobileScene::MobileScene(Camera& camera)
         from_centerpiece_to_attach2(center_to_2offset,attachment2,mobile2_offset,defaultSpringConstant,defaultRestLength)
 
 {
-
+    centerpiece->setPosition(centerPoint);
+    attachment1->setPosition(mobile1_initialPos);
+    attachment2->setPosition(mobile2_initialPos);
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)
-{ }
+{
+
+    
+}
 
 void MobileScene::update(real dt) 
 {
@@ -36,6 +41,10 @@ void MobileScene::update(real dt)
 void MobileScene::onActivate()
 {
     centerpiece->setOrientation(Quaternion(1, 0, 0, 0));
+    centerpiece->setPosition(centerPoint);
+    attachment1->setPosition(mobile1_initialPos);
+    attachment2->setPosition(mobile2_initialPos);
+    
 }
 
 
