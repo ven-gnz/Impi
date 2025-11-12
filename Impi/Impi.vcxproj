@@ -152,6 +152,7 @@
     <ClCompile Include="src\physics\Constraint.cpp" />
     <ClCompile Include="src\physics\Firework.cpp" />
     <ClCompile Include="src\physics\ForceGenerators.cpp" />
+    <ClCompile Include="src\physics\ForceRegistry.cpp" />
     <ClCompile Include="src\physics\Particle.cpp" />
     <ClCompile Include="src\math\random.cpp" />
     <ClCompile Include="src\math\Vector3.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="src\physics\Constraint.h" />
     <ClInclude Include="src\physics\Firework.h" />
     <ClInclude Include="src\physics\ForceGenerators.h" />
+    <ClInclude Include="src\physics\ForceRegistry.h" />
     <ClInclude Include="src\physics\Particle.h" />
     <ClInclude Include="src\physics\ParticleContacts.h" />
     <ClInclude Include="src\physics\ParticleForceGenerators.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="src\math\Vector3.h" />
     <ClInclude Include="src\rendering\assets\PlaneMesh.h" />
     <ClInclude Include="src\rendering\assets\RenderableParticle.h" />
+    <ClInclude Include="src\rendering\assets\RenderableRigidBody.h" />
     <ClInclude Include="src\rendering\assets\Sphere.h" />
     <ClInclude Include="src\rendering\assets\SphereMesh.h" />
     <ClInclude Include="src\rendering\assets\SphereParticle.h" />

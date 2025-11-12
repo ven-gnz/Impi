@@ -11,6 +11,7 @@
 #include "scenes/fireworks/FireWorkScene.h"
 #include "scenes/ropescene/RopeScene.h"
 #include "scenes/clothscene/ClothScene.h"
+#include "scenes/mobile/MobileScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <rendering/core/Renderer.h>
@@ -91,6 +92,8 @@ int main(void)
     FireWorkScene firework(camera);
     RopeScene rop(camera);
     ClothScene cl(camera, 55, 45);
+    MobileScene mobil_ykkonen(camera);
+
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
@@ -138,6 +141,11 @@ int main(void)
 
         if (ImGui::Button("Cloth")) {
             current_scene = &cl;
+            current_scene->onActivate();
+        }
+
+        if (ImGui::Button("Mobile")) {
+            current_scene = &mobil_ykkonen;
             current_scene->onActivate();
         }
         

@@ -3,6 +3,7 @@
 #include "src/physics/RigidBody.h"
 #include "src/physics/ForceGenerators.h"
 #include "src/physics/ForceRegistry.h"
+#include "rendering/assets/RenderableRigidBody.h"
 
 
 class MobileScene : public Scene
@@ -32,7 +33,7 @@ class MobileScene : public Scene
 
 	SphereMesh sphere_mesh;
 
-	std::vector<SphereMesh> meshes;
+	std::vector<RenderableRigidBody> renderables;
 
 public:
 	 // from centerpiece to attachment respective of num
