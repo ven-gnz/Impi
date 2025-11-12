@@ -32,6 +32,8 @@ class MobileScene : public Scene
 
 	SphereMesh sphere_mesh;
 
+	std::vector<SphereMesh> meshes;
+
 public:
 	 // from centerpiece to attachment respective of num
 	Spring spring1;

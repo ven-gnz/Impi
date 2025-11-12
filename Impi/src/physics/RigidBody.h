@@ -77,7 +77,19 @@ namespace Impi
 		void setOrientation(const Quaternion& o) { orientation = o; };
 
 
-
+		/**
+		 * Fills the given matrix data structure with a
+		 * transformation representing the rigid body's position and
+		 * orientation. The matrix is transposed from that returned
+		 * by getTransform. This call returns a matrix suitable
+		 * for applying as an OpenGL transform.
+		 *
+		 * @note Transforming a vector by this matrix turns it from
+		 * the body's local space to world space.
+		 *
+		 * @param matrix A pointer to the matrix to fill.
+		 */
+		void getGLTransform(float matrix[16]) const;
 
 
 
