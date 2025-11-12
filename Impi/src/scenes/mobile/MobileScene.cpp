@@ -30,13 +30,13 @@ MobileScene::MobileScene(Camera& camera)
         motor()
 
 {
-    centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
-    centerpiece.setPosition(centerPoint);
 
     Matrix3 i = Matrix3::identity();
+   
 
-    float mass = real(25.0f);
-    centerpiece.setMass(mass);
+    centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
+    centerpiece.setPosition(centerPoint);
+    centerpiece.setMass(25.0f);
     centerpiece.setInertiaTensor(i);
     centerpiece.setAngularDamping(0.8f);
     centerpiece.calculateDerivedData();
@@ -45,14 +45,15 @@ MobileScene::MobileScene(Camera& camera)
     attachment1.setPosition(mobile1_initialPos);
     attachment1.setInertiaTensor(i);
     attachment1.setMass(2.5f);
+    attachment1.setAngularDamping(0.8f);
     attachment1.calculateDerivedData(); 
 
     attachment2.setOrientation(Quaternion(1, 0, 0, 0));
     attachment2.setPosition(mobile2_initialPos);
     attachment2.setInertiaTensor(i);
     attachment2.setMass(2.5f);
+    attachment2.setAngularDamping(0.8f);
     attachment2.calculateDerivedData();
-
 
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
@@ -140,7 +141,7 @@ void MobileScene::update(real dt)
 void MobileScene::onActivate()
 {
     Scene::onActivate();
-    attachment1.addForce(Vector3(10, 0, 0));
+    
     camera.Position = camera.defaultPos+ glm::vec3(0, 0, 12);
     centerpiece.setAngularVelocity(Vector3(0, 2, 0));
 }

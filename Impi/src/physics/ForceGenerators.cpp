@@ -38,7 +38,6 @@ void Spring::updateForce(RigidBody* body, real duration)
 	Vector3 ows = other->getPointInWorldSpace(otherConnectionPoint);
 	// Calculate the vector of the spring.
 	Vector3 force = lws - ows;
-	std::cout << "force : " << force.x << " " << force.y << " " << force.z  << std::endl;
 	// Calculate the magnitude of the force.
 	real magnitude = force.magnitude();
 	magnitude = real_abs(magnitude - restLength);
