@@ -21,6 +21,18 @@ namespace Impi
 		virtual void updateForce(RigidBody* body, real duration);
 	};
 
+	class TorqueGenerator : public ForceGenerator
+	{
+		Vector3 torque;
+
+	public:
+		TorqueGenerator();
+
+		void setTorque(const Vector3& torque);
+
+		virtual void updateForce(RigidBody* body, real duration);
+	};
+
 
 	class Spring : public ForceGenerator
 	{

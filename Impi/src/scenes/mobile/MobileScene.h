@@ -39,6 +39,7 @@ public:
 	 // from centerpiece to attachment respective of num
 	Spring spring1;
 	Spring spring2;
+	TorqueGenerator motor;
 	Gravity scene_gravity;
 
 	MobileScene(Camera &camera);

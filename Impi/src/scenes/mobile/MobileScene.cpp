@@ -26,7 +26,8 @@ MobileScene::MobileScene(Camera& camera)
         spring1(center_to_1offset,&centerpiece,mobile1_offset,defaultSpringConstant,defaultRestLength),
         spring2(center_to_2offset,&centerpiece,mobile2_offset,defaultSpringConstant,defaultRestLength),
         registry(),
-        scene_gravity(Gravity())
+        scene_gravity(Gravity()),
+        motor()
 
 {
     centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
@@ -45,18 +46,17 @@ MobileScene::MobileScene(Camera& camera)
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
+    motor.setTorque(Vector3(0, 1, 0));
 
     registry.add(&attachment1, &spring1);
     registry.add(&attachment1, &scene_gravity);
     registry.add(&attachment2, &spring2);
     registry.add(&attachment2, &scene_gravity);
-
+    registry.add(&centerpiece, &motor);
 
     renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0));
-
-
 }
 
 void MobileScene::draw(Renderer& renderer, Camera& camera)
@@ -120,15 +120,7 @@ void MobileScene::update(real dt)
 
 void MobileScene::onActivate()
 {
-    centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
-    centerpiece.setPosition(centerPoint);
-    centerpiece.calculateDerivedData();
-    attachment1.setPosition(mobile1_initialPos);
-    attachment1.calculateDerivedData();
-    attachment2.setPosition(mobile2_initialPos);
-    attachment2.calculateDerivedData();
-    centerpiece.addTorque(Vector3(0, 2, 0));
-    centerpiece.calculateDerivedData();
+    Scene::onActivate();
     camera.Position = camera.defaultPos+ glm::vec3(0, 0, 12);
 }
 

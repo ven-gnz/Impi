@@ -48,3 +48,15 @@ void Spring::updateForce(RigidBody* body, real duration)
 	body->addForceAtPoint(force, lws);
 }
 
+TorqueGenerator::TorqueGenerator() {}
+
+void TorqueGenerator::setTorque(const Vector3& t)
+{
+	torque = t;
+}
+
+void TorqueGenerator::updateForce(RigidBody* body, real duration)
+{
+	body->addTorque(torque);
+}
+
