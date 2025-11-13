@@ -12,12 +12,7 @@ class MobileScene : public Scene
 	Vector3 centerPoint;
 
 	Vector3 mobile1_initialPos;
-	Vector3 mobile1_offset;
-	Vector3 center_to_1offset;
-
 	Vector3 mobile2_initialPos;
-	Vector3 mobile2_offset;
-	Vector3 center_to_2offset;
 
 	RigidBody centerpiece;
 	RigidBody attachment1;

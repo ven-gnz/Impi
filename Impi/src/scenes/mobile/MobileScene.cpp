@@ -11,11 +11,7 @@ MobileScene::MobileScene(Camera& camera)
         nullptr),
         centerPoint(Vector3(0,7,0)),
         mobile1_initialPos(Vector3(-4,2,0)),
-        mobile1_offset(1,0,0),
-        center_to_1offset(-1,0,0),
         mobile2_initialPos(Vector3(4,2,0)),
-        mobile2_offset(1,0,0),
-        center_to_2offset(-1,0,0),
         defaultSpringConstant(30.5f),
         defaultRestLength(1),
         restLength1(defaultRestLength),
@@ -52,19 +48,23 @@ MobileScene::MobileScene(Camera& camera)
     attachment2.setAngularDamping(0.8f);
     attachment2.calculateDerivedData();
 
-    Vector3 attachment1Local = attachment1.getOrientation().rotateInverse(mobile1_initialPos - attachment1.getPosition());
-    Vector3 center1Local = centerpiece.getOrientation().rotateInverse(mobile1_initialPos - centerpiece.getPosition());
-
-    Vector3 attachment2Local = attachment2.getOrientation().rotateInverse(mobile2_initialPos - attachment2.getPosition());
-    Vector3 center2Local = centerpiece.getOrientation().rotateInverse(mobile2_initialPos - centerpiece.getPosition());
-
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
     motor.setTorque(Vector3(0, 1, 0));
 
-    spring1 = new Spring(Vector3(0,0,0), &centerpiece, attachment1Local, defaultSpringConstant, defaultRestLength);
-    spring2 = new Spring(Vector3(0, 0, 0), &centerpiece, attachment2Local, defaultSpringConstant, defaultRestLength);
+    spring1 = new Spring(mobile1_initialPos, &centerpiece,centerPoint, defaultSpringConstant, defaultRestLength);
+    spring2 = new Spring(mobile2_initialPos, &centerpiece, centerPoint, defaultSpringConstant, defaultRestLength);
+
+    Vector3 start1 = spring1->getAnchorWorldB(&attachment1);
+    Vector3 end1 = spring1->getAnchorWorldA(&centerpiece);
+    std::cout << "Spring1 anchors: " << start1.x << "," << start1.y << "," << start1.z
+        << " -> " << end1.x << "," << end1.y << "," << end1.z << std::endl;
+
+    Vector3 start2 = spring2->getAnchorWorldB(&attachment2);
+    Vector3 end2 = spring2->getAnchorWorldA(&centerpiece);
+    std::cout << "Spring2 anchors: " << start2.x << "," << start2.y << "," << start2.z
+        << " -> " << end2.x << "," << end2.y << "," << end2.z << std::endl;
 
     shader.use();
     shader.setVec3("color", glm::vec3(0.9, 0.9, 0.9));
@@ -80,12 +80,12 @@ MobileScene::MobileScene(Camera& camera)
     renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0));
     renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0));
 
-    std::cout << "centerpiece invMass = " << centerpiece.getMass() << std::endl;
+    //std::cout << "centerpiece invMass = " << centerpiece.getMass() << std::endl;
 
-    std::cout << "InverseInertiaTensorWorld: "
-        << centerpiece.inverseInertiaTensorWorld.data[0] << " "
-        << centerpiece.inverseInertiaTensorWorld.data[4] << " "
-        << centerpiece.inverseInertiaTensorWorld.data[8] << std::endl;
+    //std::cout << "InverseInertiaTensorWorld: "
+    //    << centerpiece.inverseInertiaTensorWorld.data[0] << " "
+    //    << centerpiece.inverseInertiaTensorWorld.data[4] << " "
+    //    << centerpiece.inverseInertiaTensorWorld.data[8] << std::endl;
 
     lineShader.use();
     att1.uploadToGPU();
@@ -111,15 +111,23 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 
         glm::vec3 test_axis = glm::vec3(1, 0, 0);
         glm::vec3 rotated = glm::vec3(r.model * glm::vec4(test_axis, 1.0));
-        std::cout << "Rotated X-axis: " << rotated.x << "," << rotated.y << "," << rotated.z << std::endl;
         shader.setMat4("model", r.model);
         r.mesh->draw();
     }
 
     lineShader.use();
 
+
+
     glm::vec3 start1 = glm::vec3(attachment1.getPosition().x, attachment1.getPosition().y, attachment1.getPosition().z);
     glm::vec3 end1 = glm::vec3(centerpiece.getPosition().x, centerpiece.getPosition().y, centerpiece.getPosition().z);
+
+    Vector3 pos1 = attachment1.getPosition();
+    std::cout << "Attachment1 pos: " << pos1.x << "," << pos1.y << "," << pos1.z << std::endl;
+
+
+    std::cout << "Spring1 anchorB: " << start1.x << "," << start1.y << "," << start1.z << std::endl;
+
     att1.setPoints(start1, end1);
     att1.uploadToGPU();
     att1.draw();
@@ -136,11 +144,11 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 
 void MobileScene::update(real dt) 
 {
-    Quaternion orientation = centerpiece.getOrientation();
-    std::cout << "centerpiece i" << orientation.i << std::endl;
-    std::cout << "centerpiece j" << orientation.j << std::endl;
-    std::cout << "centerpiece r" << orientation.k << std::endl;
-    std::cout << "centerpiece r" << orientation.r << std::endl;
+    //Quaternion orientation = centerpiece.getOrientation();
+    //std::cout << "centerpiece i" << orientation.i << std::endl;
+    //std::cout << "centerpiece j" << orientation.j << std::endl;
+    //std::cout << "centerpiece r" << orientation.k << std::endl;
+    //std::cout << "centerpiece r" << orientation.r << std::endl;
 
     //Vector3 pos = centerpiece.getPosition();
     //std::cout << "Position: x=" << pos.x
@@ -164,15 +172,16 @@ void MobileScene::update(real dt)
     attachment1.integrate(dt);
     attachment2.integrate(dt);
 
+
     Vector3 av = centerpiece.getRotation();
     Vector3 lv1 = attachment1.getVelocity();
     Vector3 lv2 = attachment2.getVelocity();
 
-    std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
+    //std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
 
-    std::cout << "centerpiece torque " << centerpiece.torqueAccum.x << " "
-        << centerpiece.torqueAccum.y << " "
-        << centerpiece.torqueAccum.z << std::endl;
+    //std::cout << "centerpiece torque " << centerpiece.torqueAccum.x << " "
+    //    << centerpiece.torqueAccum.y << " "
+    //    << centerpiece.torqueAccum.z << std::endl;
 
 
 
