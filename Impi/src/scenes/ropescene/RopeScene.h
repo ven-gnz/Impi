@@ -23,8 +23,12 @@ class RopeScene : public Scene
 
 	SphereMesh sphere_mesh;
 
+
+
 public :
 	RopeScene(Camera& camera);
+
+	Shader lineshader;
 
 	ParticleAnchoredSpring from_cube_to_sphere;
 	ParticleGravity scene_gravity;

@@ -13,15 +13,19 @@ RopeScene::RopeScene(Camera& camera)
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
-    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05)
+    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05),
+    lineshader("src/scenes/ropescene/shaders/line.vert", "src/scenes/ropescene/shaders/line.frag", nullptr)
 {
-    
+    shader.use();
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
 
     particles.reserve(255);
     renderables.reserve(255);
+
+    lineshader.use();
+    
 
 }
 
