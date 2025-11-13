@@ -63,9 +63,11 @@ MobileScene::MobileScene(Camera& camera)
     spheremesh_ptr = &sphere_mesh;
     motor.setTorque(Vector3(0, 1, 0));
 
-    spring1 = new Spring(center1Local, &centerpiece, attachment1Local, defaultSpringConstant, defaultRestLength);
-    spring2 = new Spring(center2Local, &centerpiece, attachment2Local, defaultSpringConstant, defaultRestLength);
+    spring1 = new Spring(Vector3(0,0,0), &centerpiece, attachment1Local, defaultSpringConstant, defaultRestLength);
+    spring2 = new Spring(Vector3(0, 0, 0), &centerpiece, attachment2Local, defaultSpringConstant, defaultRestLength);
 
+    shader.use();
+    shader.setVec3("color", glm::vec3(0.9, 0.9, 0.9));
     registry.add(&attachment1, spring1);
     registry.add(&centerpiece, spring1);
     registry.add(&attachment1, &scene_gravity);
@@ -116,18 +118,17 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 
     lineShader.use();
 
-    Vector3 s1 = spring1->getAnchorWorldB(&attachment1);
-    Vector3 e1 = spring1->getAnchorWorldA(&centerpiece);
-    att1.setPoints(glm::vec3(s1.x, s1.y, s1.z), glm::vec3(e1.x, e1.y, e1.z));
+    glm::vec3 start1 = glm::vec3(attachment1.getPosition().x, attachment1.getPosition().y, attachment1.getPosition().z);
+    glm::vec3 end1 = glm::vec3(centerpiece.getPosition().x, centerpiece.getPosition().y, centerpiece.getPosition().z);
+    att1.setPoints(start1, end1);
+    att1.uploadToGPU();
     att1.draw();
 
-    Vector3 s2 = spring2->getAnchorWorldB(&attachment2);
-    Vector3 e2 = spring2->getAnchorWorldA(&centerpiece);
-    att2.setPoints(glm::vec3(s2.x, s2.y, s2.z), glm::vec3(e2.x, e2.y, e2.z));
+    glm::vec3 start2 = glm::vec3(attachment2.getPosition().x, centerpiece.getPosition().y, centerpiece.getPosition().z);
+    glm::vec3 end2 = glm::vec3(centerpiece.getPosition().z, centerpiece.getPosition().y, centerpiece.getPosition().z);
+    att2.setPoints(start2, end2);
+    att2.uploadToGPU();
     att2.draw();
-
-    std::cout << "Spring1 anchors: " << s1.x << "," << s1.y << "," << s1.z
-        << " -> " << e1.x << "," << e1.y << "," << e1.z << std::endl;
 
     glBindVertexArray(0);
     
@@ -188,6 +189,7 @@ void MobileScene::onActivate()
     
     camera.Position = camera.defaultPos+ glm::vec3(0, 0, 12);
     centerpiece.setAngularVelocity(Vector3(0, 2, 0));
+
 }
 
 
