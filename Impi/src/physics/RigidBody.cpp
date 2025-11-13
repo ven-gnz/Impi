@@ -127,7 +127,6 @@ void RigidBody::calculateDerivedData()
 
     _calculateTransformMatrix(transformMatrix, position, orientation);
 
-
     _transformInertiaTensor(inverseInertiaTensorWorld,
         orientation,
         inverseInertiaTensor,

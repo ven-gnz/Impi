@@ -32,6 +32,7 @@ public :
 	virtual void draw(Renderer& renderer, Camera& camera) override;
 	virtual void update(real dt) override;
 	virtual void onActivate() override;
+	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
 
 
 };

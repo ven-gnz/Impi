@@ -61,6 +61,8 @@ public:
 
 	void clearAccumulator() { accumulatedForce = Vector3(0.0, 0.0, 0.0); }
 
+	void addImpulse(const Vector3& impulse);
+
 
 
 

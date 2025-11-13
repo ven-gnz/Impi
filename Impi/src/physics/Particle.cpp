@@ -40,3 +40,9 @@ Vector3 Particle::getAcceleration()
 {
 	return acceleration;
 }
+
+
+void Particle::addImpulse(const Vector3& impulse)
+{
+	velocity += impulse * inverseMass;
+}

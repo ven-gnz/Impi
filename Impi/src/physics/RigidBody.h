@@ -34,7 +34,7 @@ namespace Impi
 
 		Vector3 rotation;
 
-		Vector3 forceAccum;
+		
 
 		Vector3 torqueAccum;
 
@@ -43,7 +43,7 @@ namespace Impi
 		
 
 	public:
-
+		Vector3 forceAccum;
 		Vector3 getPointInLocalSpace(const Vector3& point) const;
 		Vector3 getPointInWorldSpace(const Vector3& point) const;
 
