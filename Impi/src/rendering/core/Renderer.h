@@ -11,6 +11,9 @@ public:
 	void setUniform(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos);
 	void view_UBO_Debug_Data() const;
 
+	glm::mat4 getView() const;
+	glm::mat4 getProjection() const;
+
 private:
 	ViewUniform_VPC ViewUniform;
 	void initUBO();

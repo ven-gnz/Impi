@@ -10,6 +10,7 @@
 #include <rendering/core/Camera.h>
 #include <rendering/core/Renderer.h>
 #include <rendering/assets/LineMesh.h>
+#include <src/rendering/core/ViewUniforms.h>
 #include <imgui.h>
 
 class Scene {
@@ -42,7 +43,7 @@ public:
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
-	virtual void updateMouse(GLFWwindow* window);
+	virtual void updateMouse(GLFWwindow* window, const Renderer& ren);
 	virtual void onActivate();
 
 };

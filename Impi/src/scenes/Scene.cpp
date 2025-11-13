@@ -40,7 +40,7 @@ std::string Scene::getName() const
 
 void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods) {}
 
-void Scene::updateMouse(GLFWwindow* window) {}
+void Scene::updateMouse(GLFWwindow* window, const Renderer& ren) {}
 
 void Scene::onActivate() 
 {

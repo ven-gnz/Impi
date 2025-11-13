@@ -10,12 +10,12 @@ layout(std140, binding = 0) uniform ViewUniforms
 };
 
 
-uniform vec3 uColor;
+uniform vec3 color;
 
 out vec3 vColor;
 
 void main()
 {
     gl_Position = projection*view*vec4(aPos, 1.0);
-    vColor = uColor;
+    vColor = color;
 }

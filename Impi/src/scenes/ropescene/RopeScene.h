@@ -24,6 +24,11 @@ class RopeScene : public Scene
 
 	SphereMesh sphere_mesh;
 	LineMesh kick_magnitude;
+	LineMesh spring_line;
+
+	bool canKick;
+	real kickTimer;
+	float kickCD;
 
 
 
@@ -38,7 +43,7 @@ public :
 	virtual void onActivate() override;
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
 
-	Vector3 screenToWorld(double xpos, double ypos,GLFWwindow* window);
-	void updateMouse(GLFWwindow* window) override;
+	Vector3 screenToWorld(double xpos, double ypos,GLFWwindow* window, glm::mat4 view, glm::mat4 proj);
+	void updateMouse(GLFWwindow* window, const Renderer& renderer) override;
 
 };

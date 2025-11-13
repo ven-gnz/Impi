@@ -26,6 +26,7 @@ void LineMesh::setPoints(const glm::vec3 a, const glm::vec3 b)
 
 void LineMesh::draw()
 {
+	glLineWidth(5.0f);
 	glDrawArrays(GL_LINES, 0, 2);
 }
 

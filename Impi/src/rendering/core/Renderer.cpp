@@ -53,3 +53,12 @@ void Renderer::view_UBO_Debug_Data() const
 	std::cout << "cameraPos.y = " << ViewUniform.cameraPos.y << std::endl;
 	std::cout << "cameraPos.z = " << ViewUniform.cameraPos.z << std::endl;
 }
+
+glm::mat4 Renderer::getView() const
+{
+	return ViewUniform.view;
+}
+glm::mat4 Renderer::getProjection() const
+{
+	return ViewUniform.projection;
+}

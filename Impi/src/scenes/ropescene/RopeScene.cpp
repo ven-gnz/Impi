@@ -13,7 +13,10 @@ RopeScene::RopeScene(Camera& camera)
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
-    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05)
+    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05),
+    canKick(true),
+    kickCD(3.0f),
+    kickTimer(3.0f)
 {
     shader.use();
     sphere_mesh.createMesh(1.0f);
@@ -24,9 +27,8 @@ RopeScene::RopeScene(Camera& camera)
     renderables.reserve(255);
     lineShader.use();
     kick_magnitude.uploadToGPU();
+    spring_line.uploadToGPU();
     
-    
-
 }
 
 
@@ -52,7 +54,11 @@ void RopeScene::update(real dt)
     sphere.integrate(dt);
     //std::cout << sphere.getPosition().y << " sphere pos" << std::endl;
 
-    
+    if (!canKick)
+    {
+        kickTimer += dt;
+        if (kickTimer >= kickCD) canKick = true;
+    }
    
 }
 
@@ -75,34 +81,52 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
 
     glBindVertexArray(sphere_mesh.vao);
     sphere_mesh.draw();
-
     lineShader.use();
+    glBindVertexArray(spring_line.vao);
+    glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);
+    glm::vec3 cp = glm::vec3(cubePos.x, cubePos.y, cubePos.z);
+    spring_line.setPoints(sp, cp);
+    lineShader.setVec3("color", glm::vec3(0.6f, 0.6f, 0.6f));
+    spring_line.draw();
+
+
+    if (!canKick) return;
+
+   
     glBindVertexArray(kick_magnitude.vao);
     glm::vec3 mp = glm::vec3(lastMousePos.x, lastMousePos.y, lastMousePos.z);
-    glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);
-    kick_magnitude.setPoints(mp, sp);
-
+    kick_magnitude.setPoints(sp, mp);
+    lineShader.setVec3("color", glm::vec3(1.0f, 0.1, 0.1f));
     kick_magnitude.draw();
 
     glBindVertexArray(0);
 }
 
 // https://stackoverflow.com/questions/45130391/opengl-get-cursor-coordinate-on-mouse-click-in-c
-Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window)
+Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window,
+    glm::mat4 view, glm::mat4 proj)
 {
     int width, height;
     glfwGetWindowSize(window, &width, &height);
 
-    float wX = (float(xpos) / width - 0.5f) * 2.0f;
-    float wY = (float(ypos) / height - 0.5f) * 2.0f;
-    return Vector3(-wX, wY, 0.0f);
+    float winZ = 0.5f;
+    glm::vec3 worldPos = glm::unProject(
+        glm::vec3((float)xpos, (float)(height - ypos), winZ),
+        view,
+        proj,
+        glm::vec4(0, 0, width, height)
+    );
+
+    return Vector3(worldPos.x, worldPos.y, worldPos.z);
 }
 
-void RopeScene::updateMouse(GLFWwindow* window)
+void RopeScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
 {
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    lastMousePos = screenToWorld(xpos, ypos, window);
+    lastMousePos = screenToWorld(xpos, ypos, window,
+        renderer.getView(),
+        renderer.getProjection());
 }
 
 
@@ -111,13 +135,16 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
-  
-
-        Vector3 diff = lastMousePos - sphere.getPosition();
+        if (!canKick) return;
+        Vector3 diff =  sphere.getPosition() - lastMousePos;
+        diff.z = sphere.getPosition().z;
        
         real scaler =  diff.magnitude() * 50;
 
         sphere.addImpulse(diff.normalized()*scaler);
+        
+        canKick = false;
+        kickTimer = 0.0f;
     }
 
 }

@@ -120,7 +120,7 @@ int main(void)
 
         
         current_scene->update(delta);
-        current_scene->updateMouse(window);
+        current_scene->updateMouse(window,renderer);
         current_scene->draw(renderer,camera);
 
         ImGui::Begin("UI Test");
