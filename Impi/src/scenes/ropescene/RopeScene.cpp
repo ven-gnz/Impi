@@ -23,7 +23,7 @@ RopeScene::RopeScene(Camera& camera)
     particles.reserve(255);
     renderables.reserve(255);
     lineShader.use();
-    lmesh.uploadToGPU();
+    kick_magnitude.uploadToGPU();
     
     
 
@@ -51,6 +51,8 @@ void RopeScene::update(real dt)
     //std::cout << sphere.getVelocity().x << sphere.getVelocity().y << sphere.getVelocity().z << std::endl;
     sphere.integrate(dt);
     //std::cout << sphere.getPosition().y << " sphere pos" << std::endl;
+
+    
    
 }
 
@@ -73,6 +75,14 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
 
     glBindVertexArray(sphere_mesh.vao);
     sphere_mesh.draw();
+
+    lineShader.use();
+    glBindVertexArray(kick_magnitude.vao);
+    glm::vec3 mp = glm::vec3(lastMousePos.x, lastMousePos.y, lastMousePos.z);
+    glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);
+    kick_magnitude.setPoints(mp, sp);
+
+    kick_magnitude.draw();
 
     glBindVertexArray(0);
 }
