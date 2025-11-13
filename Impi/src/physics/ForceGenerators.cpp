@@ -33,6 +33,14 @@ Spring::Spring(const Vector3& localConnectionPt,
 
 void Spring::updateForce(RigidBody* body, real duration)
 {
+
+	Vector3 worldAnchor = body->getPointInWorldSpace(connectionPoint);
+	std::cout << "Spring anchor world pos: " << worldAnchor.x << worldAnchor.y << worldAnchor.z << std::endl;
+
+	Vector3 worldPos = body->getPosition();
+	Matrix4 m = body->getTransformMatrix();
+	std::cout << "Transform translation: ("
+		<< m.data[3] << ", " << m.data[7] << ", " << m.data[11] << ")" << std::endl;
 	// Calculate the two ends in world space.
 	Vector3 lws = body->getPointInWorldSpace(connectionPoint);
 	Vector3 ows = other->getPointInWorldSpace(otherConnectionPoint);
@@ -60,3 +68,20 @@ void TorqueGenerator::updateForce(RigidBody* body, real duration)
 	body->addTorque(torque);
 }
 
+Spring::Spring()
+	: connectionPoint(0, 0, 0),
+	other(nullptr),
+	otherConnectionPoint(0, 0, 0),
+	springConstant(0),
+	restLength(0)
+{
+}
+
+
+Vector3 Spring::getAnchorWorldA(RigidBody* body) const {
+	return body->getPointInWorldSpace(connectionPoint);
+}
+
+Vector3 Spring::getAnchorWorldB(RigidBody* body) const {
+	return other->getPointInWorldSpace(otherConnectionPoint);
+}

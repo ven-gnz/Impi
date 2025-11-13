@@ -51,6 +51,9 @@ namespace Impi
 			real springConstant,
 			real restLength);
 
-			virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, real duration);
+		Vector3 getAnchorWorldA(RigidBody* body) const;
+		Vector3 getAnchorWorldB(RigidBody* body) const;
 	};
+
 }

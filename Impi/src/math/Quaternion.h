@@ -31,7 +31,7 @@ namespace Impi {
 		void addScaledVector(const Vector3& vector, real scale);
 		void rotateByVector(const Vector3& vector);
 
-
+		Vector3 rotateInverse(const Vector3& v) const;
 	};
 
 }

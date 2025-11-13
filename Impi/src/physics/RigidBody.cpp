@@ -118,7 +118,10 @@ Vector3 RigidBody::getPointInWorldSpace(const Vector3& point) const
     return transformMatrix.transform(point);
 }
 
-
+Matrix4 RigidBody::getTransformMatrix()
+{
+    return transformMatrix;
+}
 
 void RigidBody::calculateDerivedData()
 {

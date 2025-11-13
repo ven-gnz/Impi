@@ -59,3 +59,27 @@ void Quaternion::addScaledVector(const Vector3& vector, real scale)
     j += q.j * ((real)0.5);
     k += q.k * ((real)0.5);
 }
+
+Vector3 Quaternion::rotateInverse(const Vector3& v) const
+{
+   
+    float w = r;
+    float x = -i; // q^-1
+    float y = -j;
+    float z = -k;
+
+    // Quaternion multiplication: q^-1 * v * q
+    // Step 1: q^-1 * v
+    float w1 = -x * v.x - y * v.y - z * v.z;
+    float x1 = w * v.x + y * v.z - z * v.y;
+    float y1 = w * v.y + z * v.x - x * v.z;
+    float z1 = w * v.z + x * v.y - y * v.x;
+
+    // Step 2: result * q
+    float rw = w1 * w - x1 * i - y1 * j - z1 * k;
+    float rx = w1 * i + x1 * w + y1 * k - z1 * j;
+    float ry = w1 * j - x1 * k + y1 * w + z1 * i;
+    float rz = w1 * k + x1 * j - y1 * i + z1 * w;
+
+    return Vector3(rx, ry, rz);
+}
