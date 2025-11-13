@@ -9,6 +9,7 @@ class RopeScene : public Scene
 {
 	Vector3 cubePos;
 	Vector3 spherePos;
+	Vector3 lastMousePos;
 
 	Particle sphere;
 	Particle cube;

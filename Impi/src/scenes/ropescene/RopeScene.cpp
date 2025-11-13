@@ -90,7 +90,9 @@ Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window)
 
 void RopeScene::updateMouse(GLFWwindow* window)
 {
-
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    lastMousePos = screenToWorld(xpos, ypos, window);
 }
 
 
@@ -99,19 +101,9 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
-        double xpos, ypos;
-        //getting cursor position
-        glfwGetCursorPos(window, &xpos, &ypos);
-        std::cout << "Cursor Position at (" << xpos << " : " << ypos << std::endl;
-        std::cout << "Sphere position" << sphere.getPosition().x << " " << sphere.getPosition().y << std::endl;
-        int width, height;
-        glfwGetWindowSize(window, &width, &height);
+  
 
-        float wX = (float(xpos) / width - 0.5f) * 2.0f;
-        float wY = (float(ypos) / height - 0.5f) * 2.0f;
-        Vector3 click(-wX, wY, 0);
-
-        Vector3 diff = click - sphere.getPosition();
+        Vector3 diff = lastMousePos - sphere.getPosition();
        
         real scaler =  diff.magnitude() * 50;
 
