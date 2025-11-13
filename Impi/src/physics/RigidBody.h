@@ -111,6 +111,7 @@ namespace Impi
 		void setAngularVelocity(const Vector3& vel);
 		Quaternion getOrientation() { return orientation; }
 
+		Vector3 getAngularVelocity();
 
 
 

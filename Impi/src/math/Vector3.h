@@ -1,6 +1,7 @@
 #pragma once
 
 #include "precision.h"
+#include <iostream>
 
 namespace Impi
 {
@@ -40,7 +41,14 @@ namespace Impi
 		void normalize();
 		Vector3 normalized();
 
+		
 	};
 
+	inline std::ostream& operator<<(std::ostream& strm, const Vector3& v)
+	{
+		return strm << "x: " << v.x << " y: " << v.y << " z: " << v.z;
+	}
+	
 }
+
 

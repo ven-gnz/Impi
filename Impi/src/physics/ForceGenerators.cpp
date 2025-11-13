@@ -35,7 +35,7 @@ void Spring::updateForce(RigidBody* body, real duration)
 {
 
 	Vector3 worldAnchor = body->getPointInWorldSpace(connectionPoint);
-	std::cout << "Spring anchor world pos: " << worldAnchor.x << worldAnchor.y << worldAnchor.z << std::endl;
+	std::cout << "Spring anchor world pos: " << worldAnchor << std::endl;
 
 	Vector3 worldPos = body->getPosition();
 	Matrix4 m = body->getTransformMatrix();

@@ -53,21 +53,25 @@ MobileScene::MobileScene(Camera& camera)
     spheremesh_ptr = &sphere_mesh;
     motor.setTorque(Vector3(0, 1, 0));
 
-    spring1 = new Spring(mobile1_initialPos, &centerpiece, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
-    spring2 = new Spring(mobile2_initialPos, &centerpiece, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
+    Vector3 centerAnchor1Offset(1.0f, 0.0f, 0.0f);   // right of center
+    Vector3 centerAnchor2Offset(-1.0f, 0.0f, 0.0f);  // left of center
+    Vector3 attachmentAnchorOffset(0.0f, 0.0f, 0.0f);
 
-    auto& m = centerpiece.transformMatrix;
-    for (int i = 0; i < 16; ++i) std::cout << m.data[i] << " ";
+    spring1 = new Spring(centerAnchor1Offset, &attachment1, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
+    spring2 = new Spring(centerAnchor2Offset, &attachment2, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
 
-    Vector3 start1 = spring1->getAnchorWorldB(&attachment1);
-    Vector3 end1 = spring1->getAnchorWorldA(&centerpiece);
-    std::cout << "Spring1 anchors: " << start1.x << "," << start1.y << "," << start1.z
-        << " -> " << end1.x << "," << end1.y << "," << end1.z << std::endl;
+    //auto& m = centerpiece.transformMatrix;
+    //for (int i = 0; i < 16; ++i) std::cout << m.data[i] << " ";
 
-    Vector3 start2 = spring2->getAnchorWorldB(&attachment2);
-    Vector3 end2 = spring2->getAnchorWorldA(&centerpiece);
-    std::cout << "Spring2 anchors: " << start2.x << "," << start2.y << "," << start2.z
-        << " -> " << end2.x << "," << end2.y << "," << end2.z << std::endl;
+    //Vector3 start1 = spring1->getAnchorWorldB(&attachment1);
+    //Vector3 end1 = spring1->getAnchorWorldA(&centerpiece);
+    //std::cout << "Spring1 anchors: " << start1.x << "," << start1.y << "," << start1.z
+    //    << " -> " << end1.x << "," << end1.y << "," << end1.z << std::endl;
+
+    //Vector3 start2 = spring2->getAnchorWorldB(&attachment2);
+    //Vector3 end2 = spring2->getAnchorWorldA(&centerpiece);
+    //std::cout << "Spring2 anchors: " << start2.x << "," << start2.y << "," << start2.z
+    //    << " -> " << end2.x << "," << end2.y << "," << end2.z << std::endl;
 
     shader.use();
     shader.setVec3("color", glm::vec3(0.9, 0.9, 0.9));
@@ -111,9 +115,6 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
     for (auto& r : renderables)
     {
         r.updateModelMatrix();
-
-        glm::vec3 test_axis = glm::vec3(1, 0, 0);
-        glm::vec3 rotated = glm::vec3(r.model * glm::vec4(test_axis, 1.0));
         shader.setMat4("model", r.model);
         r.mesh->draw();
     }
@@ -121,16 +122,10 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
     lineShader.use();
 
 
-
     glm::vec3 start1 = glm::vec3(attachment1.getPosition().x, attachment1.getPosition().y, attachment1.getPosition().z);
     glm::vec3 end1 = glm::vec3(centerpiece.getPosition().x, centerpiece.getPosition().y, centerpiece.getPosition().z);
 
     Vector3 pos1 = attachment1.getPosition();
-    std::cout << "Attachment1 pos: " << pos1.x << "," << pos1.y << "," << pos1.z << std::endl;
-
-
-    std::cout << "Spring1 anchorB: " << start1.x << "," << start1.y << "," << start1.z << std::endl;
-
     att1.setPoints(start1, end1);
     att1.uploadToGPU();
     att1.draw();
@@ -168,9 +163,15 @@ void MobileScene::update(real dt)
     //std::cout << "--- Attachment2 --- x=" << pos2.x
     //    << " y=" << pos2.y
     //    << " z=" << pos2.z << std::endl;
-
+    
+    Vector3 torque(0, 5, 0);
+    centerpiece.addTorque(torque);
     registry.updateForces(dt);
 
+    Vector3 vel = centerpiece.getVelocity();
+    Vector3 angVel = centerpiece.getAngularVelocity();
+    std::cout << "Linear velocity: x=" << vel.x << " y=" << vel.y << " z=" << vel.z << std::endl;
+    std::cout << "Angular velocity: x=" << angVel.x << " y=" << angVel.y << " z=" << angVel.z << std::endl;
     centerpiece.integrate(dt);
     attachment1.integrate(dt);
     attachment2.integrate(dt);
@@ -180,18 +181,15 @@ void MobileScene::update(real dt)
     Vector3 lv1 = attachment1.getVelocity();
     Vector3 lv2 = attachment2.getVelocity();
 
-    //std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
+    std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
 
-    //std::cout << "centerpiece torque " << centerpiece.torqueAccum.x << " "
-    //    << centerpiece.torqueAccum.y << " "
-    //    << centerpiece.torqueAccum.z << std::endl;
+    std::cout << "centerpiece torque " << centerpiece.torqueAccum.x << " "
+        << centerpiece.torqueAccum.y << " "
+        << centerpiece.torqueAccum.z << std::endl;
 
 
 
-    //Vector3 vel = centerpiece.getVelocity();
-    //Vector3 angVel = centerpiece.getAngularVelocity();
-    //std::cout << "Linear velocity: x=" << vel.x << " y=" << vel.y << " z=" << vel.z << std::endl;
-    //std::cout << "Angular velocity: x=" << angVel.x << " y=" << angVel.y << " z=" << angVel.z << std::endl;
+
 
 }
 

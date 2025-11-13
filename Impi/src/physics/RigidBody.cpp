@@ -263,3 +263,8 @@ Vector3 RigidBody::getVelocity()
 {
     return velocity;
 }
+
+Vector3 RigidBody::getAngularVelocity()
+{
+    return angularVelocity;
+}
