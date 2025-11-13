@@ -8,11 +8,12 @@ RopeScene::RopeScene(Camera& camera)
         "src/scenes/ropescene/shaders/rope.frag",
         nullptr
     ),
+    cubePos(0,3.375,0),
     defaultSpringConstant(8.0), defaultRestLength(1.5),
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
-    sphere(Vector3(2,3,0),1.5,Vector3(3,1,0),0.01),
-    cube(Vector3(0,0,0), 125.0, Vector3(0,0,0), 0.05)
+    sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
+    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05)
 {
     
     sphere_mesh.createMesh(1.0f);
@@ -28,7 +29,7 @@ RopeScene::RopeScene(Camera& camera)
 void RopeScene::onActivate()
 {
     Scene::onActivate();
-    sphere.setPosition(Vector3(0, -3.375, 0));
+    sphere.setPosition(Vector3(0, 0, 0));
     sphere.setVelocity(Vector3(0, 0, 0));
     camera.Position = camera.defaultPos + glm::vec3(0,0,15);
 
@@ -82,23 +83,17 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
         //getting cursor position
         glfwGetCursorPos(window, &xpos, &ypos);
         std::cout << "Cursor Position at (" << xpos << " : " << ypos << std::endl;
-
+        std::cout << "Sphere position" << sphere.getPosition().x << " " << sphere.getPosition().y << std::endl;
         int width, height;
         glfwGetWindowSize(window, &width, &height);
 
-        if (xpos > float(width) / 2)
-        {
-            xpos = float(width) / 2 - xpos;
-        }
+        float wX = (float(xpos) / width - 0.5f) * 2.0f;
+        float wY = (float(ypos) / height - 0.5f) * 2.0f;
+        Vector3 click(-wX, wY, 0);
 
-
-        Vector3 diff(
-           xpos - sphere.getPosition().x,
-           ypos - sphere.getPosition().y,
-            0);
-
-        std::cout << " dx : " << diff.x << " dy : " << diff.y << std::endl;
-        real scaler = 0.05 * diff.magnitude();
+        Vector3 diff = click - sphere.getPosition();
+       
+        real scaler =  diff.magnitude() * 50;
 
         sphere.addImpulse(diff.normalized()*scaler);
     }
