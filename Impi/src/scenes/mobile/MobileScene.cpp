@@ -53,8 +53,11 @@ MobileScene::MobileScene(Camera& camera)
     spheremesh_ptr = &sphere_mesh;
     motor.setTorque(Vector3(0, 1, 0));
 
-    spring1 = new Spring(mobile1_initialPos, &centerpiece,centerPoint, defaultSpringConstant, defaultRestLength);
-    spring2 = new Spring(mobile2_initialPos, &centerpiece, centerPoint, defaultSpringConstant, defaultRestLength);
+    spring1 = new Spring(mobile1_initialPos, &centerpiece, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
+    spring2 = new Spring(mobile2_initialPos, &centerpiece, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
+
+    auto& m = centerpiece.transformMatrix;
+    for (int i = 0; i < 16; ++i) std::cout << m.data[i] << " ";
 
     Vector3 start1 = spring1->getAnchorWorldB(&attachment1);
     Vector3 end1 = spring1->getAnchorWorldA(&centerpiece);
@@ -132,7 +135,7 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
     att1.uploadToGPU();
     att1.draw();
 
-    glm::vec3 start2 = glm::vec3(attachment2.getPosition().x, centerpiece.getPosition().y, centerpiece.getPosition().z);
+    glm::vec3 start2 = glm::vec3(attachment2.getPosition().x, attachment2.getPosition().y, attachment2.getPosition().z);
     glm::vec3 end2 = glm::vec3(centerpiece.getPosition().z, centerpiece.getPosition().y, centerpiece.getPosition().z);
     att2.setPoints(start2, end2);
     att2.uploadToGPU();

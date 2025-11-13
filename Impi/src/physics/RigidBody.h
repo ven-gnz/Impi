@@ -38,12 +38,12 @@ namespace Impi
 
 	
 
-		Matrix4 transformMatrix;
+		
 
 		
 
 	public:
-
+		Matrix4 transformMatrix;
 		Vector3 forceAccum;
 		Vector3 torqueAccum;
 		Matrix4 getTransformMatrix();
