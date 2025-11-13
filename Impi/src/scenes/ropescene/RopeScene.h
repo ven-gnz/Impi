@@ -22,13 +22,12 @@ class RopeScene : public Scene
 	real restLength;
 
 	SphereMesh sphere_mesh;
+	LineMesh lmesh;
 
 
 
 public :
 	RopeScene(Camera& camera);
-
-	Shader lineshader;
 
 	ParticleAnchoredSpring from_cube_to_sphere;
 	ParticleGravity scene_gravity;
@@ -38,5 +37,7 @@ public :
 	virtual void onActivate() override;
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
 
+	Vector3 screenToWorld(double xpos, double ypos,GLFWwindow* window);
+	void updateMouse(GLFWwindow* window) override;
 
 };

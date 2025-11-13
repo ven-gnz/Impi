@@ -9,6 +9,7 @@
 #include <rendering/assets/PlaneMesh.h>
 #include <rendering/core/Camera.h>
 #include <rendering/core/Renderer.h>
+#include <rendering/assets/LineMesh.h>
 #include <imgui.h>
 
 class Scene {
@@ -23,8 +24,10 @@ public:
 	Camera& camera;
 	Shader shader;
 	Shader groundShader;
+	Shader lineShader;
 	SphereMesh* spheremesh_ptr = nullptr;
 	PlaneMesh* groundmesh_ptr = nullptr;
+	LineMesh* linemesh_ptr = nullptr;
 	ViewUniform_VPC ViewUniform;
 
 	unsigned int viewUBO = 0;
@@ -39,6 +42,7 @@ public:
 	std::string getName() const;
 
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
+	virtual void updateMouse(GLFWwindow* window);
 	virtual void onActivate();
 
 };

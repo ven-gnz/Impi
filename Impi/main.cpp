@@ -120,6 +120,7 @@ int main(void)
 
         
         current_scene->update(delta);
+        current_scene->updateMouse(window);
         current_scene->draw(renderer,camera);
 
         ImGui::Begin("UI Test");
@@ -216,6 +217,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         current_scene->onMouseButton(window, button, action, mods);
     }
 }
+
+
 
 
 

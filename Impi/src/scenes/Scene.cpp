@@ -11,7 +11,8 @@ Scene::Scene(std::string init_name,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), camera(camera), shader(vertexPath,fragmentPath,geometryPath),
-	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr)
+	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr),
+	lineShader("src/scenes/commons/shaders/line.vert", "src/scenes/commons/shaders/line.frag", nullptr)
 {
 	
 	ViewUniform.view = camera.GetViewMatrix();
@@ -38,6 +39,9 @@ std::string Scene::getName() const
 
 
 void Scene::onMouseButton(GLFWwindow* window, int button, int action, int mods) {}
+
+void Scene::updateMouse(GLFWwindow* window) {}
+
 void Scene::onActivate() 
 {
 	glUseProgram(0);

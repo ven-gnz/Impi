@@ -13,8 +13,7 @@ RopeScene::RopeScene(Camera& camera)
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
-    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05),
-    lineshader("src/scenes/ropescene/shaders/line.vert", "src/scenes/ropescene/shaders/line.frag", nullptr)
+    cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05)
 {
     shader.use();
     sphere_mesh.createMesh(1.0f);
@@ -23,8 +22,9 @@ RopeScene::RopeScene(Camera& camera)
 
     particles.reserve(255);
     renderables.reserve(255);
-
-    lineshader.use();
+    lineShader.use();
+    lmesh.uploadToGPU();
+    
     
 
 }
@@ -43,7 +43,7 @@ void RopeScene::onActivate()
 void RopeScene::update(real dt)
 {
     sphere.clearAccumulator();
-
+    
     scene_gravity.updateForce(&sphere, dt);
     from_cube_to_sphere.updateForce(&sphere, dt);
 
@@ -77,8 +77,24 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     glBindVertexArray(0);
 }
 
-
 // https://stackoverflow.com/questions/45130391/opengl-get-cursor-coordinate-on-mouse-click-in-c
+Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window)
+{
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+
+    float wX = (float(xpos) / width - 0.5f) * 2.0f;
+    float wY = (float(ypos) / height - 0.5f) * 2.0f;
+    return Vector3(-wX, wY, 0.0f);
+}
+
+void RopeScene::updateMouse(GLFWwindow* window)
+{
+
+}
+
+
+
 void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)

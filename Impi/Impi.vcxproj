@@ -133,7 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="src\scenes\**\shaders\*.*">
+    <None Include="src\scenes\ropescene\shaders\rope.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -162,6 +162,7 @@
     <ClCompile Include="src\physics\ParticleLinks.cpp" />
     <ClCompile Include="src\physics\ParticleWorld.cpp" />
     <ClCompile Include="src\physics\RigidBody.cpp" />
+    <ClCompile Include="src\rendering\assets\LineMesh.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />
     <ClCompile Include="src\rendering\assets\SphereMesh.cpp" />
     <ClCompile Include="src\rendering\core\Camera.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="src\Precision.h" />
     <ClInclude Include="src\math\random.h" />
     <ClInclude Include="src\math\Vector3.h" />
+    <ClInclude Include="src\rendering\assets\LineMesh.h" />
     <ClInclude Include="src\rendering\assets\PlaneMesh.h" />
     <ClInclude Include="src\rendering\assets\RenderableParticle.h" />
     <ClInclude Include="src\rendering\assets\RenderableRigidBody.h" />
