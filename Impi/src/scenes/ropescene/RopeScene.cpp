@@ -83,15 +83,24 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
         glfwGetCursorPos(window, &xpos, &ypos);
         std::cout << "Cursor Position at (" << xpos << " : " << ypos << std::endl;
 
+        int width, height;
+        glfwGetWindowSize(window, &width, &height);
+
+        if (xpos > float(width) / 2)
+        {
+            xpos = float(width) / 2 - xpos;
+        }
+
+
         Vector3 diff(
            xpos - sphere.getPosition().x,
            ypos - sphere.getPosition().y,
             0);
 
         std::cout << " dx : " << diff.x << " dy : " << diff.y << std::endl;
-        real scaler = 0.01;
+        real scaler = 0.05 * diff.magnitude();
 
-        sphere.addImpulse(diff*scaler);
+        sphere.addImpulse(diff.normalized()*scaler);
     }
 
 }
