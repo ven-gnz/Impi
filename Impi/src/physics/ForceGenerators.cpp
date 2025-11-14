@@ -82,6 +82,10 @@ Vector3 Spring::getAnchorWorldA(RigidBody* body) const {
 	return body->getPointInWorldSpace(connectionPoint);
 }
 
-Vector3 Spring::getAnchorWorldB(RigidBody* body) const {
+Vector3 Spring::getAnchorWorldB() const {
 	return other->getPointInWorldSpace(otherConnectionPoint);
 }
+
+
+
+
