@@ -78,14 +78,17 @@ MobileScene::MobileScene(Camera& camera)
 
     shader.use();
     shader.setVec3("color", glm::vec3(0.9, 0.9, 0.9));
+
     registry.add(&attachment1, spring1);
-    registry.add(&attachment1, &scene_gravity);
     registry.add(&attachment2, spring2);
-    registry.add(&attachment2, &scene_gravity);
+   
     registry.add(&centerpiece, &motor);
 
+    registry.add(&attachment1, &scene_gravity);
+    registry.add(&attachment2, &scene_gravity);
     // AND add force registrations to the other direction of the spring to honor newtons third.
-
+    registry.add(&centerpiece, spring1);
+    registry.add(&centerpiece, spring2);
 
 
     renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 1.0));
@@ -152,10 +155,9 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 void MobileScene::update(real dt) 
 {
 
+    centerpiece.addTorque(Vector3(0, 0.5, 0));
     Vector3 vel = centerpiece.getVelocity();
     Vector3 angVel = centerpiece.getAngularVelocity();
-    std::cout << "Linear velocity: x=" << vel.x << " y=" << vel.y << " z=" << vel.z << std::endl;
-    std::cout << "Angular velocity: x=" << angVel.x << " y=" << angVel.y << " z=" << angVel.z << std::endl;
     centerpiece.integrate(dt);
     attachment1.integrate(dt);
     attachment2.integrate(dt);
@@ -164,13 +166,6 @@ void MobileScene::update(real dt)
     Vector3 av = centerpiece.getRotation();
     Vector3 lv1 = attachment1.getVelocity();
     Vector3 lv2 = attachment2.getVelocity();
-
-    std::cout << "AngularVel: " << av.x << "," << av.y << "," << av.z << std::endl;
-
-    std::cout << "centerpiece torque " << centerpiece.torqueAccum.x << " "
-        << centerpiece.torqueAccum.y << " "
-        << centerpiece.torqueAccum.z << std::endl;
-
 
 
 }
