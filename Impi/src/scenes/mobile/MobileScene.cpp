@@ -31,7 +31,7 @@ MobileScene::MobileScene(Camera& camera)
     centerpiece.setPosition(centerPoint);
     centerpiece.setMass(25.0f);
     centerpiece.setInertiaTensor(i);
-    centerpiece.setAngularDamping(0.8f);
+    centerpiece.setAngularDamping(0.2f);
     centerpiece.calculateDerivedData();
 
     attachment1.setOrientation(Quaternion(1, 0, 0, 0));
@@ -51,17 +51,15 @@ MobileScene::MobileScene(Camera& camera)
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
-    motor.setTorque(Vector3(0, 0.05, 0));
+    motor.setTorque(Vector3(0, 5, 0));
 
-    Vector3 centerAnchor1Offset(1.0f, 0.0f, 0.0f);   // right of center
-    Vector3 centerAnchor2Offset(-1.0f, 0.0f, 0.0f);  // left of center
-    Vector3 attachmentAnchorOffset(0.0f, 0.0f, 0.0f);
+      
+    Vector3 o1(-1.0f, 0.0f, 0.0f); // local space offsets
+    Vector3 o2(1.0f, 0.0f, 0.0f);
+    Vector3 zero(0.0f, 0.0f, 0.0f);
 
-    Vector3 attachment1_centerpos = Vector3(1.0, 0.0, 0.0) + centerpiece.getPosition();
-    Vector3 attachment2_centerpos = Vector3(-1.0, 0.0, 0.0) + centerpiece.getPosition();
-
-    spring1 = new Spring(Vector3(-1.0,0.0,0.0), &attachment1, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
-    spring2 = new Spring(Vector3(1.0,0.0,0.0), &attachment2, Vector3(0,0,0), defaultSpringConstant, defaultRestLength);
+    spring1 = new Spring(o1, &attachment1, zero, defaultSpringConstant, defaultRestLength);
+    spring2 = new Spring(o2, &attachment2, zero, defaultSpringConstant, defaultRestLength);
 
     //auto& m = centerpiece.transformMatrix;
     //for (int i = 0; i < 16; ++i) std::cout << m.data[i] << " ";
@@ -155,17 +153,26 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 void MobileScene::update(real dt) 
 {
 
-    centerpiece.addTorque(Vector3(0, 0.5, 0));
-    Vector3 vel = centerpiece.getVelocity();
-    Vector3 angVel = centerpiece.getAngularVelocity();
+    registry.updateForces(dt);
+
+    Vector3 accumulatedTorque = centerpiece.torqueAccum;
+    std::cout << "Centerpiece accumulated torque: "
+        << accumulatedTorque.x << ", "
+        << accumulatedTorque.y << ", "
+        << accumulatedTorque.z << std::endl;
+
     centerpiece.integrate(dt);
     attachment1.integrate(dt);
     attachment2.integrate(dt);
 
+    
 
-    Vector3 av = centerpiece.getRotation();
-    Vector3 lv1 = attachment1.getVelocity();
-    Vector3 lv2 = attachment2.getVelocity();
+
+    Vector3 angVel = centerpiece.getAngularVelocity();
+    std::cout << "Angular velocity: "
+        << angVel.x << ", "
+        << angVel.y << ", "
+        << angVel.z << std::endl;
 
 
 }
