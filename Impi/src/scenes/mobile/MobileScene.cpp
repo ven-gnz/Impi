@@ -31,21 +31,21 @@ MobileScene::MobileScene(Camera& camera)
     centerpiece.setPosition(centerPoint);
     centerpiece.setMass(2.5f);
     centerpiece.setInertiaTensor(i);
-    centerpiece.setAngularDamping(0.2f);
+    centerpiece.setLinearDamping(0.2f);
     centerpiece.calculateDerivedData();
 
     attachment1.setOrientation(Quaternion(1, 0, 0, 0));
     attachment1.setPosition(mobile1_initialPos);
     attachment1.setInertiaTensor(i);
     attachment1.setMass(2.0f);
-    attachment1.setAngularDamping(0.1f);
+    attachment1.setLinearDamping(0.1f);
     attachment1.calculateDerivedData(); 
 
     attachment2.setOrientation(Quaternion(1, 0, 0, 0));
     attachment2.setPosition(mobile2_initialPos);
     attachment2.setInertiaTensor(i);
     attachment2.setMass(2.0f);
-    attachment2.setAngularDamping(0.1f);
+    attachment2.setLinearDamping(0.1f);
     attachment2.calculateDerivedData();
 
     sphere_mesh.createMesh(1.0f);
@@ -132,22 +132,22 @@ void MobileScene::update(real dt)
 
     registry.updateForces(dt);
 
-    printf("before:  mass=%f forceAccum.y=%f vel.y=%f pos.y=%f\n",
-        attachment1.getMass(),
-        attachment1.forceAccum.y,
-        attachment1.getVelocity().y,
-        attachment1.getPosition().y);
+    //printf("before:  mass=%f forceAccum.y=%f vel.y=%f pos.y=%f\n",
+    //    attachment1.getMass(),
+    //    attachment1.forceAccum.y,
+    //    attachment1.getVelocity().y,
+    //    attachment1.getPosition().y);
 
-    attachment1.addForce(Vector3(0, -50, 0));
+    attachment1.setVelocity(Vector3(0, -2, 0));
     centerpiece.integrate(dt);
     attachment1.integrate(dt);
     attachment2.integrate(dt);
 
-    printf("after:  mass=%f forceAccum.y=%f vel.y=%f pos.y=%f\n",
-        attachment1.getMass(),
-        attachment1.forceAccum.y,
-        attachment1.getVelocity().y,
-        attachment1.getPosition().y);
+    //printf("after:  mass=%f forceAccum.y=%f vel.y=%f pos.y=%f\n",
+    //    attachment1.getMass(),
+    //    attachment1.forceAccum.y,
+    //    attachment1.getVelocity().y,
+    //    attachment1.getPosition().y);
 
    
 

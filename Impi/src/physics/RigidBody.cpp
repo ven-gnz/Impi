@@ -203,10 +203,10 @@ void RigidBody::integrate(real dt)
 
     lastFrameAcceleration = acceleration;
     lastFrameAcceleration.addScaledVector(forceAccum, inverseMass);
+    
+    velocity.addScaledVector(lastFrameAcceleration, dt);
 
     Vector3 angularAcceleration = inverseInertiaTensorWorld.transform(torqueAccum);
-
-    velocity.addScaledVector(lastFrameAcceleration, dt);
     rotation.addScaledVector(angularAcceleration, dt);
 
     velocity *= real_pow(linearDamping, dt);
@@ -244,7 +244,10 @@ void RigidBody::getGLTransform(float matrix[16]) const
     matrix[15] = 1;
 }
 
-
+void RigidBody::setLinearDamping(real d)
+{
+    linearDamping = d;
+}
 
 void RigidBody::setAngularDamping(real d)
 {
@@ -264,4 +267,14 @@ Vector3 RigidBody::getRotation()
 Vector3 RigidBody::getVelocity()
 {
     return velocity;
+}
+
+real RigidBody::getLinearDamping()
+{
+    return linearDamping;
+}
+
+real RigidBody::getAngularDamping()
+{
+    return linearDamping;
 }

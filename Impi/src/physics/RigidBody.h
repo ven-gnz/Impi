@@ -32,6 +32,7 @@ namespace Impi
 		Vector3 torqueAccum;
 		Vector3 lastFrameAcceleration;
 		Matrix4 getTransformMatrix();
+		void setVelocity(const Vector3& v) { velocity = v; }
 
 
 		Vector3 getPointInLocalSpace(const Vector3& point) const;
@@ -74,6 +75,7 @@ namespace Impi
 
 		Vector3 getVelocity();
 
+		void setLinearDamping(real d);
 
 		void setAngularDamping(real d);
 
@@ -94,6 +96,9 @@ namespace Impi
 		Vector3 getPosition() { return position; }
 		
 		Quaternion getOrientation() { return orientation; }
+
+		real getAngularDamping();
+		real getLinearDamping();
 
 
 
