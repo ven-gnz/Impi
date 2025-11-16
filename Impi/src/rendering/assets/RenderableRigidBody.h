@@ -9,7 +9,7 @@ class RenderableRigidBody
 public:
 	RigidBody* body;
 	SphereMesh* mesh;
-	float radius = 1.0f;
+	float radius;
 	glm::mat4 model = glm::mat4(1.0f);
 
 
@@ -22,6 +22,6 @@ public:
 	{
 		float mat[16];
 		body->getGLTransform(mat);
-		model = glm::make_mat4(mat);
+		model = glm::scale(glm::make_mat4(mat), glm::vec3(radius,radius,radius));
 	}
 };

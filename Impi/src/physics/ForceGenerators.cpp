@@ -14,7 +14,6 @@ Gravity::Gravity(const Vector3& gravity)
 void Gravity::updateForce(RigidBody* body, real duration)
 {
 	Vector3 acc = gravity * body->getMass();
-	printf("Applying gravity to body = %f\n" , acc.y);
 	if (!body->hasFiniteMass()) return;
 	body->addForce(gravity * body->getMass());
 }
