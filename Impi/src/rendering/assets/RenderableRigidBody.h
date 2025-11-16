@@ -13,7 +13,7 @@ public:
 	glm::mat4 model = glm::mat4(1.0f);
 
 
-	RenderableRigidBody(RigidBody* p, SphereMesh* m, float r = 1.0f)
+	RenderableRigidBody(RigidBody* p, SphereMesh* m, float r)
 		: body(p), mesh(m), radius(r) {
 	}
 

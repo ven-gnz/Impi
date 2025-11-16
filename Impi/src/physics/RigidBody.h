@@ -15,37 +15,22 @@ namespace Impi
 	protected:
 
 		real inverseMass;
-
 		real linearDamping;
-
 		real angularDamping;
-
 		Vector3 position;
-
 		Quaternion orientation;
-
 		Vector3 acceleration;
-
-		Vector3 lastFrameAcceleration;
-
 		Vector3 velocity;
-
-		Vector3 angularVelocity;
-
 		Vector3 rotation;
-
-		
-
-	
-
-		
-
 		
 
 	public:
+
+		//dangerous to leave here ?
 		Matrix4 transformMatrix;
 		Vector3 forceAccum;
 		Vector3 torqueAccum;
+		Vector3 lastFrameAcceleration;
 		Matrix4 getTransformMatrix();
 
 
@@ -108,10 +93,8 @@ namespace Impi
 
 		Vector3 getPosition() { return position; }
 		
-		void setAngularVelocity(const Vector3& vel);
 		Quaternion getOrientation() { return orientation; }
 
-		Vector3 getAngularVelocity();
 
 
 

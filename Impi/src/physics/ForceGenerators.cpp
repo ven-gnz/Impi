@@ -13,6 +13,8 @@ Gravity::Gravity(const Vector3& gravity)
 
 void Gravity::updateForce(RigidBody* body, real duration)
 {
+	Vector3 acc = gravity * body->getMass();
+	printf("Applying gravity to body = %f\n" , acc.y);
 	if (!body->hasFiniteMass()) return;
 	body->addForce(gravity * body->getMass());
 }
@@ -34,13 +36,6 @@ Spring::Spring(const Vector3& localConnectionPt,
 void Spring::updateForce(RigidBody* body, real duration)
 {
 
-	Vector3 worldAnchor = body->getPointInWorldSpace(connectionPoint);
-	std::cout << "Spring anchor world pos: " << worldAnchor << std::endl;
-
-	Vector3 worldPos = body->getPosition();
-	Matrix4 m = body->getTransformMatrix();
-	std::cout << "Transform translation: ("
-		<< m.data[3] << ", " << m.data[7] << ", " << m.data[11] << ")" << std::endl;
 	// Calculate the two ends in world space.
 	Vector3 lws = body->getPointInWorldSpace(connectionPoint);
 	Vector3 ows = other->getPointInWorldSpace(otherConnectionPoint);
@@ -54,6 +49,7 @@ void Spring::updateForce(RigidBody* body, real duration)
 	force.normalize();
 	force *= -magnitude;
 	body->addForceAtPoint(force, lws);
+	
 }
 
 TorqueGenerator::TorqueGenerator() {}

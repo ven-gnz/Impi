@@ -180,7 +180,12 @@ void RigidBody::addForceAtPoint(const Vector3& force, const Vector3& point)
 
 void RigidBody::setMass(real m)
 {
-    inverseMass = m;
+    if (m <= 0.0f) {
+        inverseMass = 0.0f;
+    }
+    else {
+        inverseMass = 1.0f / m;
+    }
 }
 
 real RigidBody::getMass()
@@ -239,10 +244,7 @@ void RigidBody::getGLTransform(float matrix[16]) const
     matrix[15] = 1;
 }
 
-void RigidBody::setAngularVelocity(const Vector3& vel)
-{
-    angularVelocity = vel;
-}
+
 
 void RigidBody::setAngularDamping(real d)
 {
@@ -262,9 +264,4 @@ Vector3 RigidBody::getRotation()
 Vector3 RigidBody::getVelocity()
 {
     return velocity;
-}
-
-Vector3 RigidBody::getAngularVelocity()
-{
-    return angularVelocity;
 }

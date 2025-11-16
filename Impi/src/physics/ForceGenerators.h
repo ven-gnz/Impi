@@ -12,10 +12,10 @@ namespace Impi
 
 	class Gravity : public ForceGenerator
 	{
-		Vector3 gravity;
+		
 
 	public:
-
+		Vector3 gravity;
 		Gravity();
 		Gravity(const Vector3& gravity);
 		virtual void updateForce(RigidBody* body, real duration);
