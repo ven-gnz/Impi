@@ -9,7 +9,7 @@ RopeScene::RopeScene(Camera& camera)
         nullptr
     ),
     cubePos(0,3.375,0),
-    defaultSpringConstant(10.0), defaultRestLength(2.5),
+    defaultSpringConstant(5.0), defaultRestLength(3.375),
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
@@ -113,21 +113,30 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
 }
 
 // https://stackoverflow.com/questions/45130391/opengl-get-cursor-coordinate-on-mouse-click-in-c
+
+// https://antongerdelan.net/opengl/raycasting.html -> Should refactor to a proper raycaster in the future. Would be cool to pick up and move the cube.
 Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window,
     glm::mat4 view, glm::mat4 proj)
 {
     int width, height;
     glfwGetWindowSize(window, &width, &height);
-
-    float winZ = 0.5f;
-    glm::vec3 worldPos = glm::unProject(
-        glm::vec3((float)xpos, (float)(height - ypos), winZ),
+    
+    glm::vec3 near = glm::unProject(glm::vec3((float)xpos, (float)(height - ypos), 0.0f),
         view,
         proj,
-        glm::vec4(0, 0, width, height)
-    );
+        glm::vec4(0, 0, width, height));
 
-    return Vector3(worldPos.x, worldPos.y, worldPos.z);
+    glm::vec3 far = glm::unProject(glm::vec3((float)xpos, (float)(height-ypos), 1.0f),
+            view,
+            proj,
+            glm::vec4(0, 0, width, height));
+
+    glm::vec3 direction = glm::normalize(near - far);
+
+    float intersection_z = (sphere.getPosition().z - near.z) / direction.z;
+    glm::vec3 hit = near + direction * intersection_z;
+
+    return Vector3(hit.x, hit.y, hit.z); // lol this is getting ridiculous :D
 }
 
 void RopeScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
@@ -146,15 +155,21 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
         if (!canKick) return;
-        Vector3 diff =  sphere.getPosition() - lastMousePos;
+        
+        
+        Vector3 diff = sphere.getPosition() - lastMousePos;
+      
         diff.z = sphere.getPosition().z;
        
+       
+        std::cout << lastMousePos.y << "lastmouse on kick" << std::endl;
+        std::cout << diff.y << "diff y on kick" << std::endl;
+       
         real scaler =  diff.magnitude() * 50;
-
         sphere.addImpulse(diff.normalized()*scaler);
-        
         canKick = false;
         kickTimer = 0.0f;
+
     }
 
 }
