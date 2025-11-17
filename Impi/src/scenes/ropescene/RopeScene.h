@@ -1,19 +1,19 @@
 #pragma once
 #include "scenes/Scene.h"
 #include "physics/ParticleForceGenerators.h"
+#include "physics/ParticleForceRegistry.h"
 #include "rendering/assets/Mesh.h"
 #include "physics/Particle.h"
 
 class RopeScene : public Scene
 
 {
+	Particle cube;
+	Particle sphere;
+
 	Vector3 cubePos;
 	Vector3 spherePos;
 	Vector3 lastMousePos;
-
-	Particle sphere;
-	Particle cube;
-
 	Vector3 sphereStartingPos;
 
 	real defaultSpringConstant;
@@ -21,6 +21,11 @@ class RopeScene : public Scene
 
 	real springConstant;
 	real restLength;
+
+	ParticleAnchoredSpring from_cube_to_sphere;
+	ParticleGravity scene_gravity;
+	ParticleForceRegistry registry;
+	
 
 	SphereMesh sphere_mesh;
 	CubeMesh cube_mesh;
@@ -34,10 +39,9 @@ class RopeScene : public Scene
 
 
 public :
-	RopeScene(Camera& camera);
 
-	ParticleAnchoredSpring from_cube_to_sphere;
-	ParticleGravity scene_gravity;
+	
+	RopeScene(Camera& camera);
 
 	virtual void draw(Renderer& renderer, Camera& camera) override;
 	virtual void update(real dt) override;

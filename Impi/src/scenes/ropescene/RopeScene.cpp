@@ -9,7 +9,7 @@ RopeScene::RopeScene(Camera& camera)
         nullptr
     ),
     cubePos(0,3.375,0),
-    defaultSpringConstant(4.0), defaultRestLength(2.0),
+    defaultSpringConstant(10.0), defaultRestLength(2.5),
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
@@ -32,6 +32,8 @@ RopeScene::RopeScene(Camera& camera)
     kick_magnitude.uploadToGPU();
     spring_line.uploadToGPU();
     
+    registry.add(&sphere, &scene_gravity);
+    registry.add(&sphere, &from_cube_to_sphere);
 }
 
 
@@ -48,10 +50,7 @@ void RopeScene::onActivate()
 void RopeScene::update(real dt)
 {
     sphere.clearAccumulator();
-    
-    scene_gravity.updateForce(&sphere, dt);
-    from_cube_to_sphere.updateForce(&sphere, dt);
-
+    registry.updateForces(dt);
 
     sphere.integrate(dt);
 
@@ -101,8 +100,6 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     spring_line.draw();
 
     
-
-
     if (!canKick) return;
 
    
