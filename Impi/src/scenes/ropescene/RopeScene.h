@@ -1,7 +1,7 @@
 #pragma once
 #include "scenes/Scene.h"
 #include "physics/ParticleForceGenerators.h"
-#include "rendering/assets/SphereMesh.h"
+#include "rendering/assets/Mesh.h"
 #include "physics/Particle.h"
 
 class RopeScene : public Scene

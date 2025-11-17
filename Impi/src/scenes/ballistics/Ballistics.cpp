@@ -1,5 +1,4 @@
 #include "Ballistics.h"
-#include <rendering/assets/SphereMesh.h>
 
 Ballistics::Ballistics(Camera& camera)
     :Scene("Ballistics",
@@ -45,7 +44,7 @@ void Ballistics::draw(Renderer& renderer, Camera& camera)
     for (auto& r : renderables)
     {
         shader.setMat4("model", r.model);
-        r.mesh->draw();
+        r.mesh->render();
     }
 
     glBindVertexArray(0);

@@ -80,7 +80,7 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     shader.setMat4("model", model);
 
     glBindVertexArray(sphere_mesh.vao);
-    sphere_mesh.draw();
+    sphere_mesh.render();
     lineShader.use();
     glBindVertexArray(spring_line.vao);
     glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);

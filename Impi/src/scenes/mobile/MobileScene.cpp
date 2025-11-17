@@ -101,7 +101,7 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
     {
         r.updateModelMatrix();
         shader.setMat4("model", r.model);
-        r.mesh->draw();
+        r.mesh->render();
         shader.setVec3("color", glm::vec3(1.0, 0.4, 0.3));
     }
 

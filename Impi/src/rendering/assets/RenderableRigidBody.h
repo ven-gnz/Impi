@@ -1,19 +1,21 @@
 #pragma once
 #include "src/physics/RigidBody.h"
-#include "SphereMesh.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <src/rendering/assets/Mesh.h>
+
 
 using namespace Impi;
+
 class RenderableRigidBody
 {
 public:
 	RigidBody* body;
-	SphereMesh* mesh;
+	Mesh* mesh;
 	float radius;
 	glm::mat4 model = glm::mat4(1.0f);
 
 
-	RenderableRigidBody(RigidBody* p, SphereMesh* m, float r)
+	RenderableRigidBody(RigidBody* p, Mesh* m, float r)
 		: body(p), mesh(m), radius(r) {
 	}
 

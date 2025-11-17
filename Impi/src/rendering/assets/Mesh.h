@@ -3,14 +3,15 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-/*
-https://songho.ca/opengl/gl_sphere.html
-Origokeskeinen yksikköpallo. 
-Resurssi yllä. 
-Tavoitteena tarjota sama utiliteetti kuin glutsolidsphere.
-*/ 
+class Mesh
+{
+public:
+	virtual void render() const = 0;
+};
 
-struct SphereMesh {
+
+
+struct SphereMesh : public Mesh {
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
@@ -23,15 +24,10 @@ struct SphereMesh {
 	unsigned int ebo = 0;
 	unsigned int indexCount = 0;
 
-
 	void createMesh(float radius = 1.0f, unsigned int sectorCount = 36, unsigned int stackCount = 24);
-
 	std::vector<float> flatten() const;
-
 	void uploadToGPU();
-
-	void draw() const;
-
+	void render() const override;
 	void destroySphereMesh();
 
 };

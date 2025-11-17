@@ -1,8 +1,15 @@
-#include <rendering/assets/SphereMesh.h>
+#include <rendering/assets/Mesh.h>
 #include <vector>
 #include <cmath>
 #include <iostream>
 
+
+/*
+https://songho.ca/opengl/gl_sphere.html
+Origokeskeinen yksikköpallo.
+Resurssi yllä.
+Tavoitteena tarjota sama utiliteetti kuin glutsolidsphere.
+*/
 void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int stackCount)
 {
 	vertices.clear();
@@ -153,7 +160,7 @@ void SphereMesh::destroySphereMesh()
 	vao = vbo = ebo = 0;
 }
 
-void SphereMesh::draw() const
+void SphereMesh::render() const
 {
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 }
