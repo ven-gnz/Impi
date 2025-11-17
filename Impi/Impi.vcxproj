@@ -162,6 +162,7 @@
     <ClCompile Include="src\physics\ParticleLinks.cpp" />
     <ClCompile Include="src\physics\ParticleWorld.cpp" />
     <ClCompile Include="src\physics\RigidBody.cpp" />
+    <ClCompile Include="src\rendering\assets\CubeMesh.cpp" />
     <ClCompile Include="src\rendering\assets\LineMesh.cpp" />
     <ClCompile Include="src\rendering\assets\Mesh.cpp" />
     <ClCompile Include="src\rendering\assets\RenderableParticle.cpp" />

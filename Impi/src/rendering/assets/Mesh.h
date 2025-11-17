@@ -31,3 +31,15 @@ struct SphereMesh : public Mesh {
 	void destroySphereMesh();
 
 };
+
+struct CubeMesh : public Mesh
+{
+	unsigned int vao = 0;
+	unsigned int vbo = 0;
+	unsigned int ebo = 0;
+	unsigned int indexCount = 0;
+
+	void createCubeMesh();
+	void uploadToGPU();
+	void render() const override;
+};
