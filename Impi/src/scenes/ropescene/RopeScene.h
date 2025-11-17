@@ -23,6 +23,7 @@ class RopeScene : public Scene
 	real restLength;
 
 	SphereMesh sphere_mesh;
+	CubeMesh cube_mesh;
 	LineMesh kick_magnitude;
 	LineMesh spring_line;
 

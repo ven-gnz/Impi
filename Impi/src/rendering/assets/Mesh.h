@@ -39,6 +39,38 @@ struct CubeMesh : public Mesh
 	unsigned int ebo = 0;
 	unsigned int indexCount = 0;
 
+	std::vector<float> vertices = {
+		// 3p 3n 2uv
+		// front face
+		-1, -1,  1,   0, 0, 1,   0, 0,
+		 1, -1,  1,   0, 0, 1,   1, 0,
+		 1,  1,  1,   0, 0, 1,   1, 1,
+		-1,  1,  1,   0, 0, 1,   0, 1,
+
+		// back face
+		-1, -1, -1,   0, 0, -1,  0, 0,
+		 1, -1, -1,   0, 0, -1,  1, 0,
+		 1,  1, -1,   0, 0, -1,  1, 1,
+		-1,  1, -1,   0, 0, -1,  0, 1,
+	};
+
+	std::vector<unsigned int> indices = {
+		// front
+		0, 1, 2, 2, 3, 0,
+		// right
+		1, 5, 6, 6, 2, 1,
+		// back
+		5, 4, 7, 7, 6, 5,
+		// left
+		4, 0, 3, 3, 7, 4,
+		// top
+		3, 2, 6, 6, 7, 3,
+		// bottom
+		4, 5, 1, 1, 0, 4
+	};
+
+
+
 	void createCubeMesh();
 	void uploadToGPU();
 	void render() const override;

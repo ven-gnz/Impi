@@ -13,8 +13,11 @@ layout(location = 2)in vec2 aTex;
 
 
 uniform mat4 model;
+uniform vec3 color;
+out vec3 fragColor;
 
 void main()
 {
    gl_Position = projection * view * model * vec4(aPos, 1.0);
+   fragColor = color;
 }

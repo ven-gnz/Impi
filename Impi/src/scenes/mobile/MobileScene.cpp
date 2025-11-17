@@ -74,9 +74,9 @@ MobileScene::MobileScene(Camera& camera)
     registry.add(&centerpiece, &scene_gravity);
     registry.add(&centerpiece, &motor);
 
-    renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 4.0));
-    renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0));
-    renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0));
+    renderables.push_back(RenderableRigidBody(&centerpiece, spheremesh_ptr, 4.0, glm::vec3(4.0, 4.0, 4.0)));
+    renderables.push_back(RenderableRigidBody(&attachment1, spheremesh_ptr, 1.0, glm::vec3(1.0, 1.0, 1.0)));
+    renderables.push_back(RenderableRigidBody(&attachment2, spheremesh_ptr, 1.0, glm::vec3(1.0, 1.0, 1.0)));
 
     lineShader.use();
     att1.uploadToGPU();

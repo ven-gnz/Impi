@@ -14,11 +14,11 @@ class RenderableParticle
 {
 public:
 	Particle* physicalParticle;
-	SphereMesh* mesh;
+	Mesh* mesh;
 	float radius = 1.0f;
 	glm::mat4 model = glm::mat4(1.0f);
 
-	RenderableParticle(Particle* p, SphereMesh* m, float r = 1.0f)
+	RenderableParticle(Particle* p, Mesh* m, float r = 1.0f)
 		: physicalParticle(p), mesh(m), radius(r) { }
 
 

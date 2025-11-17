@@ -27,6 +27,7 @@ public:
 	Shader lineShader;
 	SphereMesh* spheremesh_ptr = nullptr;
 	PlaneMesh* groundmesh_ptr = nullptr;
+	CubeMesh* cubemesh_ptr = nullptr;
 	LineMesh* linemesh_ptr = nullptr;
 	ViewUniform_VPC ViewUniform;
 

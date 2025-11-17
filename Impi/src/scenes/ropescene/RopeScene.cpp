@@ -9,7 +9,7 @@ RopeScene::RopeScene(Camera& camera)
         nullptr
     ),
     cubePos(0,3.375,0),
-    defaultSpringConstant(8.0), defaultRestLength(1.5),
+    defaultSpringConstant(4.0), defaultRestLength(2.0),
     from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
@@ -22,6 +22,9 @@ RopeScene::RopeScene(Camera& camera)
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
     spheremesh_ptr = &sphere_mesh;
+
+    cube_mesh.createCubeMesh();
+    cubemesh_ptr = &cube_mesh;
 
     particles.reserve(255);
     renderables.reserve(255);
@@ -49,10 +52,8 @@ void RopeScene::update(real dt)
     scene_gravity.updateForce(&sphere, dt);
     from_cube_to_sphere.updateForce(&sphere, dt);
 
-    //std::cout << "sphere velocity ";
-    //std::cout << sphere.getVelocity().x << sphere.getVelocity().y << sphere.getVelocity().z << std::endl;
+
     sphere.integrate(dt);
-    //std::cout << sphere.getPosition().y << " sphere pos" << std::endl;
 
     if (!canKick)
     {
@@ -76,18 +77,30 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     
     glm::mat4 model = glm::translate(glm::mat4(1.0f),
         glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z));
-
+    shader.setVec3("color", glm::vec3(0.0, 0.0, 0.8));
     shader.setMat4("model", model);
 
     glBindVertexArray(sphere_mesh.vao);
     sphere_mesh.render();
+
+    shader.use();
+    glm::mat4 cubemodel = glm::translate(glm::mat4(1.0f), glm::vec3(cubePos.x, cubePos.y, cubePos.z));
+    shader.setMat4("model", cubemodel);
+    shader.setVec3("color", glm::vec3(0.1, 1.0, 0.0));
+    glBindVertexArray(cube_mesh.vao);
+    cube_mesh.render();
+
+
     lineShader.use();
+
     glBindVertexArray(spring_line.vao);
     glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);
     glm::vec3 cp = glm::vec3(cubePos.x, cubePos.y, cubePos.z);
     spring_line.setPoints(sp, cp);
     lineShader.setVec3("color", glm::vec3(0.6f, 0.6f, 0.6f));
     spring_line.draw();
+
+    
 
 
     if (!canKick) return;
