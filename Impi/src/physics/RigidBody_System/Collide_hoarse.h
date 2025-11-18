@@ -26,7 +26,7 @@ namespace Impi
 
 		unsigned getPotentialContacts(PotentialContact* contacts, unsigned limit) const;
 
-		void insert();
+		void insert(RigidBody* body, const BoundingVolumeClass &volume);
 
 	protected:
 
@@ -115,6 +115,33 @@ namespace Impi
 			}
 		}
 
+	}
+
+	template<class BoundingVolumeClass>
+	void BVHNode<BoundingVolumeClass>::insert(RigidBody* newBody, const BoundingVolumeClass& newVolume)
+	{
+		if (isLeaf())
+		{
+			// Child set to copy of this
+			children[0] = new BVHNode<BoundingVolumeClass>(this, volume, body);
+			// and child two houses the new body
+			children[1] = new BVHNode<BoundingVolumeClass>(this, newVolume, newBody);
+
+			this->body = NULL;
+			recalculateBoundingVolume();
+		}
+		else
+		{
+			if (children[0]->volume.getGrowth(newVolume) <
+				children[1]->volume.getGrowth(newVolume))
+			{
+				children[0]->insert(newBody, newVolume);
+			}
+			else
+			{
+				children[1]->insert(newBody, newVolume);
+			}
+		}
 
 	}
 

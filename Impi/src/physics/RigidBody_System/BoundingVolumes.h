@@ -20,6 +20,7 @@ public:
 
 	bool overlaps(const BoundingSphere* other) const;
 
+	real getGrowth(const BoundingSphere& other) const;
 };
 
 
