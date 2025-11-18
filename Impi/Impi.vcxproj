@@ -151,6 +151,7 @@
     <ClCompile Include="src\physics\Particle_System\ClothParticle.cpp" />
     <ClCompile Include="src\physics\Particle_System\Constraint.cpp" />
     <ClCompile Include="src\physics\Objects\Firework.cpp" />
+    <ClCompile Include="src\physics\RigidBody_System\BoundingSphere.cpp" />
     <ClCompile Include="src\physics\RigidBody_System\ForceGenerators.cpp" />
     <ClCompile Include="src\physics\RigidBody_System\ForceRegistry.cpp" />
     <ClCompile Include="src\physics\Particle_System\Particle.cpp" />
@@ -189,6 +190,8 @@
     <ClInclude Include="src\physics\Particle_System\ClothParticle.h" />
     <ClInclude Include="src\physics\Particle_System\Constraint.h" />
     <ClInclude Include="src\physics\Objects\Firework.h" />
+    <ClInclude Include="src\physics\RigidBody_System\BoundingVolumes.h" />
+    <ClInclude Include="src\physics\RigidBody_System\Collide_hoarse.h" />
     <ClInclude Include="src\physics\RigidBody_System\ForceGenerators.h" />
     <ClInclude Include="src\physics\RigidBody_System\ForceRegistry.h" />
     <ClInclude Include="src\physics\Particle_System\Particle.h" />
