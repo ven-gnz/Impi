@@ -102,7 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes\imgui\backends;C:\Users\rapul\FYSM\Impi\Impi\includes\imgui;C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\assets;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\core;C:\Users\rapul\FYSM\Impi\Impi\src\rendering;C:\Users\rapul\FYSM\Impi\Impi\src\physics;C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes\imgui\backends;C:\Users\rapul\FYSM\Impi\Impi\includes\imgui;C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\;C:\Users\rapul\FYSM\Impi\Impi\src\physics\Objects;C:\Users\rapul\FYSM\Impi\Impi\src\physics\Particle_System;C:\Users\rapul\FYSM\Impi\Impi\includes\;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -121,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes\imgui\backends;C:\Users\rapul\FYSM\Impi\Impi\includes\imgui;C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\assets;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\core;C:\Users\rapul\FYSM\Impi\Impi\src\rendering;C:\Users\rapul\FYSM\Impi\Impi\src\physics;C:\Users\rapul\FYSM\Impi\Impi\includes;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\rapul\FYSM\Impi\Impi\includes\imgui\backends;C:\Users\rapul\FYSM\Impi\Impi\includes\imgui;C:\Users\rapul\FYSM\Impi\Impi;C:\Users\rapul\FYSM\Impi\Impi\src\scenes;C:\Users\rapul\FYSM\Impi\Impi\src\rendering\;C:\Users\rapul\FYSM\Impi\Impi\src\physics\Objects;C:\Users\rapul\FYSM\Impi\Impi\src\physics\Particle_System;C:\Users\rapul\FYSM\Impi\Impi\includes\;C:\Users\rapul\FYSM\Impi\Impi\src</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -147,21 +147,21 @@
     <ClCompile Include="includes\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\math\Matrix.cpp" />
     <ClCompile Include="src\math\Quaternion.cpp" />
-    <ClCompile Include="src\physics\Cloth.cpp" />
-    <ClCompile Include="src\physics\ClothParticle.cpp" />
-    <ClCompile Include="src\physics\Constraint.cpp" />
-    <ClCompile Include="src\physics\Firework.cpp" />
-    <ClCompile Include="src\physics\ForceGenerators.cpp" />
-    <ClCompile Include="src\physics\ForceRegistry.cpp" />
-    <ClCompile Include="src\physics\Particle.cpp" />
+    <ClCompile Include="src\physics\Objects\Cloth.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ClothParticle.cpp" />
+    <ClCompile Include="src\physics\Particle_System\Constraint.cpp" />
+    <ClCompile Include="src\physics\Objects\Firework.cpp" />
+    <ClCompile Include="src\physics\RigidBody_System\ForceGenerators.cpp" />
+    <ClCompile Include="src\physics\RigidBody_System\ForceRegistry.cpp" />
+    <ClCompile Include="src\physics\Particle_System\Particle.cpp" />
     <ClCompile Include="src\math\random.cpp" />
     <ClCompile Include="src\math\Vector3.cpp" />
-    <ClCompile Include="src\physics\ParticleContacts.cpp" />
-    <ClCompile Include="src\physics\ParticleForceGenerators.cpp" />
-    <ClCompile Include="src\physics\ParticleForceRegistry.cpp" />
-    <ClCompile Include="src\physics\ParticleLinks.cpp" />
-    <ClCompile Include="src\physics\ParticleWorld.cpp" />
-    <ClCompile Include="src\physics\RigidBody.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ParticleContacts.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ParticleForceGenerators.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ParticleForceRegistry.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ParticleLinks.cpp" />
+    <ClCompile Include="src\physics\Particle_System\ParticleWorld.cpp" />
+    <ClCompile Include="src\physics\RigidBody_System\RigidBody.cpp" />
     <ClCompile Include="src\rendering\assets\CubeMesh.cpp" />
     <ClCompile Include="src\rendering\assets\LineMesh.cpp" />
     <ClCompile Include="src\rendering\assets\Mesh.cpp" />
@@ -185,19 +185,19 @@
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="src\math\Matrix.h" />
     <ClInclude Include="src\math\Quaternion.h" />
-    <ClInclude Include="src\physics\Cloth.h" />
-    <ClInclude Include="src\physics\ClothParticle.h" />
-    <ClInclude Include="src\physics\Constraint.h" />
-    <ClInclude Include="src\physics\Firework.h" />
-    <ClInclude Include="src\physics\ForceGenerators.h" />
-    <ClInclude Include="src\physics\ForceRegistry.h" />
-    <ClInclude Include="src\physics\Particle.h" />
-    <ClInclude Include="src\physics\ParticleContacts.h" />
-    <ClInclude Include="src\physics\ParticleForceGenerators.h" />
-    <ClInclude Include="src\physics\ParticleForceRegistry.h" />
-    <ClInclude Include="src\physics\ParticleLinks.h" />
-    <ClInclude Include="src\physics\ParticleWorld.h" />
-    <ClInclude Include="src\physics\RigidBody.h" />
+    <ClInclude Include="src\physics\Objects\Cloth.h" />
+    <ClInclude Include="src\physics\Particle_System\ClothParticle.h" />
+    <ClInclude Include="src\physics\Particle_System\Constraint.h" />
+    <ClInclude Include="src\physics\Objects\Firework.h" />
+    <ClInclude Include="src\physics\RigidBody_System\ForceGenerators.h" />
+    <ClInclude Include="src\physics\RigidBody_System\ForceRegistry.h" />
+    <ClInclude Include="src\physics\Particle_System\Particle.h" />
+    <ClInclude Include="src\physics\Particle_System\ParticleContacts.h" />
+    <ClInclude Include="src\physics\Particle_System\ParticleForceGenerators.h" />
+    <ClInclude Include="src\physics\Particle_System\ParticleForceRegistry.h" />
+    <ClInclude Include="src\physics\Particle_System\ParticleLinks.h" />
+    <ClInclude Include="src\physics\Particle_System\ParticleWorld.h" />
+    <ClInclude Include="src\physics\RigidBody_System\RigidBody.h" />
     <ClInclude Include="src\Precision.h" />
     <ClInclude Include="src\math\random.h" />
     <ClInclude Include="src\math\Vector3.h" />

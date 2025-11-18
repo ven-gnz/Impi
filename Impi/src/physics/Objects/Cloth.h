@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include <Particle.h>
-#include <ParticleLinks.h>
-#include <Constraint.h>
+#include <src/physics/Particle_System/Particle.h>
+#include <src/physics/Particle_System/ParticleLinks.h>
+#include <src/physics/Particle_System/Constraint.h>
 
 class VerletCloth
 {

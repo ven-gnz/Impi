@@ -27,7 +27,7 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\Particle.cpp">
+    <ClCompile Include="src\physics\Particle_System\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -42,7 +42,7 @@
     <ClCompile Include="src\scenes\ballistics\Ballistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\Firework.cpp">
+    <ClCompile Include="src\physics\Objects\Firework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\core\Camera.cpp">
@@ -60,10 +60,10 @@
     <ClCompile Include="src\math\random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ParticleForceRegistry.cpp">
+    <ClCompile Include="src\physics\Particle_System\ParticleForceRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ParticleForceGenerators.cpp">
+    <ClCompile Include="src\physics\Particle_System\ParticleForceGenerators.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="includes\imgui\imgui.cpp">
@@ -90,25 +90,25 @@
     <ClCompile Include="src\rendering\core\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ParticleContacts.cpp">
+    <ClCompile Include="src\physics\Particle_System\ParticleContacts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ParticleLinks.cpp">
+    <ClCompile Include="src\physics\Particle_System\ParticleLinks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scenes\clothscene\ClothScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ClothParticle.cpp">
+    <ClCompile Include="src\physics\Particle_System\ClothParticle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\Constraint.cpp">
+    <ClCompile Include="src\physics\Particle_System\Constraint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\Cloth.cpp">
+    <ClCompile Include="src\physics\Objects\Cloth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ParticleWorld.cpp">
+    <ClCompile Include="src\physics\Particle_System\ParticleWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\math\Matrix.cpp">
@@ -117,16 +117,16 @@
     <ClCompile Include="src\math\Quaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\RigidBody.cpp">
+    <ClCompile Include="src\physics\RigidBody_System\RigidBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ForceGenerators.cpp">
+    <ClCompile Include="src\physics\RigidBody_System\ForceGenerators.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scenes\mobile\MobileScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ForceRegistry.cpp">
+    <ClCompile Include="src\physics\RigidBody_System\ForceRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\assets\LineMesh.cpp">
@@ -149,7 +149,7 @@
     <ClInclude Include="includes\glad\gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\Particle.h">
+    <ClInclude Include="src\physics\Particle_System\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Precision.h">
@@ -185,13 +185,13 @@
     <ClInclude Include="src\math\random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\Firework.h">
+    <ClInclude Include="src\physics\Objects\Firework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ParticleForceRegistry.h">
+    <ClInclude Include="src\physics\Particle_System\ParticleForceRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ParticleForceGenerators.h">
+    <ClInclude Include="src\physics\Particle_System\ParticleForceGenerators.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\ropescene\RopeScene.h">
@@ -200,25 +200,25 @@
     <ClInclude Include="src\rendering\core\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ParticleContacts.h">
+    <ClInclude Include="src\physics\Particle_System\ParticleContacts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ParticleLinks.h">
+    <ClInclude Include="src\physics\Particle_System\ParticleLinks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\clothscene\ClothScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\Constraint.h">
+    <ClInclude Include="src\physics\Particle_System\Constraint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ClothParticle.h">
+    <ClInclude Include="src\physics\Particle_System\ClothParticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\Cloth.h">
+    <ClInclude Include="src\physics\Objects\Cloth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ParticleWorld.h">
+    <ClInclude Include="src\physics\Particle_System\ParticleWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\math\Matrix.h">
@@ -227,16 +227,16 @@
     <ClInclude Include="src\math\Quaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\RigidBody.h">
+    <ClInclude Include="src\physics\RigidBody_System\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ForceGenerators.h">
+    <ClInclude Include="src\physics\RigidBody_System\ForceGenerators.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\mobile\MobileScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ForceRegistry.h">
+    <ClInclude Include="src\physics\RigidBody_System\ForceRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\rendering\assets\RenderableRigidBody.h">
@@ -253,6 +253,7 @@
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
+    <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ballistics\shaders\shader.vert" />
     <None Include="src\scenes\clothscene\shaders\cloth.frag" />
     <None Include="src\scenes\clothscene\shaders\cloth.vert" />
@@ -267,7 +268,6 @@
     <None Include="src\scenes\mobile\shaders\mobile.vert" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.vert" />
-    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*">

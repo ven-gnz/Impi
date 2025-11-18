@@ -1,6 +1,6 @@
 #pragma once
-#include "src/physics/ParticleForceGenerators.h"
-#include "src/physics/Particle.h"
+#include "src/physics/Particle_System/ParticleForceGenerators.h"
+#include "src/physics/Particle_System/Particle.h"
 #include <vector>
 
 class ParticleForceRegistry

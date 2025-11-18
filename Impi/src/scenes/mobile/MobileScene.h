@@ -1,8 +1,8 @@
 #pragma once
 #include "Scene.h"
-#include "src/physics/RigidBody.h"
-#include "src/physics/ForceGenerators.h"
-#include "src/physics/ForceRegistry.h"
+#include "src/physics/RigidBody_System/RigidBody.h"
+#include "src/physics/RigidBody_System/ForceGenerators.h"
+#include "src/physics/RigidBody_System/ForceRegistry.h"
 #include "rendering/assets/RenderableRigidBody.h"
 
 

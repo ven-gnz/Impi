@@ -1,6 +1,6 @@
 #pragma once
 
-#include <src/physics/Cloth.h>
+#include <src/physics/Objects/Cloth.h>
 #include <src/scenes/Scene.h>
 
 

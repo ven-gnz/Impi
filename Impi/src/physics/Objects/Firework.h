@@ -1,5 +1,5 @@
 #pragma once
-#include <physics/Particle.h>
+#include <physics/Particle_System/Particle.h>
 #include <assert.h>
 #include <vector>
 #include <src/math/random.h>

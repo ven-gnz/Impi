@@ -1,6 +1,6 @@
 #pragma once
 #include "scenes/Scene.h"
-#include "src/physics/Firework.h"
+#include "src/physics/Objects/Firework.h"
 #include <src/math/random.h>
 
 class FireWorkScene : public Scene

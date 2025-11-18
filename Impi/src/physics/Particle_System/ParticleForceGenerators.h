@@ -1,5 +1,5 @@
 #pragma once
-#include "src/physics/Particle.h"
+#include "src/physics/Particle_System/Particle.h"
 using namespace Impi;
 
 class ParticleForceGenerator

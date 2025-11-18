@@ -1,6 +1,6 @@
 #pragma once
 #include <glad/glad.h>
-#include "physics/Particle.h"
+#include "physics/Particle_System/Particle.h"
 #include "Mesh.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

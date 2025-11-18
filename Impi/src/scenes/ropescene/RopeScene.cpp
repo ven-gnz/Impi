@@ -136,7 +136,7 @@ Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window,
     float intersection_z = (sphere.getPosition().z - near.z) / direction.z;
     glm::vec3 hit = near + direction * intersection_z;
 
-    return Vector3(hit.x, hit.y, hit.z); // lol this is getting ridiculous :D
+    return Vector3(hit.x, hit.y, hit.z); // must take a stance on the conversions at some point
 }
 
 void RopeScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
@@ -165,7 +165,7 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
         std::cout << lastMousePos.y << "lastmouse on kick" << std::endl;
         std::cout << diff.y << "diff y on kick" << std::endl;
        
-        real scaler =  diff.magnitude() * 50;
+        real scaler =  diff.magnitude() * 2.5;
         sphere.addImpulse(diff.normalized()*scaler);
         canKick = false;
         kickTimer = 0.0f;

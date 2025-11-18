@@ -1,4 +1,4 @@
-#include <physics/Particle.h>
+#include <physics/Particle_System/Particle.h>
 #include <assert.h>
 
 using namespace Impi;

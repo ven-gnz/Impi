@@ -1,9 +1,9 @@
 #pragma once
 #include "scenes/Scene.h"
-#include "physics/ParticleForceGenerators.h"
-#include "physics/ParticleForceRegistry.h"
+#include "physics/Particle_System/ParticleForceGenerators.h"
+#include "physics/Particle_System/ParticleForceRegistry.h"
 #include "rendering/assets/Mesh.h"
-#include "physics/Particle.h"
+#include "physics/Particle_System/Particle.h"
 
 class RopeScene : public Scene
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "src/physics/RigidBody.h"
+#include "src/physics/RigidBody_System/RigidBody.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <src/rendering/assets/Mesh.h>
 

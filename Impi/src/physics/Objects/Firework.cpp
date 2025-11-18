@@ -1,4 +1,4 @@
-#include <src/physics/Firework.h>
+#include "Firework.h"
 #include <iostream>
 
 

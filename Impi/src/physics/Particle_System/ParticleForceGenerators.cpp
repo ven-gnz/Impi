@@ -1,4 +1,4 @@
-#include "src/physics/ParticleForceGenerators.h"
+#include "src/physics/Particle_System/ParticleForceGenerators.h"
 
 ParticleGravity::ParticleGravity(const Vector3& gravity)
 	: gravity(gravity) {}
