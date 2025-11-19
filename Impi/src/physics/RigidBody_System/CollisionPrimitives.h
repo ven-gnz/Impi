@@ -17,9 +17,6 @@ class CollisionPrimitive
 {
 public:
 
-	
-	friend class CollisionDetector;
-
 	RigidBody* body;
 	Matrix4 offset;
 	Vector3 getAxis(unsigned index) const
