@@ -176,7 +176,7 @@ namespace Impi
 			children[0]->parent = NULL;
 			delete children[0];
 		}
-		if (childre[1])
+		if (children[1])
 		{
 			children[1]->parent = NULL;
 			delete children[0];
