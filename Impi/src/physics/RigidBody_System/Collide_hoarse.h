@@ -28,6 +28,8 @@ namespace Impi
 
 		void insert(RigidBody* body, const BoundingVolumeClass &volume);
 
+		~BVHNode();
+
 	protected:
 
 		bool overlaps(const BVHNode<BoundingVolumeClass>* other) const;
@@ -143,6 +145,42 @@ namespace Impi
 			}
 		}
 
+	}
+
+	template<class BoundingVolumeClass>
+	BVHNode<BoundingVolumeClass>::~BVHNode()
+	{
+		if (parent)
+		{
+
+			BVHNode<BoundingVolumeClass>* sibling;
+			if (parent->children[0] == this) sibling = parent->children[1];
+			else sibling = parent->children[0];
+
+			parent->volume = sibling->volume;
+			parent->body = sibling->body;
+			parent->children[0] = sibling->children[0];
+			parent->children[1] = sibling->children[1];
+
+			sibling->parent = NULL;
+			sibling->body = NULL;
+			sibling->children[0] = NULL;
+			sibling->children[1] = NULL;
+			delete sibling;
+
+			parent->recalculateBoundingVolume();
+		}
+
+		if (children[0])
+		{
+			children[0]->parent = NULL;
+			delete children[0];
+		}
+		if (childre[1])
+		{
+			children[1]->parent = NULL;
+			delete children[0];
+		}
 	}
 
 
