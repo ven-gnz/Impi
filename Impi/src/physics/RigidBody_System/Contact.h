@@ -13,6 +13,8 @@ namespace Impi
 		
 		Vector3 contactPoint;
 		Vector3 contactNormal;
+		real friction;
+		real restitution;
 		real penetration;
 	};
 };

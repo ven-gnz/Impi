@@ -426,3 +426,7 @@ Vector3 Matrix4::worldToLocalDirection(const Vector3& world, const Matrix4& tran
 	return transform.transformInverse(world);
 }
 
+Vector3 Matrix4::getAxisVector(int i) const
+{
+	return Vector3(data[i], data[i + 4], data[i + 8]);
+};
