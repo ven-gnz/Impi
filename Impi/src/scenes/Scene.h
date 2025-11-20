@@ -11,6 +11,7 @@
 #include <rendering/core/Renderer.h>
 #include <rendering/assets/LineMesh.h>
 #include <imgui.h>
+#include <src/rendering/core/Raycaster.h>
 
 class Scene {
 public:
@@ -30,6 +31,7 @@ public:
 	CubeMesh* cubemesh_ptr = nullptr;
 	LineMesh* linemesh_ptr = nullptr;
 	ViewUniform_VPC ViewUniform;
+	Raycaster raycaster;
 
 	unsigned int viewUBO = 0;
 

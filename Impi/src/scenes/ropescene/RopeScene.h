@@ -48,7 +48,6 @@ public :
 	virtual void onActivate() override;
 	virtual void onMouseButton(GLFWwindow* window, int button, int action, int mods);
 
-	Vector3 screenToWorld(double xpos, double ypos,GLFWwindow* window, glm::mat4 view, glm::mat4 proj);
 	void updateMouse(GLFWwindow* window, const Renderer& renderer) override;
 
 };

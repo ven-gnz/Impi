@@ -147,6 +147,9 @@
     <ClCompile Include="src\physics\RigidBody_System\CollisionDetector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\core\Raycaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -269,11 +272,15 @@
     <ClInclude Include="src\physics\RigidBody_System\CollisionDetector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\rendering\core\Raycaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
     <None Include="scenes\*\shaders\*.*" />
+    <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ballistics\shaders\shader.vert" />
@@ -290,7 +297,6 @@
     <None Include="src\scenes\mobile\shaders\mobile.vert" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.vert" />
-    <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*">
       <Filter>Resource Files</Filter>
     </None>

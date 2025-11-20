@@ -112,40 +112,13 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     glBindVertexArray(0);
 }
 
+
 // https://stackoverflow.com/questions/45130391/opengl-get-cursor-coordinate-on-mouse-click-in-c
-
-// https://antongerdelan.net/opengl/raycasting.html -> Should refactor to a proper raycaster in the future. Would be cool to pick up and move the cube.
-Vector3 RopeScene::screenToWorld(double xpos, double ypos, GLFWwindow* window,
-    glm::mat4 view, glm::mat4 proj)
-{
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
-    
-    glm::vec3 near = glm::unProject(glm::vec3((float)xpos, (float)(height - ypos), 0.0f),
-        view,
-        proj,
-        glm::vec4(0, 0, width, height));
-
-    glm::vec3 far = glm::unProject(glm::vec3((float)xpos, (float)(height-ypos), 1.0f),
-            view,
-            proj,
-            glm::vec4(0, 0, width, height));
-
-    glm::vec3 direction = glm::normalize(near - far);
-
-    float intersection_z = (sphere.getPosition().z - near.z) / direction.z;
-    glm::vec3 hit = near + direction * intersection_z;
-
-    return Vector3(hit.x, hit.y, hit.z); // must take a stance on the conversions at some point
-}
-
 void RopeScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
 {
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    lastMousePos = screenToWorld(xpos, ypos, window,
-        renderer.getView(),
-        renderer.getProjection());
+    lastMousePos = raycaster.screenToWorld(xpos, ypos, sphere.getPosition().z, window, renderer.getView(), renderer.getProjection());
 }
 
 
