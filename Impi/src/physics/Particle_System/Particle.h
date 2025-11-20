@@ -63,6 +63,8 @@ public:
 
 	void addImpulse(const Vector3& impulse);
 
+	Vector3* getPos_ptr();
+
 
 
 

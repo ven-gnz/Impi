@@ -46,3 +46,8 @@ void Particle::addImpulse(const Vector3& impulse)
 {
 	velocity += impulse * inverseMass;
 }
+
+Vector3* Particle::getPos_ptr()
+{
+	return &position;
+}

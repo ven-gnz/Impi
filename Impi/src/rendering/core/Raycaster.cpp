@@ -18,7 +18,7 @@ Vector3 Raycaster::screenToWorld(double xpos, double ypos, real z, GLFWwindow* w
         proj,
         glm::vec4(0, 0, width, height));
 
-    glm::vec3 direction = glm::normalize(near - far);
+    glm::vec3 direction = glm::normalize(far - near);
 
     float intersection_z = (z - near.z) / direction.z;
     glm::vec3 hit = near + direction * intersection_z;

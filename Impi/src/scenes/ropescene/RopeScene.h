@@ -37,6 +37,11 @@ class RopeScene : public Scene
 	float kickCD;
 
 
+	//bad bad do not do, lazy and stupid
+	glm::mat4 lastView;
+	glm::mat4 lastProj;
+
+
 
 public :
 

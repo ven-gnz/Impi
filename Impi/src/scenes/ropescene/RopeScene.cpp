@@ -10,7 +10,7 @@ RopeScene::RopeScene(Camera& camera)
     ),
     cubePos(0,3.375,0),
     defaultSpringConstant(5.0), defaultRestLength(3.375),
-    from_cube_to_sphere(&cubePos, defaultSpringConstant, defaultRestLength),
+    from_cube_to_sphere(cube.getPos_ptr(), defaultSpringConstant, defaultRestLength),
     scene_gravity(Vector3(0.0, -9.8, 0.0)),
     sphere(Vector3(0,0,0),1.5,Vector3(0,0,0),0.01),
     cube(Vector3(0,3.375,0), 125.0, Vector3(0,0,0), 0.05),
@@ -39,8 +39,9 @@ RopeScene::RopeScene(Camera& camera)
 
 void RopeScene::onActivate()
 {
+
     Scene::onActivate();
-    sphere.setPosition(Vector3(0, 0, 0));
+    sphere.setPosition(Vector3(0, cube.getPosition().y-3.375, 0));
     sphere.setVelocity(Vector3(0, 0, 0));
     camera.Position = camera.defaultPos + glm::vec3(0,0,15);
 
@@ -83,18 +84,17 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     sphere_mesh.render();
 
     shader.use();
-    glm::mat4 cubemodel = glm::translate(glm::mat4(1.0f), glm::vec3(cubePos.x, cubePos.y, cubePos.z));
+    glm::mat4 cubemodel = glm::translate(glm::mat4(1.0f), glm::vec3(cube.getPosition().x, cube.getPosition().y, cube.getPosition().z));
     shader.setMat4("model", cubemodel);
     shader.setVec3("color", glm::vec3(0.1, 1.0, 0.0));
     glBindVertexArray(cube_mesh.vao);
     cube_mesh.render();
 
-
     lineShader.use();
 
     glBindVertexArray(spring_line.vao);
     glm::vec3 sp = glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z);
-    glm::vec3 cp = glm::vec3(cubePos.x, cubePos.y, cubePos.z);
+    glm::vec3 cp = glm::vec3(cube.getPosition().x, cube.getPosition().y, cube.getPosition().z);
     spring_line.setPoints(sp, cp);
     lineShader.setVec3("color", glm::vec3(0.6f, 0.6f, 0.6f));
     spring_line.draw();
@@ -109,6 +109,8 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     lineShader.setVec3("color", glm::vec3(1.0f, 0.1, 0.1f));
     kick_magnitude.draw();
 
+    lastView = renderer.getView();
+    lastProj = renderer.getProjection();
     glBindVertexArray(0);
 }
 
@@ -129,20 +131,24 @@ void RopeScene::onMouseButton(GLFWwindow* window, int button, int action, int mo
     {
         if (!canKick) return;
         
-        
         Vector3 diff = sphere.getPosition() - lastMousePos;
       
         diff.z = sphere.getPosition().z;
-       
-       
-        std::cout << lastMousePos.y << "lastmouse on kick" << std::endl;
-        std::cout << diff.y << "diff y on kick" << std::endl;
-       
         real scaler =  diff.magnitude() * 2.5;
         sphere.addImpulse(diff.normalized()*scaler);
         canKick = false;
         kickTimer = 0.0f;
 
+    }
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    {
+        double x, y;
+        glfwGetCursorPos(window, &x, &y);
+        Vector3 newCubePos = raycaster.screenToWorld(x, y, cube.getPosition().z, window, lastView, lastProj);
+        
+        cube.setPosition(newCubePos);
+        
+     
     }
 
 }
