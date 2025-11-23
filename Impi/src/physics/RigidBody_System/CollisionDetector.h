@@ -24,6 +24,11 @@ namespace Impi
 			const CollisionPlane& plane,
 			CollisionData* data);
 
+		unsigned boxAndHalfSpace(
+			const CollisionBox& box,
+			const CollisionPlane& plane,
+			CollisionData* data
+		);
 
 	};
 

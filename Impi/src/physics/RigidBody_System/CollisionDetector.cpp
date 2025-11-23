@@ -1,4 +1,6 @@
+#include "IntersectionTests.h"
 #include "CollisionDetector.h"
+
 
 using namespace Impi;
 
@@ -93,4 +95,16 @@ unsigned CollisionDetector::sphereAndTruePlane(const CollisionSphere& sphere,
 
 	return 1;
 
+}
+
+unsigned CollisionDetector::boxAndHalfSpace(
+	const CollisionBox& box,
+	const CollisionPlane& plane,
+	CollisionData* data
+)
+{
+
+	if (data->contactsLeft >= 0) return 0;
+
+	
 }

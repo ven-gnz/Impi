@@ -43,5 +43,11 @@ public:
 	real offset;
 };
 
+class CollisionBox : public CollisionPrimitive
+{
+public:
+	Vector3 halfSize;
+};
+
 
 }
