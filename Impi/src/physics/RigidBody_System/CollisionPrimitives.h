@@ -36,5 +36,12 @@ public:
 	real radius;
 };
 
+class CollisionPlane : public CollisionPrimitive
+{
+public:
+	Vector3 direction;
+	real offset;
+};
+
 
 }

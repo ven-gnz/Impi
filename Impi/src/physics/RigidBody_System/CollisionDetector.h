@@ -6,15 +6,25 @@ namespace Impi
 
 
 
-class CollisionDetector
-{
-public:
+	class CollisionDetector
+	{
+	public:
 
-	static unsigned sphereAndSphere
-	(const CollisionSphere& one,
-		const CollisionSphere& two,
-		CollisionData* data
-	);
-};
+		static unsigned sphereAndSphere
+		(const CollisionSphere& one,
+			const CollisionSphere& two,
+			CollisionData* data
+		);
+
+		unsigned sphereAndHalfSpace(const CollisionSphere& sphere,
+			const CollisionPlane& plane,
+			CollisionData* data);
+
+		unsigned sphereAndTruePlane(const CollisionSphere& sphere,
+			const CollisionPlane& plane,
+			CollisionData* data);
+
+
+	};
 
 }
