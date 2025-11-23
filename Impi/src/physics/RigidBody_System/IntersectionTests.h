@@ -28,6 +28,13 @@ public:
 		const Vector3& tocenter
 	);
 
+
+	/*
+	* Orienteding Bounding Box OBB intersection test, using the Separating Axis Theorem.
+	* Boxes intersect if there are no separating axis among the 15 possible ones:
+	* 3 for box one, 3 for box two, 9 for cross product
+	* Hyperspace stuffs will have to wait
+	*/
 	static bool boxAndBox(
 		const CollisionBox& one,
 		const CollisionBox& two);

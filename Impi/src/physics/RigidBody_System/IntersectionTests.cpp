@@ -40,5 +40,32 @@ bool IntersectionTests::boxAndBox(
 	const CollisionBox& one,
 	const CollisionBox& two)
 {
+	// Separating axis theorem in three dimensions : both box axis, then the 9 cross products
+	Vector3 centerOffset = two.getAxis(3) - one.getAxis(3);
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (!testSeparatingAxisOverlap(one, two, one.getAxis(i), centerOffset)) return false;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (!testSeparatingAxisOverlap(one, two, two.getAxis(i), centerOffset)) return false;
+	}
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			if (!testSeparatingAxisOverlap(
+				one,
+				two,
+				one.getAxis(i).cross(two.getAxis(j)),
+				centerOffset))
+			{
+				return false;
+			}
+		}
+	}
 
 }
