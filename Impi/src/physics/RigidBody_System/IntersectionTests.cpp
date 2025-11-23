@@ -18,6 +18,24 @@ bool IntersectionTests::sphereAndSphere(
 	return midline.squared_Magnitude() < (one.radius + two.radius) * (one.radius + two.radius);
 }
 
+
+
+bool IntersectionTests::testSeparatingAxisOverlap(
+	const CollisionBox& one,
+	const CollisionBox& two,
+	const Vector3& axis,
+	const Vector3& tocenter
+)
+{
+
+	real oneProjected = one.projectToAxis(axis);
+	real twoProjected = two.projectToAxis(axis);
+
+	real distance = real_abs(tocenter * axis);
+	return(distance < oneProjected + twoProjected);
+
+}
+
 bool IntersectionTests::boxAndBox(
 	const CollisionBox& one,
 	const CollisionBox& two)

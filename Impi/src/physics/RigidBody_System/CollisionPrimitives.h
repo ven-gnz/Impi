@@ -47,6 +47,17 @@ class CollisionBox : public CollisionPrimitive
 {
 public:
 	Vector3 halfSize;
+	/*
+	* Projects the halfsize to the desired axis
+	*/
+	inline real projectToAxis(const Vector3& axis) const
+	{
+		return
+				halfSize.x * real_abs(axis.dot(getAxis(0))) +
+				halfSize.y * real_abs(axis.dot(getAxis(1))) +
+				halfSize.z * real_abs(axis.dot(getAxis(2)));
+	}
+	
 };
 
 

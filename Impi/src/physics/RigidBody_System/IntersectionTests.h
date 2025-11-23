@@ -18,6 +18,16 @@ public:
 		const CollisionSphere& one,
 		const CollisionSphere& two);
 
+	/*
+	* Separating Axis Theorem - helper for polygon shapes
+	*/
+	static bool testSeparatingAxisOverlap(
+		const CollisionBox& one,
+		const CollisionBox& two,
+		const Vector3& axis,
+		const Vector3& tocenter
+	);
+
 	static bool boxAndBox(
 		const CollisionBox& one,
 		const CollisionBox& two);
