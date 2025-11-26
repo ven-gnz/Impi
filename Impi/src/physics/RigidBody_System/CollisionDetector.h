@@ -1,5 +1,6 @@
 #pragma once
 #include "CollisionPrimitives.h"
+#include <vector>
 
 namespace Impi
 {
@@ -80,8 +81,11 @@ namespace Impi
 			unsigned &smallestCase
 		);
 
-	
-	
+		std::vector<std::pair<Vector3, unsigned>> buildBoxAxes(
+			const CollisionBox& one,
+			const CollisionBox& two
+		);
+
 
 	/*
 	* A vertex from box two is in contact with a face of box one.

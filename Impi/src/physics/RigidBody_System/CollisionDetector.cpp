@@ -412,12 +412,147 @@ void CollisionDetector::generate_Point_Face_Contact(
 
 }
 
+std::vector<std::pair<Vector3, unsigned>> CollisionDetector::buildBoxAxes(
+	const CollisionBox& one,
+	const CollisionBox& two
+)
+{
+	std::vector<std::pair<Vector3, unsigned>> axes;
+	axes.reserve(15);
+
+	// 0–2: One's local axes
+	axes.emplace_back(one.getAxis(0), 0);
+	axes.emplace_back(one.getAxis(1), 1);
+	axes.emplace_back(one.getAxis(2), 2);
+
+	// 3–5: Two's local axes
+	axes.emplace_back(two.getAxis(0), 3);
+	axes.emplace_back(two.getAxis(1), 4);
+	axes.emplace_back(two.getAxis(2), 5);
+
+	// 6–14: 9 edge-edge cross product axes
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(0)), 6);
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(1)), 7);
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(2)), 8);
+
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(0)), 9);
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(1)), 10);
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(2)), 11);
+
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(0)), 12);
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(1)), 13);
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(2)), 14);
+
+	return axes;
+}
+
+
+
+
 unsigned CollisionDetector::boxAndBox(
 	const CollisionBox& one,
 	const CollisionBox& two,
 	CollisionData* data
 )
 {
+
+	Vector3 toCenter = two.getAxis(3) - one.getAxis(3);
+
+	real pen = FLT_MAX;
+	unsigned best = 0xffffff;
+
+	auto axes = buildBoxAxes(one, two);
+
+	for (std::size_t i = 0; i < 6; ++i)
+	{
+		auto& [axis, index] = axes[i];
+
+		if (!tryAxis(one, two, axis, toCenter, index, pen, best))
+			return 0;
+	}
+
+	unsigned bestSingleAxis = best;
+
+	for (std::size_t i = 6; i < axes.size(); ++i)
+	{
+		auto& [axis, index] = axes[i];
+
+		if (!tryAxis(one, two, axis, toCenter, index, pen, best))
+			return 0;
+	}
+
+	if (best < 3)
+	{
+		generate_Point_Face_Contact(one, two, toCenter, data, best, pen);
+		data->addContacts(1);
+		return 1;
+	}
+	else if (best < 6)
+	{
+		generate_Point_Face_Contact(two, one, toCenter * -1.0f, data, best - 3, pen);
+		data->addContacts(1);
+		return 1;
+	}
+
+	else
+	{
+		// We've got an edge-edge contact. Find out which axes
+		best -= 6;
+		unsigned oneAxisIndex = best / 3;
+		unsigned twoAxisIndex = best % 3;
+		Vector3 oneAxis = one.getAxis(oneAxisIndex);
+		Vector3 twoAxis = two.getAxis(twoAxisIndex);
+		Vector3 axis = oneAxis.cross(twoAxis);
+		axis.normalize();
+
+		// The axis should point from box one to box two.
+		if (axis * toCenter > 0) axis = axis * -1.0f;
+
+		// We have the axes, but not the edges: each axis has 4 edges parallel
+		// to it, we need to find which of the 4 for each object. We do
+		// that by finding the point in the centre of the edge. We know
+		// its component in the direction of the box's collision axis is zero
+		// (its a mid-point) and we determine which of the extremes in each
+		// of the other axes is closest.
+		Vector3 ptOnOneEdge = one.halfSize;
+		Vector3 ptOnTwoEdge = two.halfSize;
+		for (unsigned i = 0; i < 3; i++)
+		{
+			if (i == oneAxisIndex) ptOnOneEdge[i] = 0;
+			else if (one.getAxis(i) * axis > 0) ptOnOneEdge[i] = -ptOnOneEdge[i];
+
+			if (i == twoAxisIndex) ptOnTwoEdge[i] = 0;
+			else if (two.getAxis(i) * axis < 0) ptOnTwoEdge[i] = -ptOnTwoEdge[i];
+		}
+
+		// Move them into world coordinates (they are already oriented
+		// correctly, since they have been derived from the axes).
+		ptOnOneEdge = one.getTransform() * ptOnOneEdge;
+		ptOnTwoEdge = two.getTransform() * ptOnTwoEdge;
+
+		// So we have a point and a direction for the colliding edges.
+		// We need to find out point of closest approach of the two
+		// line-segments.
+		Vector3 vertex = find_point_of_contact(
+			ptOnOneEdge, oneAxis, one.halfSize[oneAxisIndex],
+			ptOnTwoEdge, twoAxis, two.halfSize[twoAxisIndex],
+			bestSingleAxis > 2
+		);
+
+		// We can fill the contact.
+		Contact* contact = data->contacts;
+
+		contact->penetration = pen;
+		contact->contactNormal = axis;
+		contact->contactPoint = vertex;
+		
+		contact->setBodyData(one.body, two.body,
+			data->friction, data->restitution);
+		data->addContacts(1);
+		return 1;
+	}
+	return 0;
+
 
 }
 
