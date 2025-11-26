@@ -52,7 +52,7 @@ bool IntersectionTests::boxAndBox(
 	{
 		if (!testSeparatingAxisOverlap(one, two, two.getAxis(i), centerOffset)) return false;
 	}
-
+	// i for iterating the first box axis, j for iterating the other boxes axises. Wild looking but pretty standard.
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 3; ++j)
@@ -69,3 +69,15 @@ bool IntersectionTests::boxAndBox(
 	}
 
 }
+
+bool IntersectionTests::boxAndHalfSpace(
+	const CollisionBox& box,
+	const CollisionPlane& plane
+)
+{
+	real projectedRadius = box.projectToAxis(plane.direction);
+	real boxDistance = plane.direction * box.getAxis(3) - projectedRadius;
+
+	return boxDistance <= plane.offset;
+}
+

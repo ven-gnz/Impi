@@ -18,6 +18,12 @@ public:
 		const CollisionSphere& one,
 		const CollisionSphere& two);
 
+
+	static bool boxAndHalfSpace(
+		const CollisionBox& box,
+		const CollisionPlane& plane
+	);
+
 	/*
 	* Separating Axis Theorem - helper for polygon shapes
 	*/
