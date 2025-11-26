@@ -4,7 +4,7 @@
 
 using namespace Impi;
 
-bool CollisionData::hasMoreContacts() { return contacts > 0; }
+bool CollisionData::hasMoreContacts() { return contactsLeft > 0; }
 void CollisionData::reset(unsigned maxContacts)
 {
 	contactsLeft = maxContacts;
@@ -412,36 +412,36 @@ void CollisionDetector::generate_Point_Face_Contact(
 
 }
 
-std::vector<std::pair<Vector3, unsigned>> CollisionDetector::buildBoxAxes(
+std::vector<std::pair<Vector3, unsigned int>> CollisionDetector::buildBoxAxes(
 	const CollisionBox& one,
 	const CollisionBox& two
 )
 {
-	std::vector<std::pair<Vector3, unsigned>> axes;
+	std::vector<std::pair<Vector3, unsigned int>> axes;
 	axes.reserve(15);
 
 	// 0–2: One's local axes
-	axes.emplace_back(one.getAxis(0), 0);
-	axes.emplace_back(one.getAxis(1), 1);
-	axes.emplace_back(one.getAxis(2), 2);
+	axes.emplace_back(one.getAxis(0), 0u);
+	axes.emplace_back(one.getAxis(1), 1u);
+	axes.emplace_back(one.getAxis(2), 2u);
 
 	// 3–5: Two's local axes
-	axes.emplace_back(two.getAxis(0), 3);
-	axes.emplace_back(two.getAxis(1), 4);
-	axes.emplace_back(two.getAxis(2), 5);
+	axes.emplace_back(two.getAxis(0), 3u);
+	axes.emplace_back(two.getAxis(1), 4u);
+	axes.emplace_back(two.getAxis(2), 5u);
 
 	// 6–14: 9 edge-edge cross product axes
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(0)), 6);
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(1)), 7);
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(2)), 8);
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(0)), 6u);
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(1)), 7u);
+	axes.emplace_back(one.getAxis(0).cross(two.getAxis(2)), 8u);
 
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(0)), 9);
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(1)), 10);
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(2)), 11);
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(0)), 9u);
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(1)), 10u);
+	axes.emplace_back(one.getAxis(1).cross(two.getAxis(2)), 11u);
 
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(0)), 12);
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(1)), 13);
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(2)), 14);
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(0)), 12u);
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(1)), 13u);
+	axes.emplace_back(one.getAxis(2).cross(two.getAxis(2)), 14u);
 
 	return axes;
 }
@@ -545,9 +545,11 @@ unsigned CollisionDetector::boxAndBox(
 		contact->penetration = pen;
 		contact->contactNormal = axis;
 		contact->contactPoint = vertex;
+		contact->body[0] = one.body;
+		contact->body[1] = two.body;
+		contact->friction = data->friction;
+		contact->restitution = data->restitution;
 		
-		contact->setBodyData(one.body, two.body,
-			data->friction, data->restitution);
 		data->addContacts(1);
 		return 1;
 	}

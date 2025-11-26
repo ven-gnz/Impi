@@ -1,4 +1,6 @@
+#pragma once
 #include "Contact.h"
+
 
 namespace Impi
 {
@@ -11,7 +13,7 @@ public:
 
 	RigidBody* body;
 	Matrix4 offset;
-	Vector3 getAxis(unsigned index) const
+	const Vector3 getAxis(unsigned index) const
 	{
 		return transform.getAxisVector(index);
 	}
