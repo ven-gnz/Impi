@@ -7,6 +7,8 @@ bool IntersectionTests::sphereAndHalfSpace(
 	const CollisionPlane& plane)
 {
 	real ballDist = plane.direction * sphere.getAxis(3) - sphere.radius;
+
+	return ballDist <= plane.offset;
 }
 
 bool IntersectionTests::sphereAndSphere(
