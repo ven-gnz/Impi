@@ -5,6 +5,14 @@ namespace Impi
 {
 	struct CollisionData
 	{
+		/**
+		* Holds the first contact in the array.
+		* The contact pointer is to be incremented upon detecting a contact.
+		* we need a static pointer to the start of the array.
+		*/
+		Contact* first_contact_in_array;
+
+		/* Holds the contact array to write into*/
 		Contact* contacts;
 		int contactsLeft;
 		unsigned contactCount;

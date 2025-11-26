@@ -164,6 +164,7 @@
     <ClCompile Include="src\physics\Particle_System\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\physics\Particle_System\ParticleLinks.cpp" />
     <ClCompile Include="src\physics\Particle_System\ParticleWorld.cpp" />
+    <ClCompile Include="src\physics\RigidBody_System\IntersectionTests.cpp" />
     <ClCompile Include="src\physics\RigidBody_System\RigidBody.cpp" />
     <ClCompile Include="src\rendering\assets\CubeMesh.cpp" />
     <ClCompile Include="src\rendering\assets\LineMesh.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="src\physics\Particle_System\ParticleForceRegistry.h" />
     <ClInclude Include="src\physics\Particle_System\ParticleLinks.h" />
     <ClInclude Include="src\physics\Particle_System\ParticleWorld.h" />
+    <ClInclude Include="src\physics\RigidBody_System\IntersectionTests.h" />
     <ClInclude Include="src\physics\RigidBody_System\RigidBody.h" />
     <ClInclude Include="src\Precision.h" />
     <ClInclude Include="src\math\random.h" />
