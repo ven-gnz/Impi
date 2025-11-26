@@ -25,6 +25,9 @@ namespace Impi
 		Vector3 operator*(const real value) const;
 		Vector3 operator+(const Vector3& v) const;
 
+		real operator[](unsigned i) const;
+		real& operator[](unsigned i);
+
 		void addScaledVector(const Vector3& v, real scale);
 		void componentProductUpdate(const Vector3& vec);
 

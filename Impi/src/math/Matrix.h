@@ -116,7 +116,7 @@ public:
 	Vector3 localToWorldDirection(const Vector3& local, const Matrix4& transform);
 	Vector3 worldToLocalDirection(const Vector3& world, const Matrix4& transform);
 
-	Vector3 getAxisVector(int i) const;
+	Vector3 getAxisVector(unsigned i) const;
 
 
 

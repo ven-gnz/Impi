@@ -32,6 +32,20 @@ using namespace Impi;
 					z -= v.z;
 				}
 
+			real Vector3::operator[](unsigned i) const
+			{
+				if (i == 0) return x;
+				if (i == 1) return y;
+				return z;
+			}
+
+			real& Vector3::operator[](unsigned i)
+			{
+				if (i == 0) return x;
+				if (i == 1) return y;
+				return z;
+			}
+
 			void Vector3::addScaledVector(const Vector3& v, real scale)
 			{
 				x += v.x * scale;
