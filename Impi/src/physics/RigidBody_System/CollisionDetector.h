@@ -63,4 +63,35 @@ namespace Impi
 
 	};
 
+	/*
+	* A vertex from box two is in contact with a face of box one.
+	*/
+	void generate_Point_Face_Contact(
+		const CollisionBox& one,
+		const CollisionBox& two,
+		const Vector3& toCenter,
+		CollisionData* data,
+		unsigned best,
+		real pen
+	);
+
+	/*
+	* Finds the point on the line segments which is closer on edge - edge collision.
+	*/
+	Vector3 find_point_of_contact(
+		const Vector3&pOne,
+		const Vector3&dOne,
+		real oneSize,
+		const Vector3 &pTwo,
+		const Vector3 &dTwo,
+		real twoSize,
+		// when contact
+		bool useOne);
+
+	unsigned boxAndBox(
+		const CollisionBox &one,
+		const CollisionBox &two,
+		CollisionData * data
+		);
+
 }
