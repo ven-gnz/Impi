@@ -61,7 +61,27 @@ namespace Impi
 			const Vector3& point,
 			CollisionData* data);
 
-	};
+
+		static real penetrationOnAxis(
+			const CollisionBox& one,
+			const CollisionBox& two,
+			const Vector3& axis,
+			const Vector3& tocenter
+		);
+
+		static bool tryAxis(
+			const CollisionBox &one,
+			const CollisionBox &two,
+			Vector3 axis,
+			const Vector3& tocenter,
+			unsigned index,
+
+			real& smallestPenetration,
+			unsigned &smallestCase
+		);
+
+	
+	
 
 	/*
 	* A vertex from box two is in contact with a face of box one.
@@ -85,7 +105,9 @@ namespace Impi
 		const Vector3 &pTwo,
 		const Vector3 &dTwo,
 		real twoSize,
-		// when contact
+		// when contact happens outside of the edge ie edge - face contact:
+		// use ones midpoint
+		// otherwise two's midpoint can be used
 		bool useOne);
 
 	unsigned boxAndBox(
@@ -93,5 +115,7 @@ namespace Impi
 		const CollisionBox &two,
 		CollisionData * data
 		);
+
+	};
 
 }

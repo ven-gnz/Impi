@@ -279,3 +279,146 @@ unsigned CollisionDetector::boxAndPoint(
 	return 1;
 
 }
+
+
+real CollisionDetector::penetrationOnAxis(
+	const CollisionBox& one,
+	const CollisionBox& two,
+	const Vector3& axis,
+	const Vector3& tocenter
+)
+{
+	real oneProj = one.projectToAxis(axis);
+	real twoProj = two.projectToAxis(axis);
+
+	real distance = real_abs(tocenter * axis);
+
+	return oneProj + twoProj - distance;
+}
+
+bool CollisionDetector::tryAxis(
+	const CollisionBox& one,
+	const CollisionBox& two,
+	Vector3 axis,
+	const Vector3& tocenter,
+	unsigned index,
+
+	real& smallestPenetration,
+	unsigned& smallestCase
+)
+{
+	if (axis.squared_Magnitude() < 0.0001) return true;
+	axis.normalize();
+
+	real penetration = penetrationOnAxis(one, two, axis, tocenter);
+
+	if (penetration < 0) return false;
+	if (penetration < smallestPenetration)
+	{
+		smallestPenetration = penetration;
+		smallestCase = index;
+	}
+	return true;
+}
+
+
+
+
+Vector3 CollisionDetector::find_point_of_contact(
+	const Vector3& pOne,
+	const Vector3& dOne,
+	real oneSize,
+	const Vector3& pTwo,
+	const Vector3& dTwo,
+	real twoSize,
+	bool useOne)
+{
+	Vector3 toSt, cOne, cTwo;
+	real dpStaOne, dpStaTwo, dpOneTwo, smOne, smTwo;
+	real denom, mua, mub;
+
+	smOne = dOne.squared_Magnitude();
+	smTwo = dTwo.squared_Magnitude();
+	dpOneTwo = dTwo * dOne;
+
+	toSt = pOne - pTwo;
+	dpStaOne = dOne * toSt;
+	dpStaTwo = dTwo * toSt;
+
+	denom = smOne * smTwo - dpOneTwo * dpOneTwo;
+
+	// parallel lines
+	if (real_abs(denom) < 0.0001f) {
+		return useOne ? pOne : pTwo;
+	}
+
+	mua = (dpOneTwo * dpStaTwo - smTwo * dpStaOne) / denom;
+	mub = (smOne * dpStaTwo - dpOneTwo * dpStaOne) / denom;
+
+	// If either of the edges has the nearest point out
+	// of bounds, then the edges aren't crossed, we have
+	// an edge-face contact. Our point is on the edge, which
+	// we know from the useOne parameter.
+	if (mua > oneSize ||
+		mua < -oneSize ||
+		mub > twoSize ||
+		mub < -twoSize)
+	{
+		return useOne ? pOne : pTwo;
+	}
+
+	else
+	{
+		cOne = pOne + dOne * mua;
+		cTwo = pTwo + dTwo * mub;
+
+		return cOne * 0.5 + cTwo * 0.5;
+	}
+
+}
+
+void CollisionDetector::generate_Point_Face_Contact(
+	const CollisionBox& one,
+	const CollisionBox& two,
+	const Vector3& toCenter,
+	CollisionData* data,
+	unsigned best,
+	real pen
+)
+{
+
+	Contact* contact = data->contacts;
+
+	Vector3 normal = one.getAxis(best);
+	if (one.getAxis(best) * toCenter > 0)
+	{
+		normal = normal * -1.0f;
+	}
+
+	//Calculate which vertex of box two the collision happens with
+	Vector3 vertex = two.halfSize;
+	if (two.getAxis(0) * normal < 0) vertex.x = -vertex.x;
+	if (two.getAxis(1) * normal < 0) vertex.y = -vertex.y;
+	if (two.getAxis(2) * normal < 0) vertex.z = -vertex.z;
+
+	contact->contactNormal = normal;
+	contact->penetration = pen;
+	contact->contactPoint = two.getTransform() * vertex;
+	contact->body[0] = one.body;
+	contact->body[1] = two.body;
+	contact->friction = data->friction;
+	contact->restitution = data->restitution;
+
+
+}
+
+unsigned CollisionDetector::boxAndBox(
+	const CollisionBox& one,
+	const CollisionBox& two,
+	CollisionData* data
+)
+{
+
+}
+
+
