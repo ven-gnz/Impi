@@ -3,15 +3,7 @@
 namespace Impi
 {
 
-struct CollisionData
-{
-	Contact* contacts;
-	int contactsLeft;
-	unsigned contactCount;
-	real friction;
-	real restitution;
-	real tolerance;
-};
+
 
 class CollisionPrimitive
 {
@@ -23,6 +15,7 @@ public:
 	{
 		return transform.getAxisVector(index);
 	}
+	Matrix4 getTransform() const { return transform; }
 
 protected:
 	Matrix4 transform;

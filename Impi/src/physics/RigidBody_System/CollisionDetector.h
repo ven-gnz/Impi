@@ -3,7 +3,19 @@
 
 namespace Impi
 {
+	struct CollisionData
+	{
+		Contact* contacts;
+		int contactsLeft;
+		unsigned contactCount;
+		real friction;
+		real restitution;
+		real tolerance;
 
+		bool hasMoreContacts();
+		void reset(unsigned maxContacts);
+		void addContacts(unsigned count);
+	};
 
 
 	class CollisionDetector
@@ -29,6 +41,17 @@ namespace Impi
 			const CollisionPlane& plane,
 			CollisionData* data
 		);
+
+		unsigned boxAndSphere(
+			const CollisionBox& box,
+			const CollisionSphere& sphere,
+			CollisionData* data
+		);
+
+		unsigned boxAndPoint(
+			const CollisionBox& box,
+			const Vector3& point,
+			CollisionData* data);
 
 	};
 
