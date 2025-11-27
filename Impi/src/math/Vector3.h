@@ -43,7 +43,8 @@ namespace Impi
 		real squared_Magnitude() const;
 		void normalize();
 		Vector3 normalized();
-
+		real scalarProduct(const Vector3& vector) const;
+		void clear();
 		
 	};
 

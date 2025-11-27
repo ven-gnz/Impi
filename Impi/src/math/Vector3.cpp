@@ -112,6 +112,12 @@ using namespace Impi;
 				z = -z;
 			}
 
+			void Vector3::clear()
+			{
+				x = y = z = 0;
+			}
+
+
 			real Vector3::magnitude() const
 			{
 				return real_sqrt(x * x + y * y + z * z);
@@ -140,6 +146,11 @@ using namespace Impi;
 					return *this * (1/l);
 				}
 				return Vector3(0, 0, 0);
+			}
+
+			real Vector3::scalarProduct(const Vector3& vector) const
+			{
+				return x * vector.x + y * vector.y + z * vector.z;
 			}
 
 	
