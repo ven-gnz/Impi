@@ -8,7 +8,8 @@ namespace Impi
 
 	class ContactResolver
 	{
-
+		
+		
 	protected:
 
 		unsigned velocityIterations;
@@ -18,22 +19,30 @@ namespace Impi
 		real velocityEpsilon;
 		real positionEpsilon;
 
-		void prepareContacts(Contact* contactArray, unsigned numContacts, real duration);
+		void prepareContacts(Contact *contactArray, unsigned numContacts, real duration);
+
+		void setIterations(unsigned velocityIterations, unsigned positionIterations);
+
+		void setEpsilon(real velocityEpsilon, real positionEpsilon);
+
+		void setIterations(unsigned iterations);
 
 	public:
 		unsigned velocityIterationsUsed;
 		unsigned positionIterationsUsed;
 
-		void adjustVelocities(Contact* c,
+		void adjustVelocities(Contact *c,
 			unsigned numContacts,
 			real duration);
 
-		void adjustPositions(Contact* c,
+		void adjustPositions(Contact *c,
 			unsigned numContacts,
 			real duration);
 
 
 		void resolveContacts(Contact* contactArray, unsigned numContacts, real duration);
+
+
 
 	private:
 
@@ -42,11 +51,10 @@ namespace Impi
 	public:
 
 		ContactResolver(unsigned iterations,
-			real velocityEpsilon = (real)0.01, real positionEpsilon = (real)0.01);
+			real velocityEpsilon = (real)0.01,
+			real positionEpsilon = (real)0.01);
 
 		
-
-		void resolveContacts(Contact* contactArray, unsigned numContacts, real duration);
 
 	};
 

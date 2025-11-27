@@ -153,6 +153,12 @@
     <ClCompile Include="src\physics\RigidBody_System\IntersectionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics\RigidBody_System\Contact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\RigidBody_System\ContactResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\rendering\core\Shader.h">
@@ -281,6 +287,9 @@
     <ClInclude Include="src\physics\RigidBody_System\IntersectionTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\physics\RigidBody_System\ContactResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scenes\*\shaders\*.*" />
@@ -290,49 +299,23 @@
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
     <None Include="src\scenes\ropescene\shaders\rope.frag" />
-    <None Include="src\scenes\ballistics\shaders\shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\clothscene\shaders\cloth.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\clothscene\shaders\cloth.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\grid.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\grid.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\line.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\line.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\commons\shaders\metal.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\fireworks\shaders\fireworks.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\fireworks\shaders\fireworks.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\mobile\shaders\mobile.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\mobile\shaders\mobile.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\scenes\ropescene\shaders\rope.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="src\scenes\ropescene\shaders\rope.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\scenes\**\shaders\*.*" />
+    <None Include="src\scenes\ballistics\shaders\shader.vert" />
+    <None Include="src\scenes\clothscene\shaders\cloth.frag" />
+    <None Include="src\scenes\clothscene\shaders\cloth.vert" />
+    <None Include="src\scenes\commons\shaders\grid.frag" />
+    <None Include="src\scenes\commons\shaders\grid.vert" />
+    <None Include="src\scenes\commons\shaders\line.frag" />
+    <None Include="src\scenes\commons\shaders\line.vert" />
+    <None Include="src\scenes\commons\shaders\metal.png" />
+    <None Include="src\scenes\fireworks\shaders\fireworks.frag" />
+    <None Include="src\scenes\fireworks\shaders\fireworks.vert" />
+    <None Include="src\scenes\mobile\shaders\mobile.frag" />
+    <None Include="src\scenes\mobile\shaders\mobile.vert" />
+    <None Include="src\scenes\ropescene\shaders\rope.frag" />
+    <None Include="src\scenes\ropescene\shaders\rope.vert" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*" />
     <None Include="src\scenes\**\shaders\*.*">

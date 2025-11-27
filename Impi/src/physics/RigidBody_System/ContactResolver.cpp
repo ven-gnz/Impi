@@ -147,3 +147,33 @@ void ContactResolver::adjustPositions(Contact* c,
         positionIterationsUsed++;
     }
 }
+
+void ContactResolver::setIterations(unsigned velocityIterations,
+    unsigned positionIterations)
+{
+    ContactResolver::velocityIterations = velocityIterations;
+    ContactResolver::positionIterations = positionIterations;
+}
+
+
+void ContactResolver::setEpsilon(real velocityEpsilon,
+    real positionEpsilon)
+{
+    ContactResolver::velocityEpsilon = velocityEpsilon;
+    ContactResolver::positionEpsilon = positionEpsilon;
+}
+
+void ContactResolver::setIterations(unsigned iterations)
+{
+    setIterations(iterations, iterations);
+}
+
+
+
+ContactResolver::ContactResolver(unsigned iterations,
+    real velocityEpsilon,
+    real positionEpsilon)
+{
+    setIterations(iterations, iterations);
+    setEpsilon(velocityEpsilon, positionEpsilon);
+}

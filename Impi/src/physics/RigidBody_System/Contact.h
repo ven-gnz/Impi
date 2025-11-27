@@ -1,6 +1,5 @@
 #pragma once
 #include "RigidBody.h"
-#include "ContactResolver.h"
 #include "math/Matrix.h"
 
 namespace Impi
@@ -14,7 +13,7 @@ namespace Impi
 	public:
 		RigidBody* body[2];
 
-		
+
 		Vector3 contactPoint;
 		Vector3 contactNormal;
 		real friction;
@@ -46,9 +45,17 @@ namespace Impi
 
 		void calculateInternals(real duration);
 
-		
+		void applyVelocityChange(Vector3 velocityChange[2],
+			Vector3 rotationChange[2]);
 
-		// void applyImpulse(const Vector3 &impulse);
-		
+		void applyPositionChange(Vector3 linearChange[2],
+			Vector3 angularChange[2],
+			real penetration);
+
+
+
+		Vector3 calculateFrictionlessImpulse(Matrix3* inverseInertiaTensor);
+		Vector3 calculateFrictionImpulse(Matrix3* inverseInertiaTensor);
+
 	};
-};
+}
