@@ -76,9 +76,15 @@ namespace Impi
 
 		Vector3 getVelocity();
 
+		
+
 		void setLinearDamping(real d);
 
 		void setAngularDamping(real d);
+
+
+		
+		void getInverseInertiaTensorWorld(Matrix3* inverseInertiaTensor) const;
 
 		/**
 		 * Fills the given matrix data structure with a
@@ -95,11 +101,20 @@ namespace Impi
 		void getGLTransform(float matrix[16]) const;
 
 		Vector3 getPosition() { return position; }
+
+		void getPosition(Vector3* position) const;
 		
 		Quaternion getOrientation() { return orientation; }
 
+		void getOrientation(Quaternion* orientation) const;
+
 		real getAngularDamping();
 		real getLinearDamping();
+
+		void addVelocity(const Vector3 &deltaVelocity);
+
+		void addRotation(const Vector3& deltaRotation);
+
 
 
 

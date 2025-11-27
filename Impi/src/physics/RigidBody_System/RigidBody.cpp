@@ -193,6 +193,11 @@ real RigidBody::getMass()
     return inverseMass;
 }
 
+void RigidBody::getPosition(Vector3* position) const
+{
+    *position = RigidBody::position;
+}
+
 bool RigidBody::hasFiniteMass()
 {
     return inverseMass > 0.0f;
@@ -282,4 +287,23 @@ real RigidBody::getAngularDamping()
 Vector3 RigidBody::getLastFrameAcceleration()
 {
     return lastFrameAcceleration;
+}
+
+void RigidBody::getInverseInertiaTensorWorld(Matrix3* inverseInertiaTensor) const
+{
+    *inverseInertiaTensor = inverseInertiaTensorWorld;
+}
+
+void RigidBody::getOrientation(Quaternion* orientation) const
+{
+    *orientation = RigidBody::orientation;
+}
+void RigidBody::addVelocity(const Vector3& deltaVelocity)
+{
+    velocity += deltaVelocity;
+}
+
+void RigidBody::addRotation(const Vector3& deltaRotation)
+{
+    rotation += deltaRotation;
 }
