@@ -29,6 +29,10 @@ namespace Impi
 			friction = f;
 			restitution = r;
 		}
+
+		Vector3 calculateLocalVelocity(unsigned bodyIndex, real duration);
+
+		void calculateDesiredDeltaVelocity(real duration);
 	protected:
 
 		Matrix3 contactToWorldSpace;
@@ -36,9 +40,15 @@ namespace Impi
 		real desiredDeltaVelocity;
 		Vector3 relativeContactPosition[2];
 
+		void swapBodies();
+
 		void calculateContactBasis();
 
-		void applyImpulse(const Vector3 &impulse,);
+		void calculateInternals(real duration);
+
+		
+
+		// void applyImpulse(const Vector3 &impulse);
 		
 	};
 };

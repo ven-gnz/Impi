@@ -1,4 +1,5 @@
 #include "Contact.h"
+#include <assert.h>
 
 using namespace Impi;
 
@@ -50,4 +51,80 @@ void Contact::calculateContactBasis()
 		contactTangent[0],
 		contactTangent[1]
 	);
+
+
+
+}
+
+void Contact::swapBodies()
+{
+	contactNormal *= -1;
+
+	RigidBody* temp = body[0];
+	body[0] = body[1];
+	body[1] = temp;
+}
+
+
+Vector3 Contact::calculateLocalVelocity(unsigned bodyIndex, real duration)
+{
+	RigidBody* thisbody = body[bodyIndex];
+
+	Vector3 velocity = thisbody->getRotation().cross(relativeContactPosition[bodyIndex]);
+	velocity += thisbody->getVelocity();
+
+	Vector3 contactVelocity = contactToWorldSpace.transformTranspose(velocity);
+
+	Vector3 accVelocity = thisbody->getLastFrameAcceleration() * duration;
+
+	accVelocity = contactToWorldSpace.transformTranspose(accVelocity);
+
+	accVelocity.x = 0;
+	contactVelocity += accVelocity;
+
+	return contactVelocity;
+}
+
+void Contact::calculateDesiredDeltaVelocity(real duration)
+{
+
+	const static real velocityLimit = (real)0.25f;
+	real velocityFromAcc = 0;
+
+	velocityFromAcc += body[0]->getLastFrameAcceleration() * duration * contactNormal;
+
+	velocityFromAcc -= body[1]->getLastFrameAcceleration() * duration * contactNormal;
+
+	real thisRestitution = restitution;
+
+	if (real_abs(contactVelocity.x) < velocityLimit)
+	{
+		thisRestitution = (real)0.0f;
+	}
+
+	desiredDeltaVelocity =
+		-contactVelocity.x
+		- thisRestitution * (contactVelocity.x - velocityFromAcc);
+
+}
+
+
+void Contact::calculateInternals(real duration)
+{
+	if (!body[0]) swapBodies();
+	assert(body[0]);
+	
+	calculateContactBasis();
+
+	relativeContactPosition[0] = contactPoint - body[0]->getPosition();
+	if (body[1])
+	{
+		relativeContactPosition[1] = contactPoint - body[1]->getPosition();
+	}
+
+	contactVelocity = calculateLocalVelocity(0, duration);
+	if (body[1]) {
+		contactVelocity -= calculateLocalVelocity(1, duration);
+	}
+	calculateDesiredDeltaVelocity(duration);
 }
