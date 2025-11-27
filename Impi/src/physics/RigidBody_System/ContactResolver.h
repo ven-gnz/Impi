@@ -6,26 +6,49 @@ namespace Impi
 
 
 
-class ContactResolver
-{
+	class ContactResolver
+	{
 
-protected:
+	protected:
 
-	unsigned velocityIterations;
+		unsigned velocityIterations;
 
-	unsigned positionIterations;
+		unsigned positionIterations;
 
-	real velocityEpsilon;
-	real positionEpsilon;
+		real velocityEpsilon;
+		real positionEpsilon;
 
-public:
-	unsigned velocityIterationsUsed;
-	unsigned positionIterationsUsed;
+		void prepareContacts(Contact* contactArray, unsigned numContacts, real duration);
 
-private:
+	public:
+		unsigned velocityIterationsUsed;
+		unsigned positionIterationsUsed;
 
-	bool validSettings;
-};
+		void adjustVelocities(Contact* c,
+			unsigned numContacts,
+			real duration);
+
+		void adjustPositions(Contact* c,
+			unsigned numContacts,
+			real duration);
+
+
+		void resolveContacts(Contact* contactArray, unsigned numContacts, real duration);
+
+	private:
+
+		bool validSettings;
+
+	public:
+
+		ContactResolver(unsigned iterations,
+			real velocityEpsilon = (real)0.01, real positionEpsilon = (real)0.01);
+
+		
+
+		void resolveContacts(Contact* contactArray, unsigned numContacts, real duration);
+
+	};
 
 
 
