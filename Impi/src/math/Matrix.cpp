@@ -188,6 +188,15 @@ void Matrix3::setOrientation(const Quaternion& q)
 	data[8] = 1 - (2 * q.i * q.i + 2 * q.j * q.j);
 }
 
+Vector3 Matrix3::transformTranspose(const Vector3& vector)
+{
+	return Vector3(
+		vector.x * data[0] + vector.y * data[3] + vector.z * data[6],
+		vector.x * data[1] + vector.y * data[4] + vector.z * data[7],
+		vector.x * data[2] + vector.y * data[5] + vector.z * data[8]
+	);
+}
+
 Vector3 Matrix3::transform(const Vector3& vector) const
 {
 	return (*this) * vector;

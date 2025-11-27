@@ -64,6 +64,8 @@ namespace Impi
 		Vector3 transform(const Vector3& vector) const;
 		Vector3 operator*(const Vector3& vector) const;
 
+		Vector3 transformTranspose(const Vector3& vector);
+
 		static Matrix3 identity();
 	};
 
