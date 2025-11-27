@@ -278,3 +278,8 @@ real RigidBody::getAngularDamping()
 {
     return linearDamping;
 }
+
+Vector3 RigidBody::getLastFrameAcceleration()
+{
+    return lastFrameAcceleration;
+}

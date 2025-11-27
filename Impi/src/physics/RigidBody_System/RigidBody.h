@@ -32,6 +32,7 @@ namespace Impi
 		Vector3 torqueAccum;
 		Vector3 lastFrameAcceleration;
 		Matrix4 getTransformMatrix();
+		Vector3 getLastFrameAcceleration();
 		void setVelocity(const Vector3& v) { velocity = v; }
 
 
