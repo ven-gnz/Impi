@@ -28,10 +28,13 @@ class ClothScene : public Scene
 
 public:
 
+	
 	std::vector<GLuint> indices;
 	std::vector<GLuint> calculate_indices(const VerletCloth& verletCloth);
 
 	ClothScene(Camera& camera, real clothWidth, real clothHeight);
+
+	Vector3 initialWindForce;
 
 	void init_datastream();
 

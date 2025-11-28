@@ -8,7 +8,8 @@ ClothScene::ClothScene(Camera& camera, real clothWidth, real clothHeight)
 		"src/scenes/clothscene/shaders/cloth.vert",
 		"src/scenes/clothscene/shaders/cloth.frag",
 		nullptr), 
-		clothWidth(clothWidth), 
+		initialWindForce(-1,1,-1),
+		clothWidth(clothWidth),
 		clothHeight(clothHeight),
 		cloth(clothWidth, clothHeight, 14, 10, Vector3(-30, -15, 0)),
 		windForce(-1,1,-1)
@@ -78,6 +79,7 @@ void ClothScene::onActivate()
 	cloth.returnToStartingPositions();
 	camera.Position = camera.defaultPos + glm::vec3(0.0f, 0.0f, 50.0f);
 	//std::cout << camera.Position.z << "camera z";
+	windForce = initialWindForce;
 
 }
 
