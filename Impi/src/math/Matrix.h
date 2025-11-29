@@ -125,5 +125,21 @@ public:
 
 };
 
+inline std::ostream& operator<<(std::ostream& strm, const Matrix4& m)
+{
+	
+	for (int row = 0; row < 3; ++row)
+	{
+		strm << "[ ";
+		for (int col = 0; col < 4; ++col)
+		{
+			strm << m.data[row * 4 + col];
+			if (col < 3) strm << ", ";
+		}
+		strm << " ]\n";
+	}
+	return strm;
+}
+
 }                                                                                                
    
