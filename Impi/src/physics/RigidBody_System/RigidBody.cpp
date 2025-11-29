@@ -3,7 +3,8 @@
 
 using namespace Impi;
 
-
+RigidBody::RigidBody()
+{ }
 
 
 // https://stackoverflow.com/questions/3992980/c-inline-member-function-in-cpp-file
@@ -306,4 +307,15 @@ void RigidBody::addVelocity(const Vector3& deltaVelocity)
 void RigidBody::addRotation(const Vector3& deltaRotation)
 {
     rotation += deltaRotation;
+}
+
+RigidBody::RigidBody(Vector3 Position)
+    : inverseMass(2.0f),
+      inverseInertiaTensor(Matrix3::identity()),
+      position(Position),
+      orientation(Quaternion::Quaternion()),
+      angularDamping(0.15),
+      linearDamping(0.1)
+{
+    calculateDerivedData();
 }

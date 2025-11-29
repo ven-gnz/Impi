@@ -22,15 +22,30 @@ namespace Impi
 		Vector3 acceleration;
 		Vector3 velocity;
 		Vector3 rotation;
-		
 
-	public:
-
-		//dangerous to leave here ?
 		Matrix4 transformMatrix;
 		Vector3 forceAccum;
 		Vector3 torqueAccum;
 		Vector3 lastFrameAcceleration;
+		
+
+	public:
+
+		/**
+		* A somewhat dangerous default constructor not initializing anything for you.
+		*/
+		RigidBody();
+
+		/*
+		* Possibly very nonsensical default constructor.
+		* Initializes a not very exciting rigidbody with :
+		* - identity inertia tensor
+		* - dummy dampings of 0.15,
+		* - dummy mass of 2.0,
+		* - unit quaternion for rotation
+		*/
+		RigidBody(Vector3 position);
+
 		Matrix4 getTransformMatrix();
 		Vector3 getLastFrameAcceleration();
 		void setVelocity(const Vector3& v) { velocity = v; }

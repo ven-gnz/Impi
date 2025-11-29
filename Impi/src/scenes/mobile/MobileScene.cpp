@@ -16,40 +16,18 @@ MobileScene::MobileScene(Camera& camera)
         defaultRestLength(5),
         restLength1(defaultRestLength),
         restLength2(defaultRestLength),
-        centerpiece(),
-        attachment1(),
-        attachment2(),
+        centerpiece(centerPoint),
+        attachment1(mobile1_initialPos),
+        attachment2(mobile2_initialPos),
         registry(),
         scene_gravity(Gravity()),
         motor()
 
 {
 
-    Matrix3 i = Matrix3::identity();
-   
-    centerpiece.setOrientation(Quaternion(1, 0, 0, 0));
-    centerpiece.setPosition(centerPoint);
+    // default rigidbody constructor now initializes mass, we need to de-default that for gravity to not take effect
     centerpiece.setMass(0.0f);
-    centerpiece.setInertiaTensor(i);
-    centerpiece.setLinearDamping(0.2f);
-    centerpiece.setAngularDamping(0.1f);
-    centerpiece.calculateDerivedData();
 
-    attachment1.setOrientation(Quaternion(1, 0, 0, 0));
-    attachment1.setPosition(mobile1_initialPos);
-    attachment1.setInertiaTensor(i);
-    attachment1.setMass(1.0f);
-    attachment1.setLinearDamping(0.1f);
-    attachment1.setAngularDamping(0.1f);
-    attachment1.calculateDerivedData();
-
-    attachment2.setOrientation(Quaternion(1, 0, 0, 0));
-    attachment2.setPosition(mobile2_initialPos);
-    attachment2.setInertiaTensor(i);
-    attachment2.setMass(1.0f);
-    attachment2.setLinearDamping(0.1f);
-    attachment2.setAngularDamping(0.1f);
-    attachment2.calculateDerivedData();
 
     sphere_mesh.createMesh(1.0f);
     sphere_mesh.uploadToGPU();
