@@ -20,21 +20,24 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
         nullptr),
     cData(),
     scene_gravity(),
-    ammoRigidBodies(), boxes(), renderables(),
+    ammoRigidBodies(), boxes(),
     detector(),
         cubePositions{ 
-            Vector3(0,4,0),
-            Vector3(6, 7, 0),
-            Vector3(5, 10, 0),
-            Vector3(4, 5, 1) },
+            Vector3(0,1,0),
+            Vector3(6, 1, 0),
+            Vector3(2, 1, 0),
+            Vector3(4, 1, 1) },
         groundPlane()
 {
     ammoRigidBodies.reserve(128);
     boxes.reserve(16);
-
    
+    cData.first_contact_in_array = contacts;
+    cData.reset(maxContacts);
+
     groundPlane.direction = Vector3(0, 1, 0);
     groundPlane.offset = real(0.01);
+    
 
     cubeMesh.createCubeMesh();
     cubeMesh.uploadToGPU();
@@ -44,10 +47,13 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
 
     for (auto& position : cubePositions)
     {
-        Box b;
-
+        boxes.emplace_back();
+        Box& b = boxes.back();
         b.body = RigidBody(position);
         b.collider.halfSize = Vector3(0.5, 0.5, 0.5);
+        b.collider.offset = Matrix4();
+        b.collider.body = &b.body;
+        b.collider.calculateInternals();
         b.mesh_ptr = cubemesh_ptr;
         b.model = glm::mat4(1.0f);
         b.scaler = glm::vec3(1.0f);
@@ -95,28 +101,19 @@ void BoxBoxScene::draw(Renderer& renderer, Camera& camera)
 void BoxBoxScene::update(real dt)
 {
 
+  
     generateContacts();
-
    
     registry.updateForces(dt);
 
     for (auto& box : boxes)
     {
        box.body.integrate(dt);
-
+       box.collider.calculateInternals();
        
     }
-
-
-
-
-
-    
-
-
-  
-
    
+    
 
 }
 
@@ -145,12 +142,24 @@ void BoxBoxScene::generateContacts()
     cData.restitution = (real)0.1;
     cData.tolerance = (real)0.1;
 
-    for (auto& box : boxes)
+    std::cout << "Boxes in vector: " << boxes.size() << std::endl;
+
+    std::cout << cData.contactsLeft << "contacts left : " << std::endl;
+    for (size_t i = 0; i < boxes.size(); ++i)
     {
-        if (!cData.hasMoreContacts()) return;
+        auto& box = boxes[i];
+        std::cout << "Processing box " << i << " at position " << box.collider.body->getPosition() << "\n";
+        if (!cData.hasMoreContacts())
+        {
+            std::cout << "No contacts left! Exiting.\n";
+            return;
+        }
+
 
         detector.boxAndHalfSpace(box.collider, groundPlane, &cData);
+        std::cout << "After detector call, contactsLeft: " << cData.contactsLeft << "\n";
 
     }
 
+    
 }

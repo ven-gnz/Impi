@@ -19,6 +19,12 @@ public:
 	}
 	Matrix4 getTransform() const { return transform; }
 
+	virtual void calculateInternals()
+	{
+		// if (!body) { std::cout << "Colliders body is null!\n"; return; }
+		transform = body->getTransformMatrix() * offset;
+	}
+
 protected:
 	Matrix4 transform;
 };
@@ -31,11 +37,12 @@ public:
 	real radius;
 };
 
-class CollisionPlane : public CollisionPrimitive
+class CollisionPlane
 {
 public:
 	Vector3 direction;
 	real offset;
+
 };
 
 class CollisionBox : public CollisionPrimitive

@@ -4,6 +4,9 @@
 
 using namespace Impi;
 
+
+
+
 bool CollisionData::hasMoreContacts() { return contactsLeft > 0; }
 void CollisionData::reset(unsigned maxContacts)
 {
@@ -17,6 +20,11 @@ void CollisionData::addContacts(unsigned count)
 	contactCount += count;
 	// increment index ptr
 	contacts += count;
+}
+
+CollisionDetector::CollisionDetector()
+{
+	std::cout << "Collision detector created" << std::endl;
 }
 
 unsigned CollisionDetector::sphereAndSphere(
@@ -122,7 +130,12 @@ unsigned CollisionDetector::boxAndHalfSpace(
 )
 {
 
-	if (data->contactsLeft >= 0) return 0;
+	if (data->contactsLeft <= 0)
+	{
+		
+		return 0;
+
+	}
 
 	if (!IntersectionTests::boxAndHalfSpace(box, plane))
 	{
@@ -145,6 +158,9 @@ unsigned CollisionDetector::boxAndHalfSpace(
 		vertexPos.componentProductUpdate(box.halfSize);
 		vertexPos = box.getTransform().transform(vertexPos);
 
+		std::cout << "Local vertex: " << vertexPos
+			<< ", World vertex: " << box.body->getPointInWorldSpace(vertexPos) << "\n";
+
 		real vertexDistance = vertexPos * plane.direction;
 
 		if (vertexDistance <= plane.offset)
@@ -153,6 +169,12 @@ unsigned CollisionDetector::boxAndHalfSpace(
 			* Contact point is halfway between vertex and plane.
 			* Get the direction, multiply by separation of distances and translate by the vertex loc.
 			*/
+			if (!contact) {
+				std::cerr << "ERROR: contact pointer is null!\n";
+				return 0;   // bail early
+			}
+
+
 			contact->contactPoint = plane.direction;
 			contact->contactPoint *= (vertexDistance - plane.offset);
 			contact->contactPoint += vertexPos;

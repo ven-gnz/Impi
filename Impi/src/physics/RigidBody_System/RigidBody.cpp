@@ -318,4 +318,5 @@ RigidBody::RigidBody(Vector3 Position)
       linearDamping(0.1)
 {
     calculateDerivedData();
+    
 }

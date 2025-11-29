@@ -24,12 +24,15 @@ namespace Impi
 		bool hasMoreContacts();
 		void reset(unsigned maxContacts);
 		void addContacts(unsigned count);
+
 	};
 
 
 	class CollisionDetector
 	{
 	public:
+
+		CollisionDetector();
 
 		static unsigned sphereAndSphere
 		(const CollisionSphere& one,

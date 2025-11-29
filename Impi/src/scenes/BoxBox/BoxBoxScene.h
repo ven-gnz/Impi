@@ -42,17 +42,12 @@ class BoxBoxScene : public Scene
 	std::vector<Box> boxes;
 
 
-
-	std::vector<CollisionBox> colliders;
-
 	std::vector<RenderableRigidBody> renderables;
 	std::vector<Vector3> cubePositions;
 
-	CollisionData cData;
-
 	const static unsigned maxContacts = 256;
-	
 	Contact contacts[maxContacts];
+	CollisionData cData;
 
 	CollisionDetector detector;
 
