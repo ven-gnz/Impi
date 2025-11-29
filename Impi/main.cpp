@@ -12,6 +12,7 @@
 #include "scenes/ropescene/RopeScene.h"
 #include "scenes/clothscene/ClothScene.h"
 #include "scenes/mobile/MobileScene.h"
+#include "scenes/BoxBox/BoxBoxScene.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <rendering/core/Renderer.h>
@@ -93,13 +94,14 @@ int main(void)
     RopeScene rop(camera);
     ClothScene cl(camera, 55, 45);
     MobileScene mobil_ykkonen(camera);
+    BoxBoxScene box(camera);
 
 
     std::vector<Scene> scenes;
     scenes.push_back(ballistics);
     // scenes.push_back(firework);
 
-    current_scene = &rop;
+    current_scene = &box;
     current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {
@@ -147,6 +149,11 @@ int main(void)
 
         if (ImGui::Button("Mobile")) {
             current_scene = &mobil_ykkonen;
+            current_scene->onActivate();
+        }
+
+        if (ImGui::Button("Box")) {
+            current_scene = &box;
             current_scene->onActivate();
         }
         

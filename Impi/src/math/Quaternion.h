@@ -19,6 +19,9 @@ namespace Impi {
 			real data[4];
 		};
 		
+		/**
+		* Returns an identity quaternion
+		*/
 		Quaternion();
 		Quaternion(const real r, const real i, const real j, const real k);
 		void normalise();

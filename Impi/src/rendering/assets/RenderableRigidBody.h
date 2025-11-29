@@ -27,4 +27,5 @@ public:
 		body->getGLTransform(mat);
 		model = glm::scale(glm::make_mat4(mat), scaler);
 	}
+
 };

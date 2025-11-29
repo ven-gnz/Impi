@@ -5,8 +5,26 @@
 #include <src/rendering/assets/RenderableRigidBody.h>
 #include "src/physics/RigidBody_System/ForceGenerators.h"
 #include <src/physics/RigidBody_System/CollisionDetector.h>
+#include <src/physics/RigidBody_System/Contact.h>
+#include <src/physics/RigidBody_System/ForceRegistry.h>
 
 
+
+using namespace Impi;
+
+/**
+* Simple struct for this scene
+*/
+struct Box {
+
+	CollisionBox collider;
+	RigidBody body;
+	CubeMesh* mesh_ptr;
+	glm::mat4 model;
+	glm::vec3 scaler;
+	void updateModelMatrix();
+
+};
 
 
 class BoxBoxScene : public Scene
@@ -14,24 +32,40 @@ class BoxBoxScene : public Scene
 
 
 
-
-
 	CubeMesh cubeMesh;
 
 	Vector3 lastMousePos;
+
+	std::vector<RigidBody> ammoRigidBodies;
+	std::vector<RigidBody> boxwallRigidBodies;
+
+	std::vector<Box> boxes;
+
+
+
+	std::vector<CollisionBox> colliders;
 
 	std::vector<RenderableRigidBody> renderables;
 	std::vector<Vector3> cubePositions;
 
 	CollisionData cData;
 
+	const static unsigned maxContacts = 256;
+	
+	Contact contacts[maxContacts];
 
+	CollisionDetector detector;
 
+	CollisionPlane groundPlane;
+
+	ForceRegistry registry;
 
 
 public:
 
 	Gravity scene_gravity;
+
+	BoxBoxScene(Camera &camera);
 
 	virtual void draw(Renderer& renderer, Camera& camera) override;
 	virtual void update(real dt) override;
