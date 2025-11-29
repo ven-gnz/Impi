@@ -43,6 +43,19 @@ namespace Impi
 			
 	};
 
+	template<class BOundingVolumeClass>
+	void BVHNode<BOundingVolumeClass>::recalculateBoundingVolume(bool recurse)
+	{
+		if (isLeaf()) return;
+
+		volume = BoundingVolumeClass(
+			children[0]->volume,
+			childre[1]->volume
+		);
+		// recurse up the tree
+		if (parent) parent->recalculateBoundingVolume(true);
+	}
+
 	template<class BoundingVolumeClass>
 	bool BVHNode<BoundingVolumeClass>::overlaps(
 		const BVHNode<BoundingVolumeClass>* other
