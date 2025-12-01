@@ -5,6 +5,7 @@
 #include <src/rendering/assets/RenderableRigidBody.h>
 #include "src/physics/RigidBody_System/ForceGenerators.h"
 #include <src/physics/RigidBody_System/CollisionDetector.h>
+#include <src/physics/RigidBody_System/ContactResolver.h>
 #include <src/physics/RigidBody_System/Contact.h>
 #include <src/physics/RigidBody_System/ForceRegistry.h>
 
@@ -50,6 +51,7 @@ class BoxBoxScene : public Scene
 	CollisionData cData;
 
 	CollisionDetector detector;
+	ContactResolver resolver;
 
 	CollisionPlane groundPlane;
 
