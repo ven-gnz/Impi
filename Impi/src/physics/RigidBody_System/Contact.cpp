@@ -16,7 +16,6 @@ void Contact::calculateContactBasis()
 				contactNormal.z * contactNormal.z +
 				contactNormal.x * contactNormal.x);
 
-		// The new X-axis is at right angles to the world Y-axis
 		contactTangent[0].x = contactNormal.z * s;
 		contactTangent[0].y = 0;
 		contactTangent[0].z = -contactNormal.x * s;
@@ -32,6 +31,7 @@ void Contact::calculateContactBasis()
 			real_sqrt(
 				contactNormal.z * contactNormal.z +
 				contactNormal.x * contactNormal.x);
+
 
 		// The new X-axis is at right angles to the world X-axis
 		contactTangent[0].x = 0;
@@ -93,7 +93,11 @@ void Contact::calculateDesiredDeltaVelocity(real duration)
 
 	velocityFromAcc += body[0]->getLastFrameAcceleration() * duration * contactNormal;
 
-	velocityFromAcc -= body[1]->getLastFrameAcceleration() * duration * contactNormal;
+    if (body[1])
+    {
+        velocityFromAcc -= body[1]->getLastFrameAcceleration() * duration * contactNormal;
+    }
+	
 
 	real thisRestitution = restitution;
 
@@ -115,6 +119,7 @@ void Contact::calculateInternals(real duration)
 	assert(body[0]);
 	
 	calculateContactBasis();
+
 
 	relativeContactPosition[0] = contactPoint - body[0]->getPosition();
 	if (body[1])
@@ -268,10 +273,12 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
     // We will calculate the impulse for each contact axis
     Vector3 impulseContact;
 
-    if (friction == (real)0.0)
+    if (friction <= (real)0.01)
     {
         // Use the short format for frictionless contacts
         impulseContact = calculateFrictionlessImpulse(inverseInertiaTensor);
+        std::cout << "Calculated impulse without friction" << std::endl;
+        std::cout << impulseContact << std::endl;
     }
     else
     {
@@ -282,12 +289,16 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
 
     // Convert impulse to world coordinates
     Vector3 impulse = contactToWorldSpace.transform(impulseContact);
+    std::cout << "Impulse in world coords: " << impulse << std::endl;
 
     // Split in the impulse into linear and rotational components
     Vector3 impulsiveTorque = relativeContactPosition[0].cross(impulse);
     rotationChange[0] = inverseInertiaTensor[0].transform(impulsiveTorque);
     velocityChange[0].clear();
     velocityChange[0].addScaledVector(impulse, body[0]->getMass());
+
+    std::cout << "Body 0 linear velocity change: " << velocityChange[0]
+        << ", angular change: " << rotationChange[0] << std::endl;
 
     // Apply the changes
     body[0]->addVelocity(velocityChange[0]);

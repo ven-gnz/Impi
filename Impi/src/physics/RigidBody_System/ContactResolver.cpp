@@ -17,7 +17,7 @@ void ContactResolver::prepareContacts(Contact* contacts, unsigned numContacts, r
 
 void ContactResolver::resolveContacts(Contact* contacts, unsigned numContacts, real duration)
 {
-
+    
 	if (numContacts == 0) return;
 	prepareContacts(contacts, numContacts, duration);
 	adjustPositions(contacts, numContacts, duration);
