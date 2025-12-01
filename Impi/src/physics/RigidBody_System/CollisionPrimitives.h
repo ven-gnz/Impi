@@ -17,7 +17,8 @@ public:
 	{
 		return transform.getAxisVector(index);
 	}
-	Matrix4 getTransform() const { return transform; }
+
+	const Matrix4& getTransform() const { return transform; }
 
 	virtual void calculateInternals()
 	{

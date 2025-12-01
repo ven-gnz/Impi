@@ -158,8 +158,6 @@ unsigned CollisionDetector::boxAndHalfSpace(
 		vertexPos.componentProductUpdate(box.halfSize);
 		vertexPos = box.getTransform().transform(vertexPos);
 
-		std::cout << "Local vertex: " << vertexPos
-			<< ", World vertex: " << box.body->getPointInWorldSpace(vertexPos) << "\n";
 
 		real vertexDistance = vertexPos * plane.direction;
 
@@ -171,7 +169,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
 			*/
 			if (!contact) {
 				std::cerr << "ERROR: contact pointer is null!\n";
-				return 0;   // bail early
+				return 0; 
 			}
 
 
@@ -181,10 +179,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
 			contact->contactNormal = plane.direction;
 			contact->penetration = plane.offset - vertexDistance;
 
-			contact->body[0] = box.body;
-			contact->body[1] = NULL;
-			contact->friction = data->friction;
-			contact->restitution = data->restitution;
+			contact->setBodyData(box.body, NULL, data->friction, data->restitution);
 
 			contact++;
 			contactsused++;
