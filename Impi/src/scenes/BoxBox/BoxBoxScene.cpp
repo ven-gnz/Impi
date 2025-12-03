@@ -23,12 +23,12 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
     ammoRigidBodies(), boxes(),
     detector(),
         cubePositions{ 
-            Vector3(0,3,0.1),
-            Vector3(10, 4, 0.1),
-            Vector3(5, 5, 0.1),
-            Vector3(-5, 6, 1) },
+            Vector3(0,3,0.3),
+            Vector3(0.8, 11, 0.1),
+            Vector3(-0.6, 6, 0.1)
+            },
         groundPlane(),
-        resolver(maxContacts)
+        resolver(64)
 {
     ammoRigidBodies.reserve(128);
     boxes.reserve(16);
@@ -103,26 +103,49 @@ void BoxBoxScene::update(real dt)
 {
 
     registry.updateForces(dt);
-   
-    
-   
-  
-
-    for (auto& box : boxes)
+ 
+    // 1. Plane box collisions
+    for (size_t i = 0; i < boxes.size(); ++i)
     {
-        box.body.integrate(dt);
-        box.collider.calculateInternals();
+        auto& box = boxes[i];
+        //std::cout << "Processing box " << i << " at position " << box.collider.body->getPosition() << "\n";
+        if (!cData.hasMoreContacts()) return;
+
+
+
+        detector.boxAndHalfSpace(box.collider, groundPlane, &cData);
+        //std::cout << "After detector call, contactsLeft: " << cData.contactsLeft << "\n";
 
     }
-
-    generateContacts();
     resolver.resolveContacts(contacts, cData.contactCount, dt);
 
+    //generateContacts();
+    
+    cData.reset(maxContacts);
+    cData.friction = (real)0.0;
+    cData.restitution = (real)0.001;
+    cData.tolerance = (real)0.001;
+
+
+    for (auto& box : boxes)
+    {
+        box.collider.calculateInternals();
+    }
+
+    // 2. Box Box collisions
+    for (size_t i = 0; i < boxes.size(); ++i)
+    {
+
+        for (size_t j = i + 1; j < boxes.size(); ++j)
+        {
+            if (!cData.hasMoreContacts()) return;
+            detector.boxAndBox(boxes[i].collider, boxes[j].collider, &cData);
+        }
+    }
     for (auto& box : boxes)
     {
         box.body.integrate(dt);
         box.collider.calculateInternals();
-
     }
     
 
@@ -131,7 +154,12 @@ void BoxBoxScene::update(real dt)
 
 void BoxBoxScene::onActivate()
 {
-    camera.Position = camera.Position + glm::vec3(0, 0, 5);
+    camera.Position = camera.Position + glm::vec3(0, 0, 1);
+
+    for(size_t i = 0; i < boxes.size(); i++)
+    {
+        boxes[i].body.setPosition(cubePositions[i]);
+    }
 }
 
 
@@ -148,29 +176,8 @@ void BoxBoxScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
 void BoxBoxScene::generateContacts()
 {
 
-    cData.reset(maxContacts);
-    cData.friction = (real)0.0;
-    cData.restitution = (real)0.1;
-    cData.tolerance = (real)0.001;
-
-    //std::cout << "Boxes in vector: " << boxes.size() << std::endl;
-
-    //std::cout << cData.contactsLeft << "contacts left : " << std::endl;
-    for (size_t i = 0; i < boxes.size(); ++i)
-    {
-        auto& box = boxes[i];
-        //std::cout << "Processing box " << i << " at position " << box.collider.body->getPosition() << "\n";
-        if (!cData.hasMoreContacts())
-        {
-            
-            return;
-        }
-
-
-        detector.boxAndHalfSpace(box.collider, groundPlane, &cData);
-        //std::cout << "After detector call, contactsLeft: " << cData.contactsLeft << "\n";
-
-    }
+ 
 
     
 }
+
