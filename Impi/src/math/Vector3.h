@@ -37,6 +37,7 @@ namespace Impi
 
 		Vector3 cross(const Vector3& vector) const;
 		void operator %=(const Vector3& vector);
+		Vector3 operator%(const Vector3& vector) const;
 
 		void invert();
 		real magnitude() const;
@@ -45,6 +46,8 @@ namespace Impi
 		Vector3 normalized();
 		real scalarProduct(const Vector3& vector) const;
 		void clear();
+
+
 		
 	};
 
