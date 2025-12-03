@@ -22,11 +22,11 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
     scene_gravity(),
     ammoRigidBodies(), boxes(),
     detector(),
-        cubePositions{ 
-            Vector3(0,3,0.3),
-            Vector3(0.8, 11, 0.1),
-            Vector3(-0.6, 6, 0.1)
-            },
+    cubePositions{
+        Vector3(0,3,0.3),
+        Vector3(0.8, 11, 0.1),
+        Vector3(-0.6, 6, 0.1)
+    },
         groundPlane(),
         resolver(64)
 {
@@ -154,7 +154,7 @@ void BoxBoxScene::update(real dt)
 
 void BoxBoxScene::onActivate()
 {
-    camera.Position = camera.Position + glm::vec3(0, 0, 1);
+    camera.Position = camera.defaultPos + glm::vec3(0, 0, 9);
 
     for(size_t i = 0; i < boxes.size(); i++)
     {

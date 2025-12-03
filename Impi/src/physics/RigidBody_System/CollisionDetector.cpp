@@ -456,18 +456,23 @@ std::vector<std::pair<Vector3, unsigned int>> CollisionDetector::buildBoxAxes(
 	axes.emplace_back(two.getAxis(1), 4u);
 	axes.emplace_back(two.getAxis(2), 5u);
 
-	// 6–14: 9 edge-edge cross product axes
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(0)), 6u);
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(1)), 7u);
-	axes.emplace_back(one.getAxis(0).cross(two.getAxis(2)), 8u);
 
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(0)), 9u);
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(1)), 10u);
-	axes.emplace_back(one.getAxis(1).cross(two.getAxis(2)), 11u);
+	// A little stability optimization from 
+	unsigned index = 6;
 
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(0)), 12u);
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(1)), 13u);
-	axes.emplace_back(one.getAxis(2).cross(two.getAxis(2)), 14u);
+	for (int a = 0; a < 3; ++a)
+	{
+		for (int b = 0; b < 3; ++b)
+		{
+			Vector3 axis = one.getAxis(a).cross(two.getAxis(b));
+			if (axis.squared_Magnitude() < 0.0001) continue;
+
+			axis.normalize();
+			axes.emplace_back(axis, index);
+		}
+	}
+
+
 
 	return axes;
 }

@@ -312,6 +312,7 @@ void RigidBody::addRotation(const Vector3& deltaRotation)
 RigidBody::RigidBody(Vector3 Position)
     : inverseMass(2.0f),
       inverseInertiaTensor(Matrix3::identity()),
+      inverseInertiaTensorWorld(Matrix3::identity()),
       position(Position),
       orientation(Quaternion::Quaternion()),
       angularDamping(0.15),

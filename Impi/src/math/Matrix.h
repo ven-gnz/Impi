@@ -69,6 +69,21 @@ namespace Impi
 		static Matrix3 identity();
 	};
 
+	inline std::ostream& operator<<(std::ostream& strm, const Matrix3& m)
+	{
+		for (int row = 0; row < 3; ++row)
+		{
+			strm << "[ ";
+			for (int col = 0; col < 3; ++col)
+			{
+				strm << m.data[row * 3 + col];
+				if (col < 3) strm << ", ";
+			}
+			strm << " ]\n";
+		}
+		return strm;
+	}
+
 /**
   * Holds a transform matrix, consisting of a rotation matrix and
   * a position. The matrix has 12 elements, it is assumed that the

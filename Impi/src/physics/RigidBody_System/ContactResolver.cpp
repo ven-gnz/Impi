@@ -31,6 +31,10 @@ void ContactResolver::adjustVelocities(Contact* c,
     Vector3 velocityChange[2], rotationChange[2];
     Vector3 deltaVel;
 
+    // trying debug stuff
+    //rotationChange[0] = Vector3(0, 0, 0);
+    //rotationChange[1] = Vector3(0, 0, 0);
+
     // iteratively handle impacts in order of severity.
     velocityIterationsUsed = 0;
     while (velocityIterationsUsed < velocityIterations)
@@ -72,6 +76,12 @@ void ContactResolver::adjustVelocities(Contact* c,
 
                         // The sign of the change is negative if we're dealing
                         // with the second body in a contact.
+
+                        //std::cout << "Contact normal: " << c[index].contactNormal << "\n";
+                        //std::cout << "Penetration: " << c[index].penetration << "\n";
+                        //std::cout << "Relative contact pos[0]: " << c[index].relativeContactPosition[0] << "\n";
+                        //std::cout << "Body[0] inverse mass: " << c[index].body[0]->getMass() << "\n";
+                        //std::cout << "Body[0] inertia world:\n" << c[index].body[0]->inverseInertiaTensorWorld << "\n";
                         c[i].contactVelocity +=
                             c[i].contactToWorldSpace.transformTranspose(deltaVel)
                             * (b ? -1 : 1);
@@ -92,6 +102,10 @@ void ContactResolver::adjustPositions(Contact* c,
     Vector3 linearChange[2], angularChange[2];
     real max;
     Vector3 deltaPosition;
+
+    // trying debug stuff
+    //angularChange[0] = Vector3(0, 0, 0);
+    //angularChange[1] = Vector3(0, 0, 0);
 
     // iteratively resolve interpenetrations in order of severity.
     positionIterationsUsed = 0;

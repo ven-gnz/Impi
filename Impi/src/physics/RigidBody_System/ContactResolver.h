@@ -51,8 +51,8 @@ namespace Impi
 	public:
 
 		ContactResolver(unsigned iterations,
-			real velocityEpsilon = (real)0.01,
-			real positionEpsilon = (real)0.01);
+			real velocityEpsilon = (real)0.001,
+			real positionEpsilon = (real)0.001);
 
 		
 
