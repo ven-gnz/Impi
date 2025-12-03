@@ -1,5 +1,6 @@
 #include "IntersectionTests.h"
 #include "CollisionDetector.h"
+#include "assert.h"
 
 
 using namespace Impi;
@@ -329,9 +330,17 @@ bool CollisionDetector::tryAxis(
 
 	real penetration = penetrationOnAxis(one, two, axis, tocenter);
 
+	if (penetration < 0)
+	{
+		std::cout << "Penetration too small on try axis" << std::endl;
+		return false;
+	}
+	
+
 	if (penetration < 0) return false;
 	if (penetration < smallestPenetration)
 	{
+		
 		smallestPenetration = penetration;
 		smallestCase = index;
 	}
@@ -473,7 +482,12 @@ unsigned CollisionDetector::boxAndBox(
 )
 {
 
+	std::cout << "two center " << two.getAxis(3) << std::endl;
+	std::cout << "one center " << one.getAxis(3) << std::endl;
+
 	Vector3 toCenter = two.getAxis(3) - one.getAxis(3);
+
+	
 
 	real pen = FLT_MAX;
 	unsigned best = 0xffffff;
@@ -483,10 +497,14 @@ unsigned CollisionDetector::boxAndBox(
 	for (std::size_t i = 0; i < 6; ++i)
 	{
 		auto& [axis, index] = axes[i];
-
+		//std::cout << "Testing axis " << index << ": " << axis << std::endl;
 		if (!tryAxis(one, two, axis, toCenter, index, pen, best))
+		{
 			return 0;
+		}
 	}
+
+	if (best == 0xffffff) return 0;
 
 	unsigned bestSingleAxis = best;
 
@@ -497,6 +515,9 @@ unsigned CollisionDetector::boxAndBox(
 		if (!tryAxis(one, two, axis, toCenter, index, pen, best))
 			return 0;
 	}
+
+	if (best == 0xffffff) return 0;
+
 
 	if (best < 3)
 	{
@@ -513,10 +534,17 @@ unsigned CollisionDetector::boxAndBox(
 
 	else
 	{
+
+		std::cout << "Edge edge contact" << std::endl;
+		std::cout << "Best " << best;
 		// We've got an edge-edge contact. Find out which axes
 		best -= 6;
 		unsigned oneAxisIndex = best / 3;
 		unsigned twoAxisIndex = best % 3;
+
+	
+
+
 		Vector3 oneAxis = one.getAxis(oneAxisIndex);
 		Vector3 twoAxis = two.getAxis(twoAxisIndex);
 		Vector3 axis = oneAxis.cross(twoAxis);

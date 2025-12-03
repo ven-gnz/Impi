@@ -316,7 +316,8 @@ RigidBody::RigidBody(Vector3 Position)
       orientation(Quaternion::Quaternion()),
       angularDamping(0.15),
       linearDamping(0.1),
-      lastFrameAcceleration(Vector3(0,0,0))
+      lastFrameAcceleration(Vector3(0,0,0)),
+      rotation(Vector3(0,0,0))
 {
     calculateDerivedData();
     

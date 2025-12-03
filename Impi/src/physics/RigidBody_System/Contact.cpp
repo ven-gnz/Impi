@@ -277,8 +277,8 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
     {
         // Use the short format for frictionless contacts
         impulseContact = calculateFrictionlessImpulse(inverseInertiaTensor);
-        std::cout << "Calculated impulse without friction" << std::endl;
-        std::cout << impulseContact << std::endl;
+        //std::cout << "Calculated impulse without friction" << std::endl;
+        //std::cout << impulseContact << std::endl;
     }
     else
     {
@@ -289,7 +289,6 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
 
     // Convert impulse to world coordinates
     Vector3 impulse = contactToWorldSpace.transform(impulseContact);
-    std::cout << "Impulse in world coords: " << impulse << std::endl;
 
     // Split in the impulse into linear and rotational components
     Vector3 impulsiveTorque = relativeContactPosition[0].cross(impulse);
@@ -297,8 +296,8 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
     velocityChange[0].clear();
     velocityChange[0].addScaledVector(impulse, body[0]->getMass());
 
-    std::cout << "Body 0 linear velocity change: " << velocityChange[0]
-        << ", angular change: " << rotationChange[0] << std::endl;
+    //std::cout << "Body 0 linear velocity change: " << velocityChange[0]
+    //    << ", angular change: " << rotationChange[0] << std::endl;
 
     // Apply the changes
     body[0]->addVelocity(velocityChange[0]);

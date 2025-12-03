@@ -25,7 +25,7 @@ public:
 		// if (!body) { std::cout << "Colliders body is null!\n"; return; }
 		transform = body->getTransformMatrix() * offset;
 	}
-
+	
 protected:
 	Matrix4 transform;
 };
