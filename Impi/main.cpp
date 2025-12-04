@@ -22,7 +22,7 @@
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
-
+#include <src/Settings.h>
 
 
 Scene* current_scene = nullptr;
@@ -31,8 +31,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void processInput(GLFWwindow* window);
 
-int windowHeight = 1080;
-int windowWidth = 1920;
+
 
 static int scene_ptr = 0;
 

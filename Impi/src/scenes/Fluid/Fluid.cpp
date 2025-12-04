@@ -3,7 +3,7 @@
 
 Fluid::Fluid(Camera &camera)
 	:
-    Scene("RopeScene",
+    Scene("Fluid",
         camera,
         "src/scenes/Fluid/shaders/fluid.vert",
         "src/scenes/Fluid/shaders/fluid.frag",
@@ -23,9 +23,7 @@ Fluid::Fluid(Camera &camera)
         filestream.open(shaderPath);
 
         std::stringstream computeShaderStream;
-
         computeShaderStream << filestream.rdbuf();
-
         filestream.close();
 
         computeShaderCode = computeShaderStream.str();
@@ -37,6 +35,20 @@ Fluid::Fluid(Camera &camera)
         std::cout << "Compute shader file not read on Fluid scene constructor" << std::endl;
     }
 
+    cpuBlob blobs[2];
+
+    blobs[0].pos = { 0.5f, 0.5f };
+    blobs[0].vel = { 0.0f, 0.0f };
+    blobs[0].radius = 0.05f;
+    blobs[0].mass = 1.0f;
+    blobs[0].pad = 0.0f;
+
+    blobs[1].pos = { 0.0f, 0.5f };
+    blobs[1].vel = { 0.0f, 0.0f };
+    blobs[1].radius = 0.05f;
+    blobs[1].mass = 1.0f;
+    blobs[1].pad = 0.0f;
+
     const char* sourceCode = computeShaderCode.c_str();
     
     GLuint cs = glCreateShader(GL_COMPUTE_SHADER);
@@ -47,10 +59,11 @@ Fluid::Fluid(Camera &camera)
     glAttachShader(computeProgram, cs);
     glLinkProgram(computeProgram);
 
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, width, height);
-    glBindImageTexture(0, texture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+    glGenBuffers(1, &ssbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(blobs), blobs, GL_DYNAMIC_COPY);
+    //glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
+
 
     float quadVertices[] = {
         -1.f, -1.f, 0.f, 0.f, // 2pos 2tex
@@ -73,22 +86,32 @@ Fluid::Fluid(Camera &camera)
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
+
+
+
 }
 
 void Fluid::update(real delta)
 {
     glUseProgram(computeProgram);
-    glDispatchCompute(width / 16, height / 16, 1);
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+
+    // does not work with delta time?
+    glUniform1f(glGetUniformLocation(computeProgram, "dt"), delta);
+    glUniform1f(glGetUniformLocation(computeProgram, "gravity"), -0.2f);
+   
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
+    glDispatchCompute(16, 1, 1); // one invocation per blob might do?
+    glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
 
 // I guess we don't need the renderer or camera strictly here.
 void Fluid::draw(Renderer& renderer, Camera& camera)
 {
     shader.use();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(glGetUniformLocation(shader.ID, "fluidTexture"), 0);
+
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
+    glUniform2f(glGetUniformLocation(shader.ID, "resolution"), width, height);
+    glUniform1i(glGetUniformLocation(shader.ID, "numBlobs"), 2);
 
     glBindVertexArray(texVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);

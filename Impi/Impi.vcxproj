@@ -235,6 +235,7 @@
     <ClInclude Include="src\scenes\mobile\MobileScene.h" />
     <ClInclude Include="src\scenes\ropescene\RopeScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />
+    <ClInclude Include="src\Settings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

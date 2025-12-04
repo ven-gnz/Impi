@@ -3,6 +3,17 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <src/Settings.h>
+
+
+struct cpuBlob
+{
+	glm::vec2 pos;
+	glm::vec2 vel;
+	float radius;
+	float mass;
+	float pad;
+};
 
 class Fluid : public Scene
 {
@@ -11,9 +22,10 @@ private:
 
 
 	GLuint computeProgram = 0;
+	GLuint ssbo; // shader storage buffer object
 	GLuint texture = 0;
 	GLuint texVAO = 0;
-	int width = 512, height = 512;
+	int width = windowWidth, height = windowHeight;
 
 public:
 

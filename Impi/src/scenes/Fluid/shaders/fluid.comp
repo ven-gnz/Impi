@@ -1,20 +1,39 @@
 #version 430
-layout(local_size_x = 8, local_size_y = 8) in;
-layout(rgba32f, binding = 0) uniform image2D img_output;
+
+
+//workgroup settings : 
+layout(local_size_x = 1) in; //workgroup sizes : how many threads per workgroup
+
+struct Blob
+{
+	vec2 pos;
+	vec2 vel;
+	float r;
+	float mass;
+	float pad;
+}; //std430
+
+layout(std430, binding = 0) buffer BlobBuffer
+{
+	Blob blobs[];
+};
+
+
+uniform float dt;
+uniform float gravity;
+
 
 void main()
 {
-	ivec2 pixel = ivec2(gl_GlobalInvocationID.xy);
+    uint id = gl_GlobalInvocationID.x;
+	if (id >= 2) return;
+	Blob b = blobs[id];
 
-	int x = pixel.x;
-	int y = pixel.y;
+	// integrate
+    b.vel.y += gravity * dt;
+    b.pos += b.vel * dt;
 
-	if ((x/ 16 +y / 16 % 2 == 0))
-	{
-		imageStore(img_output, pixel, vec4(1.0, 1.0, 1.0, 1.0));
-	}
-	else
-	{
-		imageStore(img_output, pixel, vec4(1.0, 0.0, 0.0, 1.0));
-	}
+	//write back to ssbo
+	blobs[id] = b;
+
 }
