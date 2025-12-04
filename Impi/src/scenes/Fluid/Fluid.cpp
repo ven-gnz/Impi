@@ -10,7 +10,9 @@ Fluid::Fluid(Camera &camera)
         nullptr)
 {
 
-    const char* shaderPath = "scenes/Fluid/shaders/fluid.comp";
+    const char* shaderPath = "src/scenes/Fluid/shaders/fluid.comp";
+
+    std::cout << "compute path" << shaderPath << std::endl;
     std::string computeShaderCode;
     std::ifstream filestream;
 
@@ -18,7 +20,7 @@ Fluid::Fluid(Camera &camera)
 
     try
     {
-        filestream.open(computeShaderCode);
+        filestream.open(shaderPath);
 
         std::stringstream computeShaderStream;
 

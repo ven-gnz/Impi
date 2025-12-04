@@ -13,6 +13,7 @@
 #include "scenes/clothscene/ClothScene.h"
 #include "scenes/mobile/MobileScene.h"
 #include "scenes/BoxBox/BoxBoxScene.h"
+#include "scenes/Fluid/Fluid.h"
 #include <rendering/core/Camera.h>
 #include <rendering/core/ViewPort.h>
 #include <rendering/core/Renderer.h>
@@ -95,6 +96,7 @@ int main(void)
     ClothScene cl(camera, 55, 45);
     MobileScene mobil_ykkonen(camera);
     BoxBoxScene box(camera);
+    Fluid fluidScene(camera);
 
 
     std::vector<Scene> scenes;
@@ -156,6 +158,12 @@ int main(void)
             current_scene = &box;
             current_scene->onActivate();
         }
+
+        if (ImGui::Button("Fluid")) {
+            current_scene = &fluidScene;
+            current_scene->onActivate();
+        }
+
         
 
         ImGui::Separator();
