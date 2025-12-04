@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\rapul\FYSM\Impi\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\rapul\FYSM\Impi\Impi\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,7 +128,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\rapul\FYSM\Impi\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\rapul\FYSM\Impi\Impi\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -138,7 +138,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
+    <ClCompile Include="..\..\..\Downloads\glad (2)\src\glad.c" />
     <ClCompile Include="includes\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="includes\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="includes\imgui\imgui.cpp" />
@@ -184,6 +184,7 @@
     <ClCompile Include="src\scenes\BoxBox\BoxBoxScene.cpp" />
     <ClCompile Include="src\scenes\clothscene\ClothScene.cpp" />
     <ClCompile Include="src\scenes\fireworks\FireWorkScene.cpp" />
+    <ClCompile Include="src\scenes\Fluid\Fluid.cpp" />
     <ClCompile Include="src\scenes\mobile\MobileScene.cpp" />
     <ClCompile Include="src\scenes\ropescene\RopeScene.cpp" />
     <ClCompile Include="src\scenes\Scene.cpp" />
@@ -230,12 +231,10 @@
     <ClInclude Include="src\scenes\BoxBox\BoxBoxScene.h" />
     <ClInclude Include="src\scenes\clothscene\ClothScene.h" />
     <ClInclude Include="src\scenes\fireworks\FireWorkScene.h" />
+    <ClInclude Include="src\scenes\Fluid\Fluid.h" />
     <ClInclude Include="src\scenes\mobile\MobileScene.h" />
     <ClInclude Include="src\scenes\ropescene\RopeScene.h" />
     <ClInclude Include="src\scenes\Scene.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Downloads\metal.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
