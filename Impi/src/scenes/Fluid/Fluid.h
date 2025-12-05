@@ -13,7 +13,8 @@ struct cpuBlob
 	float radius;
 	float mass;
 	float pad;
-};
+	float pad2;
+}; // now its 32 bits exactly, so it matches GPU struct. Good stuff.
 
 class Fluid : public Scene
 {

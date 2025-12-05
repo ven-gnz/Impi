@@ -26,6 +26,8 @@ uniform float gravity;
 void main()
 {
     uint id = gl_GlobalInvocationID.x;
+
+
 	if (id >= 2) return;
 	Blob b = blobs[id];
 

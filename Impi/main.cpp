@@ -102,7 +102,7 @@ int main(void)
     scenes.push_back(ballistics);
     // scenes.push_back(firework);
 
-    current_scene = &box;
+    current_scene = &fluidScene;
     current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {

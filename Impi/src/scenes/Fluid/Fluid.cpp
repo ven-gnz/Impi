@@ -12,7 +12,7 @@ Fluid::Fluid(Camera &camera)
 
     const char* shaderPath = "src/scenes/Fluid/shaders/fluid.comp";
 
-    std::cout << "compute path" << shaderPath << std::endl;
+    std::cout << " compute path " << shaderPath << std::endl;
     std::string computeShaderCode;
     std::ifstream filestream;
 
@@ -42,13 +42,17 @@ Fluid::Fluid(Camera &camera)
     blobs[0].radius = 0.05f;
     blobs[0].mass = 1.0f;
     blobs[0].pad = 0.0f;
+    blobs[0].pad2 = 0.1f;
 
     blobs[1].pos = { 0.0f, 0.5f };
     blobs[1].vel = { 0.0f, 0.0f };
     blobs[1].radius = 0.05f;
     blobs[1].mass = 1.0f;
     blobs[1].pad = 0.0f;
+    blobs[1].pad2 = 0.1f;
 
+
+    std::cout << "sizeof(cpuBlob) = " << sizeof(cpuBlob) << std::endl;
     const char* sourceCode = computeShaderCode.c_str();
     
     GLuint cs = glCreateShader(GL_COMPUTE_SHADER);
@@ -62,7 +66,7 @@ Fluid::Fluid(Camera &camera)
     glGenBuffers(1, &ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(blobs), blobs, GL_DYNAMIC_COPY);
-    //glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
 
 
     float quadVertices[] = {
@@ -87,6 +91,8 @@ Fluid::Fluid(Camera &camera)
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
 
+   
+
 
 
 }
@@ -100,7 +106,7 @@ void Fluid::update(real delta)
     glUniform1f(glGetUniformLocation(computeProgram, "gravity"), -0.2f);
    
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
-    glDispatchCompute(16, 1, 1); // one invocation per blob might do?
+    glDispatchCompute(2, 1, 1); // one invocation per blob might do?
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
 
@@ -112,6 +118,20 @@ void Fluid::draw(Renderer& renderer, Camera& camera)
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
     glUniform2f(glGetUniformLocation(shader.ID, "resolution"), width, height);
     glUniform1i(glGetUniformLocation(shader.ID, "numBlobs"), 2);
+    //cpuBlob debug[2];
+    //glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(debug), debug);
+
+    //std::cout << debug[0].pos.x << " :x " << debug[0].pos.y << " y of blob 1 " <<std::endl;
+    //std::cout << debug[0].vel.x << " :x " << debug[0].vel.y << " vel of blob 1 " << std::endl;
+    //std::cout << debug[0].radius << " r of blob 1" << std::endl;
+    //std::cout << debug[0].mass << " m of blob 1 " << std::endl;
+    //std::cout << debug[0].pad << " pad of blob 1 " << std::endl;
+
+    //std::cout << debug[1].pos.x << " :x " << debug[1].pos.y << " y of blob 2 " << std::endl;
+    //std::cout << debug[1].vel.x << " :x " << debug[1].vel.y << " vel of blob 2 " << std::endl;
+    //std::cout << debug[1].radius << " r of blob 2" << std::endl;
+    //std::cout << debug[1].mass << " m of blob 2 " << std::endl;
+    //std::cout << debug[1].pad << " pad of blob 2 " << std::endl;
 
     glBindVertexArray(texVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
