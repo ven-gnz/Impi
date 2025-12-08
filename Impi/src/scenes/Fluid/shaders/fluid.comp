@@ -6,11 +6,10 @@ layout(local_size_x = 1) in; //workgroup sizes : how many threads per workgroup
 
 struct Blob
 {
-	vec2 pos;
-	vec2 vel;
+	vec3 pos;
+	vec3 vel;
 	float r;
 	float mass;
-	float pad;
 }; //std430
 
 struct GPUBox
@@ -38,26 +37,21 @@ uniform float gravity;
 
 void resolveBoxCollisions(inout Blob b)
 {
-	
-	vec3 worldPos = vec3(b.pos, 0.0);
-	vec3 localPos = (box.modelInverse * vec4(worldPos, 1.0)).xyz;
+    vec3 worldPos = vec3(b.pos);
+    vec3 localPos = (box.modelInverse * vec4(worldPos, 1.0)).xyz;
 
-	vec3 h = box.halfSizes.xyz;
+    vec3 h = box.halfSizes.xyz;
     bool collided = false;
 
-    // ---- X walls ----
-    if (localPos.x < -h.x) { localPos.x = -h.x; b.vel.x *= -0.8; collided = true; }
-    if (localPos.x >  h.x) { localPos.x =  h.x; b.vel.x *= -0.8; collided = true; }
+	if(localPos.x < -h.x) { localPos.x = -h.x; b.vel.x *= -0.8; collided = true; }
+    if(localPos.x >  h.x) { localPos.x =  h.x; b.vel.x *= -0.8; collided = true; }
+    if(localPos.y < -h.y) { localPos.y = -h.y; b.vel.y *= -0.8; collided = true; }
+    if(localPos.y >  h.y) { localPos.y =  h.y; b.vel.y *= -0.8; collided = true; }
+    if(localPos.z < -h.z) { localPos.z = -h.z; b.vel.z *= -0.8; collided = true; }
+    if(localPos.z >  h.z) { localPos.z =  h.z; b.vel.z *= -0.8; collided = true; }
 
-    // ---- Y walls ----
-    if (localPos.y < -h.y) { localPos.y = -h.y; b.vel.y *= -0.8; collided = true; }
-    if (localPos.y >  h.y) { localPos.y =  h.y; b.vel.y *= -0.8; collided = true; }
-
-	if (collided)
-    {
-        vec3 newWorld = (box.model * vec4(localPos, 1.0)).xyz;
-        b.pos = newWorld.xy;
-    }
+    if(collided)
+        b.pos = (box.model * vec4(localPos, 1.0)).xyz;
 
 }
 

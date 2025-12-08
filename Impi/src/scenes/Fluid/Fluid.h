@@ -8,12 +8,10 @@
 
 struct cpuBlob
 {
-	glm::vec2 pos;
-	glm::vec2 vel;
+	glm::vec3 pos;
+	glm::vec3 vel;
 	float radius;
 	float mass;
-	float pad;
-	float pad2;
 }; // now its 32 bits exactly, so it matches GPU struct. Good stuff.
 
 struct GPUBox
