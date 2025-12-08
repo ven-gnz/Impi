@@ -74,4 +74,5 @@ struct CubeMesh : public Mesh
 	void createCubeMesh();
 	void uploadToGPU();
 	void render() const override;
+	void renderWireFrame();
 };

@@ -16,6 +16,16 @@ struct cpuBlob
 	float pad2;
 }; // now its 32 bits exactly, so it matches GPU struct. Good stuff.
 
+struct GPUBox
+{
+	glm::mat4 model;
+	glm::mat4 modelInverse;
+	glm::vec4 halfSize;
+	CubeMesh* mesh_ptr;
+	glm::vec2 pad;
+	
+};
+
 class Fluid : public Scene
 {
 
@@ -26,7 +36,11 @@ private:
 	GLuint ssbo; // shader storage buffer object
 	GLuint texture = 0;
 	GLuint texVAO = 0;
+	GLuint containerSSBO;
 	int width = windowWidth, height = windowHeight;
+	GPUBox boundingBox;
+	Shader fluidComputeRenderShader;
+	CubeMesh boundingVolumeMesh;
 
 public:
 

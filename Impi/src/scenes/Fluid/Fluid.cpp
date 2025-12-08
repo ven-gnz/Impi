@@ -1,15 +1,18 @@
 #include "Fluid.h"
 
 
-Fluid::Fluid(Camera &camera)
-	:
+Fluid::Fluid(Camera& camera)
+    :
     Scene("Fluid",
         camera,
-        "src/scenes/Fluid/shaders/fluid.vert",
-        "src/scenes/Fluid/shaders/fluid.frag",
-        nullptr)
+        "src/scenes/Fluid/shaders/volume.vert",
+        "src/scenes/Fluid/shaders/volume.frag",
+        nullptr),
+    boundingBox(),
+    fluidComputeRenderShader("src/scenes/Fluid/shaders/fluid.vert", "src/scenes/Fluid/shaders/fluid.frag", nullptr)
 {
 
+    
     const char* shaderPath = "src/scenes/Fluid/shaders/fluid.comp";
 
     std::cout << " compute path " << shaderPath << std::endl;
@@ -35,16 +38,26 @@ Fluid::Fluid(Camera &camera)
         std::cout << "Compute shader file not read on Fluid scene constructor" << std::endl;
     }
 
+    boundingBox.model = glm::mat4(1.0f);
+    boundingBox.model = glm::translate(boundingBox.model, glm::vec3(0.5f, 0.5f, -2.0f));
+    boundingBox.model = glm::scale(boundingBox.model, glm::vec3(boundingBox.halfSize));
+    boundingBox.halfSize = glm::vec4(0.4f);
+    boundingBox.modelInverse = glm::inverse(boundingBox.model);
+    
+    boundingVolumeMesh.createCubeMesh();
+    boundingBox.mesh_ptr = &boundingVolumeMesh;
+    
+
     cpuBlob blobs[2];
 
-    blobs[0].pos = { 0.5f, 0.5f };
+    blobs[0].pos = { 0.3f, 0.5f };
     blobs[0].vel = { 0.0f, 0.0f };
     blobs[0].radius = 0.05f;
     blobs[0].mass = 1.0f;
     blobs[0].pad = 0.0f;
     blobs[0].pad2 = 0.1f;
 
-    blobs[1].pos = { 0.0f, 0.5f };
+    blobs[1].pos = { 0.6f, 0.5f};
     blobs[1].vel = { 0.0f, 0.0f };
     blobs[1].radius = 0.05f;
     blobs[1].mass = 1.0f;
@@ -66,7 +79,14 @@ Fluid::Fluid(Camera &camera)
     glGenBuffers(1, &ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(blobs), blobs, GL_DYNAMIC_COPY);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+
+    glGenBuffers(1, &containerSSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, containerSSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GPUBox), &boundingBox, GL_STATIC_DRAW);
+   
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, containerSSBO);
+   
 
 
     float quadVertices[] = {
@@ -100,24 +120,52 @@ Fluid::Fluid(Camera &camera)
 void Fluid::update(real delta)
 {
     glUseProgram(computeProgram);
+    //upstream the possible transformed bv to GPU
+    // just some placeholder stuff
+    boundingBox.model = glm::mat4(1.0f);
+    boundingBox.model = glm::translate(boundingBox.model, glm::vec3(0.5, 0.5, -2.0));
+    boundingBox.halfSize = glm::vec4(0.4f);
+    boundingBox.modelInverse = glm::inverse(boundingBox.model);
+
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, containerSSBO);
+
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GPUBox), &boundingBox);
+    
 
     // does not work with delta time?
     glUniform1f(glGetUniformLocation(computeProgram, "dt"), delta);
     glUniform1f(glGetUniformLocation(computeProgram, "gravity"), -0.2f);
    
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
-    glDispatchCompute(2, 1, 1); // one invocation per blob might do?
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+    glDispatchCompute(6, 1, 1); // one invocation per blob might do?
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
 
 // I guess we don't need the renderer or camera strictly here.
 void Fluid::draw(Renderer& renderer, Camera& camera)
 {
-    shader.use();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
 
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo);
-    glUniform2f(glGetUniformLocation(shader.ID, "resolution"), width, height);
-    glUniform1i(glGetUniformLocation(shader.ID, "numBlobs"), 2);
+    
+    glEnable(GL_DEPTH_TEST);
+
+    shader.use();
+    shader.setMat4("model", boundingBox.model);
+    shader.setVec3("color", glm::vec3(0.0f, 1.0f, 0.0f)); // green
+    glBindVertexArray(boundingBox.mesh_ptr->vao);
+    boundingBox.mesh_ptr->renderWireFrame();
+
+    fluidComputeRenderShader.use();
+    glDisable(GL_DEPTH_TEST);
+
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+    glUniform2f(glGetUniformLocation(fluidComputeRenderShader.ID, "resolution"), width, height);
+    glUniform1i(glGetUniformLocation(fluidComputeRenderShader.ID, "numBlobs"), 2);
+    glBindVertexArray(texVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
     //cpuBlob debug[2];
     //glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(debug), debug);
 
@@ -133,8 +181,6 @@ void Fluid::draw(Renderer& renderer, Camera& camera)
     //std::cout << debug[1].mass << " m of blob 2 " << std::endl;
     //std::cout << debug[1].pad << " pad of blob 2 " << std::endl;
 
-    glBindVertexArray(texVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void Fluid::onActivate()

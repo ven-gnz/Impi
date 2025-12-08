@@ -38,3 +38,13 @@ void CubeMesh::render() const
 {
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 }
+
+void CubeMesh::renderWireFrame()
+{
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
+
+    // restore?
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+};
+
