@@ -6,10 +6,9 @@ layout(local_size_x = 1) in; //workgroup sizes : how many threads per workgroup
 
 struct Blob
 {
-	vec3 pos;
-	vec3 vel;
-	float r;
-	float mass;
+	vec4 pos;
+	vec4 vel;
+	vec4 properties;
 }; //std430
 
 struct GPUBox
@@ -33,11 +32,12 @@ layout(std430, binding = 2) buffer BoxBuffer
 
 uniform float dt;
 uniform float gravity;
+uniform uint numBlobs;
 
 
 void resolveBoxCollisions(inout Blob b)
 {
-    vec3 worldPos = vec3(b.pos);
+    vec3 worldPos = vec3(b.pos).xyz;
     vec3 localPos = (box.modelInverse * vec4(worldPos, 1.0)).xyz;
 
     vec3 h = box.halfSizes.xyz;
@@ -50,8 +50,10 @@ void resolveBoxCollisions(inout Blob b)
     if(localPos.z < -h.z) { localPos.z = -h.z; b.vel.z *= -0.8; collided = true; }
     if(localPos.z >  h.z) { localPos.z =  h.z; b.vel.z *= -0.8; collided = true; }
 
-    if(collided)
-        b.pos = (box.model * vec4(localPos, 1.0)).xyz;
+    if(collided) 
+	{
+		 b.pos.xyz = (box.model * vec4(localPos, 1.0)).xyz;
+	}
 
 }
 
@@ -59,9 +61,8 @@ void resolveBoxCollisions(inout Blob b)
 void main()
 {
     uint id = gl_GlobalInvocationID.x;
+	if (id >= uint(numBlobs)) return;
 
-
-	if (id >= 2) return;
 	Blob b = blobs[id];
 
 	// integrate

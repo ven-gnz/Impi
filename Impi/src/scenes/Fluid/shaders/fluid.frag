@@ -9,10 +9,9 @@ layout(std140, binding = 0) uniform ViewUniforms
 
 struct Blob
 {
-	vec3 pos;
-	vec3 vel;
-	float r;
-	float mass;
+	vec4 pos;
+	vec4 vel;
+	vec4 properties; // r mass empty empty
 }; //std430
 
 
@@ -35,29 +34,31 @@ in vec2 uv;
 vec2 worldToUV(vec3 worldPos)
 {
     vec4 clip = projection * view * vec4(worldPos, 1.0);
-    vec3 ndc = clip.xyz / clip.w;       // perspective divide
-    return ndc.xy * 0.5 + 0.5;          // map from [-1,1] -> [0,1]
+    vec3 ndc = clip.xyz / clip.w;
+    return ndc.xy * 0.5 + 0.5;
 }
 
 
 void main() {
 
-    vec2 uv = gl_FragCoord.xy / resolution;
+    vec2 screenUV = gl_FragCoord.xy / resolution;
 
     vec3 color = vec3(0.0);
+    vec3 camRight = vec3(view[0][0], view[1][0], view[2][0]);
+
 
     for (int i = 0; i < numBlobs; i++)
     {
         
-        vec2 blobUV = worldToUV(blobs[i].pos);
+        vec2 centerUV = worldToUV(blobs[i].pos.xyz);
+        float radius = 0.01;
+        float d = length(screenUV - centerUV);
 
-        vec4 offset = projection * view * vec4(blobs[i].pos + vec3(blobs[i].r,0,0),1.0);
-        offset /= offset.w;
-        float screenRadius = abs(blobUV.x - (offset.x*0.5 + 0.5));
-        float d = sdCircle(uv, blobUV, screenRadius);
-        if (d < 0.0)
-            color += vec3(0.0, 0.0, 0.3); 
+        if (d < radius)
+            color = vec3(0.0, 0.0, 0.3);
     }
+    
 
     FragColor = vec4(color, 1.0);
-}
+    
+    }

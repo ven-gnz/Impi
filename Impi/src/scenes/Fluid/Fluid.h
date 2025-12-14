@@ -8,10 +8,9 @@
 
 struct cpuBlob
 {
-	glm::vec3 pos;
-	glm::vec3 vel;
-	float radius;
-	float mass;
+	glm::vec4 pos;
+	glm::vec4 vel;
+	glm::vec4 properties;
 }; // now its 32 bits exactly, so it matches GPU struct. Good stuff.
 
 struct GPUBox
@@ -39,6 +38,7 @@ private:
 	GPUBox boundingBox;
 	Shader fluidComputeRenderShader;
 	CubeMesh boundingVolumeMesh;
+	unsigned int numBlobs = 2;
 
 public:
 

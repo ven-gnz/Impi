@@ -50,15 +50,15 @@ Fluid::Fluid(Camera& camera)
 
     cpuBlob blobs[2];
 
-    blobs[0].pos = { 0.3f, 0.5f, 0.0f };
-    blobs[0].vel = { 0.0f, 0.0f, 0.0f };
-    blobs[0].radius = 0.0001f;
-    blobs[0].mass = 1.0f;
+    blobs[0].pos = { 0.3f, 0.5f, 0.0f, 0.0f };
+    blobs[0].vel = { 0.0f, 0.0f, 0.0f, 0.0f };
+    blobs[0].properties = { 0.001f, 1.0, 0.0f, 0.0f };
+  
 
-    blobs[1].pos = { 0.6f, 0.5f, 0.0f};
-    blobs[1].vel = { 0.0f, 0.0f, 0.0f };
-    blobs[1].radius = 0.0001f;
-    blobs[1].mass = 1.0f;
+    blobs[1].pos = { 0.6f, 0.5f, 0.0f, 0.0f};
+    blobs[1].vel = { 0.0f, 0.0f, 0.0f, 0.0f };
+    blobs[1].properties = { 0.001f, 1.0f, 0.0f, 0.0f };
+    
     
     
 
@@ -126,16 +126,18 @@ void Fluid::update(real delta)
     boundingBox.modelInverse = glm::inverse(boundingBox.model);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, containerSSBO);
-
+   
     glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(GPUBox), &boundingBox);
     
 
     // does not work with delta time?
     glUniform1f(glGetUniformLocation(computeProgram, "dt"), delta);
     glUniform1f(glGetUniformLocation(computeProgram, "gravity"), -0.2f);
-   
+    glUniform1ui(glGetUniformLocation(computeProgram, "numBlobs"), numBlobs);
+    
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, containerSSBO);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
-    glDispatchCompute(6, 1, 1); // one invocation per blob might do?
+    glDispatchCompute(2, 1, 1); // one invocation per blob might do?
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
 
@@ -153,10 +155,10 @@ void Fluid::draw(Renderer& renderer, Camera& camera)
 
     
     glDisable(GL_DEPTH_TEST);
-
+    fluidComputeRenderShader.setVec3("color", glm::vec3(0.0, 0.0, 1.0));
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
     glUniform2f(glGetUniformLocation(fluidComputeRenderShader.ID, "resolution"), width, height);
-    glUniform1i(glGetUniformLocation(fluidComputeRenderShader.ID, "numBlobs"), 2);
+    glUniform1i(glGetUniformLocation(fluidComputeRenderShader.ID, "numBlobs"), numBlobs);
     glBindVertexArray(texVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -179,13 +181,11 @@ void Fluid::draw(Renderer& renderer, Camera& camera)
     //std::cout << debug[0].vel.x << " :x " << debug[0].vel.y << " vel of blob 1 " << std::endl;
     //std::cout << debug[0].radius << " r of blob 1" << std::endl;
     //std::cout << debug[0].mass << " m of blob 1 " << std::endl;
-    //std::cout << debug[0].pad << " pad of blob 1 " << std::endl;
 
     //std::cout << debug[1].pos.x << " :x " << debug[1].pos.y << " y of blob 2 " << std::endl;
     //std::cout << debug[1].vel.x << " :x " << debug[1].vel.y << " vel of blob 2 " << std::endl;
     //std::cout << debug[1].radius << " r of blob 2" << std::endl;
     //std::cout << debug[1].mass << " m of blob 2 " << std::endl;
-    //std::cout << debug[1].pad << " pad of blob 2 " << std::endl;
 
 }
 
