@@ -14,16 +14,7 @@ For your learning journey, I recommend the original book and the source code whi
 
 ## Status
 
-Currently, or as of mid december, the project is in hiatus. It taught me good fund
-amentals in physical modelling. I got to about 330-ish pages during the course on the Millingtons book, and with that the collision detection and resolution for rigid bodies, as done in the box test scene.
+The project was on hiatus for a long time, but recent advancements in animation engine prompted a codebase reorg for starting a joined product, a more feature-complete engine.
 
 
-<img width="1094" height="588" alt="scrshot" src="https://github.com/user-attachments/assets/84ba5b20-1cf0-4c2a-95c2-aaccdd6e2be0" />
 
-## Upcoming plans
-
-Next for Impi, I am looking forwards to finishing the book, leading to some **optimizations** and **acceleration structures**, and a task system/threading system to speed up and possibly stress test with a relatively big n-count of boxes.
-
-Another goal, is **re-organizing the codebase**, for using Impi as a modular library once its a bit more feature-complete. Particularly, I am interested in linking my physics engine with my up and coming animation library, Ankka.
-
-If I have time, I will also finish (or get properly started with) the fluid simulation scene. But this is least prioritized for the time being.
