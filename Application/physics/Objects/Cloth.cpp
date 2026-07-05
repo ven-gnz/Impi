@@ -1,4 +1,4 @@
-#include "Cloth.h"
+#include <physics/Objects/Cloth.h>
 #include <assert.h>
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#include "LineMesh.h"
+#include "opengl/LineMesh.h"
 
 void LineMesh::uploadToGPU()
 {

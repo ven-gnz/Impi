@@ -1,4 +1,4 @@
-#include "ForceRegistry.h"
+#include <physics/Rigidbody_System/ForceRegistry.h>
 
 using namespace Impi;
 

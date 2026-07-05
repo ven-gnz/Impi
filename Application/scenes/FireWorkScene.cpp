@@ -1,5 +1,5 @@
-#include "FireWorkScene.h"
-#include "src/physics/Objects/Firework.h"
+#include <scenes/FireWorkScene.h>
+#include <physics/Objects/Firework.h>
 
 using namespace Impi;
 

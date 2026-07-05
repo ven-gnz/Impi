@@ -1,6 +1,6 @@
-#include "MobileScene.h"
-#include "glm/glm.hpp"
-#include "src/math/Matrix.h"
+#include <scenes/MobileScene.h>
+#include <glm/glm.hpp>
+#include <math/Matrix.h>
 
 
 MobileScene::MobileScene(Camera& camera)

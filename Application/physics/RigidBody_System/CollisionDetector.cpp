@@ -1,6 +1,6 @@
-#include "IntersectionTests.h"
-#include "CollisionDetector.h"
-#include "assert.h"
+#include <physics/Rigidbody_System/IntersectionTests.h>
+#include <physics/Rigidbody_System/CollisionDetector.h>
+#include <assert.h>
 
 
 using namespace Impi;

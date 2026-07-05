@@ -1,5 +1,5 @@
-#include <includes/math/random.h>
-#include <includes/math/Vector3.h>
+#include <math/random.h>
+#include <math/Vector3.h>
 #include <cstdlib>
 #include <ctime>
 #include <random>

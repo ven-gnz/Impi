@@ -1,4 +1,4 @@
-#include "IntersectionTests.h"
+#include <physics/Rigidbody_System/IntersectionTests.h>
 
 using namespace Impi;
 

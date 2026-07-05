@@ -1,4 +1,4 @@
-#include "Constraint.h"
+#include "physics/Particle_System/Constraint.h"
 
 Constraint::Constraint(ClothParticle* p1, ClothParticle* p2)
 	: p1(p1), p2(p2)

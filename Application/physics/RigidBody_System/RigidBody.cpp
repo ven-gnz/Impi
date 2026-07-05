@@ -1,4 +1,4 @@
-#include "RigidBody.h"
+#include <physics/Rigidbody_System/RigidBody.h>
 
 
 using namespace Impi;

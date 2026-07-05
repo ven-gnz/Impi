@@ -1,4 +1,4 @@
-#include <src/scenes/clothscene/ClothScene.h>
+#include <scenes/ClothScene.h>
 
 
 

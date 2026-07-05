@@ -6,23 +6,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <scenes/Scene.h>
-#include "rendering/core/Shader.h"
-#include "scenes/ballistics/Ballistics.h"
-#include "scenes/fireworks/FireWorkScene.h"
-#include "scenes/ropescene/RopeScene.h"
-#include "scenes/clothscene/ClothScene.h"
-#include "scenes/mobile/MobileScene.h"
-#include "scenes/BoxBox/BoxBoxScene.h"
-#include "scenes/Fluid/Fluid.h"
-#include <rendering/core/Camera.h>
-#include <rendering/core/ViewPort.h>
-#include <rendering/core/Renderer.h>
+#include "opengl/Shader.h"
+#include "scenes/Ballistics.h"
+#include "scenes/FireWorkScene.h"
+#include "scenes/RopeScene.h"
+#include "scenes/ClothScene.h"
+#include "scenes/MobileScene.h"
+#include "scenes/BoxBoxScene.h"
+#include <tools/Camera.h>
+#include <tools/ViewPort.h>
+#include <tools/Renderer.h>
 #include <iostream>
 #include <stdlib.h>
-#include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
-#include <src/Settings.h>
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <App/Settings.h>
 
 
 Scene* current_scene = nullptr;

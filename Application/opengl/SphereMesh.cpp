@@ -1,4 +1,4 @@
-#include <rendering/assets/Mesh.h>
+#include <opengl/Mesh.h>
 #include <vector>
 #include <cmath>
 #include <iostream>

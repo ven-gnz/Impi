@@ -1,4 +1,4 @@
-#include "Contact.h"
+#include <physics/Rigidbody_System/Contact.h>
 #include <assert.h>
 
 using namespace Impi;

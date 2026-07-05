@@ -1,4 +1,4 @@
-#include "ContactResolver.h"
+#include <physics/Rigidbody_System/ContactResolver.h>
 
 using namespace Impi;
 

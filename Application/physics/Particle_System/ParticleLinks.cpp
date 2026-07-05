@@ -1,4 +1,4 @@
-#include "ParticleLinks.h"
+#include <physics/Particle_System/ParticleLinks.h>
 
 real ParticleLink::currentLength() const
 {

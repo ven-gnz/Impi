@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "opengl/Mesh.h"
 
 
 void CubeMesh::createCubeMesh()

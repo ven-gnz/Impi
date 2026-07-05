@@ -1,4 +1,4 @@
-#include "src/physics/RigidBody_System/BoundingVolumes.h"
+#include <physics/RigidBody_System/BoundingVolumes.h>
 
 using namespace Impi;
 

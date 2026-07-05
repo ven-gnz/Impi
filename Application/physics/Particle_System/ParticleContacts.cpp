@@ -1,4 +1,4 @@
-#include "ParticleContacts.h"
+#include <physics/Particle_System/ParticleContacts.h>
 
 void ParticleContact::resolve(real duration)
 {

@@ -1,4 +1,4 @@
-#include <src/scenes/ropescene/RopeScene.h>
+#include <scenes/RopeScene.h>
 #include <glm/glm.hpp>
 
 RopeScene::RopeScene(Camera& camera)

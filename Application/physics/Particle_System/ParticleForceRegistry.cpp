@@ -1,5 +1,5 @@
-#include "src/physics/Particle_System/ParticleForceRegistry.h"
-#include "ParticleForceGenerators.h"
+#include <physics/Particle_System/ParticleForceRegistry.h>
+#include <physics/Particle_System/ParticleForceGenerators.h>
 #include <algorithm>
 
 void ParticleForceRegistry::updateForces(real duration)

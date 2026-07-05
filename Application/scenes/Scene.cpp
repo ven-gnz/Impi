@@ -1,4 +1,4 @@
-#include <src/scenes/Scene.h>
+#include <scenes/Scene.h>
 
 /*
 	Pyrkimys formalisoida RR kurssilla vastaan tullut "Scene" ajatus. Nyt kun meillä selvästi on tulossa eri
