@@ -1,5 +1,5 @@
-#include "Renderer.h"
-#include <rendering/core/ViewUniforms.h>
+#include <opengl/Renderer.h>
+#include <opengl/ViewUniforms.h>
 #include <iostream>
 
 Renderer::Renderer() {
