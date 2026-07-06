@@ -1,4 +1,4 @@
-#version 420 core
+#version 460 core
 
 layout(std140, binding = 0) uniform ViewUniforms
 {   mat4 view;

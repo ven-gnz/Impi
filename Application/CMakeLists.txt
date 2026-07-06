@@ -108,19 +108,6 @@ add_executable(Impi
 
 )
 
-file(GLOB SHADERS ${CMAKE_CURRENT_BINARY_DIR}/shaders/*)
-
-add_custom_target(refresh_shaders ALL
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_CURRENT_SOURCE_DIR}/shaders
-		${CMAKE_CURRENT_BINARY_DIR}/shaders
-	DEPENDS ${SHADERS})
-
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tex DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-
-add_dependencies(Impi refresh_shaders)
-
 
 
 target_include_directories(Impi
@@ -136,4 +123,14 @@ target_link_libraries(Impi
 		glad
 		imgui
 		tinygltf
+)
+
+add_custom_command(TARGET Impi POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/shaders
+            $<TARGET_FILE_DIR:Impi>/shaders
+
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/tex
+            $<TARGET_FILE_DIR:Impi>/tex
 )

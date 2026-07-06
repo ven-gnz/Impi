@@ -6,8 +6,8 @@
 MobileScene::MobileScene(Camera& camera)
     : Scene("Mobil_1",
         camera,
-        "src/scenes/mobile/shaders/mobile.vert",
-        "src/scenes/mobile/shaders/mobile.frag",
+        "shaders/impi_passthrough.vert",
+        "shaders/impi_passthrough.frag",
         nullptr),
         centerPoint(Vector3(0,7,0)),
         mobile1_initialPos(Vector3(-4,2,0)),

@@ -11,8 +11,8 @@ Scene::Scene(std::string init_name,
 	const char* fragmentPath,
 	const char* geometryPath) 
 	: name(init_name), camera(camera), shader(vertexPath,fragmentPath,geometryPath),
-	groundShader("src/scenes/commons/shaders/grid.vert", "src/scenes/commons/shaders/grid.frag", nullptr),
-	lineShader("src/scenes/commons/shaders/line.vert", "src/scenes/commons/shaders/line.frag", nullptr)
+	groundShader("shaders/impi_grid.vert", "shaders/impi_grid.frag", nullptr),
+	lineShader("shaders/impi_line.vert", "shaders/impi_line.frag", nullptr)
 {
 	
 	ViewUniform.view = camera.GetViewMatrix();

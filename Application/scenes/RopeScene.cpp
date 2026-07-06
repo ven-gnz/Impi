@@ -4,8 +4,8 @@
 RopeScene::RopeScene(Camera& camera)
     : Scene("RopeScene",
         camera,
-        "src/scenes/ropescene/shaders/rope.vert",
-        "src/scenes/ropescene/shaders/rope.frag",
+        "shaders/impi_passthrough.vert",
+        "shaders/impi_passthrough.frag",
         nullptr
     ),
     cubePos(0,3.375,0),

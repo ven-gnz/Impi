@@ -111,7 +111,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geo
 
 }
 
-void Shader::use() const { glUseProgram(ID); }
+void Shader::use() { glUseProgram(ID); }
 
 
 void Shader::setBool(const std::string& name, bool value) const {
