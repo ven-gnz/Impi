@@ -6,22 +6,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <scenes/Scene.h>
-#include "opengl/Shader.h"
-#include "scenes/Ballistics.h"
-#include "scenes/FireWorkScene.h"
-#include "scenes/RopeScene.h"
-#include "scenes/ClothScene.h"
-#include "scenes/MobileScene.h"
-#include "scenes/BoxBoxScene.h"
+#include <opengl/Shader.h>
+#include <scenes/FireWorkScene.h>
+#include <scenes/RopeScene.h>
+#include <scenes/ClothScene.h>
+#include <scenes/MobileScene.h>
+#include <scenes/BoxBoxScene.h>
 #include <tools/Camera.h>
 #include <tools/ViewPort.h>
-#include <tools/Renderer.h>
+#include <opengl/Renderer.h>
 #include <iostream>
 #include <stdlib.h>
 #include <imgui.h>
-#include <backends/imgui_impl_glfw.h>
-#include <backends/imgui_impl_opengl3.h>
 #include <App/Settings.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 
 Scene* current_scene = nullptr;
@@ -88,20 +87,16 @@ int main(void)
 
     Renderer renderer;
 
-    Ballistics ballistics(camera);
     FireWorkScene firework(camera);
     RopeScene rop(camera);
     ClothScene cl(camera, 55, 45);
     MobileScene mobil_ykkonen(camera);
     BoxBoxScene box(camera);
-    Fluid fluidScene(camera);
 
 
     std::vector<Scene> scenes;
-    scenes.push_back(ballistics);
-    // scenes.push_back(firework);
 
-    current_scene = &fluidScene;
+    current_scene = &firework;
     current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {
@@ -128,10 +123,7 @@ int main(void)
         ImGui::Begin("UI Test");
         ImGui::Text("Current Scene : %s", typeid(*current_scene).name());
 
-        if (ImGui::Button("Ballistics")) {
-            current_scene = &ballistics;
-            current_scene->onActivate();
-        }
+      
         if (ImGui::Button("Fireworks")) {
             current_scene = &firework;
             current_scene->onActivate();
@@ -157,10 +149,7 @@ int main(void)
             current_scene->onActivate();
         }
 
-        if (ImGui::Button("Fluid")) {
-            current_scene = &fluidScene;
-            current_scene->onActivate();
-        }
+    
 
         
 

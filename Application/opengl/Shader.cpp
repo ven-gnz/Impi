@@ -1,4 +1,4 @@
-#include <tools/Shader.h>
+#include <opengl/Shader.h>
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {

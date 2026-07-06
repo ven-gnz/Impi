@@ -1,4 +1,4 @@
-#include <Firework.h>
+#include <physics/Objects/Firework.h>
 #include <iostream>
 
 
