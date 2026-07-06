@@ -44,7 +44,7 @@ int main(void)
 {
 
     //char* path;
-    //_get_pgmptr(&path);
+    //_get_pgmptr(&path);1
     //std::cout << path << std::endl;
     // debug : pwd
 
