@@ -44,7 +44,7 @@ int main(void)
 {
 
     //char* path;
-    //_get_pgmptr(&path);
+    //_get_pgmptr(&path);1
     //std::cout << path << std::endl;
     // debug : pwd
 
@@ -115,7 +115,7 @@ int main(void)
         ImGui::NewFrame();
 
 
-        
+
         current_scene->update(delta);
         current_scene->updateMouse(window,renderer);
         current_scene->draw(renderer,camera);

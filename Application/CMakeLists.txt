@@ -30,6 +30,7 @@ add_executable(Impi
 	"../includes/physics/Precision.h"
 	"../includes/physics/Objects/Cloth.h"
 	"../includes/physics/Objects/Firework.h"
+	"../includes/physics/PhysicsWorld.h"
 
 	"../includes/physics/Particle_System/ClothParticle.h"
 	"../includes/physics/Particle_System/Constraint.h"
@@ -40,10 +41,13 @@ add_executable(Impi
 	"../includes/physics/Particle_System/ParticleLinks.h"
 	"../includes/physics/Particle_System/ParticleWorld.h"
 
-	"../includes/physics/Rigidbody_System/BoundingVolumes.h"
-	"../includes/physics/Rigidbody_System/Collide_hoarse.h"
+	"../includes/physics/Spatial/BoundingVolumes.h"
+	"../includes/physics/Spatial/BVHnode.h"
+	"../includes/physics/Spatial/Broadphase.h"
+	"../includes/physics/Spatial/UniformGrid.h"
 	"../includes/physics/Rigidbody_System/CollisionDetector.h"
 	"../includes/physics/Rigidbody_System/CollisionPrimitives.h"
+	
 
 	"../includes/physics/Rigidbody_System/Contact.h"
 	"../includes/physics/Rigidbody_System/ContactResolver.h"
@@ -85,7 +89,7 @@ add_executable(Impi
 	"physics/Particle_System/ParticleLinks.cpp"
 	"physics/Particle_System/ParticleWorld.cpp"
 
-	"physics/RigidBody_System/BoundingSphere.cpp"
+	"physics/Spatial/BoundingSphere.cpp"
 	"physics/RigidBody_System/CollisionDetector.cpp"
 	"physics/RigidBody_System/Contact.cpp"
 	"physics/RigidBody_System/ContactResolver.cpp"
@@ -106,7 +110,7 @@ add_executable(Impi
 	"tools/Raycaster.cpp"
 	"opengl/Renderer.cpp"
 
-)
+ "physics/PhysicsWorld.cpp" "physics/Spatial/UniformGrid.cpp")
 
 
 

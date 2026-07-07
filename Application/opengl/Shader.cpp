@@ -144,3 +144,10 @@ void Shader::setVec3(const std::string& name, float a, float b, float c) const {
     glm::vec3 temp = glm::vec3(a, b, c);
     glUniform3fv(vecLoc, 1, glm::value_ptr(temp));
 }
+
+void Shader::setVec3(const std::string& name, Impi::Vector3 v) const
+{
+    int vLoc = glGetUniformLocation(ID, name.c_str());
+    glm::vec3 t = glm::vec3(v.x, v.y, v.z);
+    glUniform3fv(vLoc, 1, glm::value_ptr(t));
+}

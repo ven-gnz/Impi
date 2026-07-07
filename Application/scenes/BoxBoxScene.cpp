@@ -18,39 +18,26 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
         "shaders/impi_passthrough.vert",
         "shaders/impi_passthrough.frag",
         nullptr),
-    cData(),
-    scene_gravity(),
-    ammoRigidBodies(), boxes(),
-    detector(),
-    cubePositions{
-        Vector3(0,3,0.3),
-        Vector3(0.8, 11, 0.1),
-        Vector3(-0.6, 6, 0.1)
-    },
-        groundPlane(),
-        resolver(64)
-{
-    ammoRigidBodies.reserve(128);
-    boxes.reserve(16);
-   
-    cData.first_contact_in_array = contacts;
-    cData.reset(maxContacts);
-
-    groundPlane.direction = Vector3(0.001, 0.99, 0.001);
-    groundPlane.offset = real(0);
-    
+    physics{},
+    cubePositions{},
+        random{}
+{   
 
     cubeMesh.createCubeMesh();
     cubeMesh.uploadToGPU();
     cubemesh_ptr = &cubeMesh;
+    boxes.reserve(NUM_BOXES);
 
 
-
-    for (auto& position : cubePositions)
+    for (int i = 0; i < NUM_BOXES; ++i)
     {
         boxes.emplace_back();
-        Box& b = boxes.back();
-        b.body = RigidBody(position);
+        Box& b = boxes[i];
+        b.position = random.randomVector3(
+            Vector3(-6, 5, -6),
+            Vector3(6, 25, 6));
+
+        b.body = RigidBody(b.position);
         b.collider.halfSize = Vector3(0.5, 0.5, 0.5);
         b.collider.offset = Matrix4();
         b.collider.body = &b.body;
@@ -58,13 +45,17 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
         b.mesh_ptr = cubemesh_ptr;
         b.model = glm::mat4(1.0f);
         b.scaler = glm::vec3(1.0f);
-        
+        b.color = random.randomVector3(Vector3(0, 0, 0), Vector3(1, 1, 1));
+        cubePositions.push_back(b.position);
 
     }
 
     for (Box& b : boxes)
     {
-        registry.add(&b.body, &scene_gravity);
+        physics.addBody(&b.body);
+        physics.addCollider(&b.collider);
+
+        physics.registerForceGenerator(&b.body, &scene_gravity);
     }
 
 
@@ -81,74 +72,23 @@ void BoxBoxScene::draw(Renderer& renderer, Camera& camera)
     groundShader.use();
     glBindVertexArray(groundmesh_ptr->vao);
     groundmesh_ptr->draw();
-
     shader.use();
-
     glBindVertexArray(cubemesh_ptr->vao);
-    shader.setVec3("color", glm::vec3(1.0, 0.4, 0.3));
+    
 
     for (auto& box : boxes)
     {
         
         box.updateModelMatrix();
         shader.setMat4("model", box.model);
+        shader.setVec3("color", box.color);
         box.mesh_ptr->render();
         
     }
-
-
-
 }
 void BoxBoxScene::update(real dt)
 {
-
-    registry.updateForces(dt);
- 
-    // 1. Plane box collisions
-    for (size_t i = 0; i < boxes.size(); ++i)
-    {
-        auto& box = boxes[i];
-        //std::cout << "Processing box " << i << " at position " << box.collider.body->getPosition() << "\n";
-        if (!cData.hasMoreContacts()) return;
-
-
-
-        detector.boxAndHalfSpace(box.collider, groundPlane, &cData);
-        //std::cout << "After detector call, contactsLeft: " << cData.contactsLeft << "\n";
-
-    }
-    resolver.resolveContacts(contacts, cData.contactCount, dt);
-
-    //generateContacts();
-    
-    cData.reset(maxContacts);
-    cData.friction = (real)0.0;
-    cData.restitution = (real)0.001;
-    cData.tolerance = (real)0.001;
-
-
-    for (auto& box : boxes)
-    {
-        box.collider.calculateInternals();
-    }
-
-    // 2. Box Box collisions
-    for (size_t i = 0; i < boxes.size(); ++i)
-    {
-
-        for (size_t j = i + 1; j < boxes.size(); ++j)
-        {
-            if (!cData.hasMoreContacts()) return;
-            detector.boxAndBox(boxes[i].collider, boxes[j].collider, &cData);
-        }
-    }
-    for (auto& box : boxes)
-    {
-        box.body.integrate(dt);
-        box.collider.calculateInternals();
-    }
-    
-
+    physics.update(dt);
 }
 
 
@@ -171,13 +111,5 @@ void BoxBoxScene::onMouseButton(GLFWwindow* window, int button, int action, int 
 void BoxBoxScene::updateMouse(GLFWwindow* window, const Renderer& renderer)
 {
 
-}
-
-void BoxBoxScene::generateContacts()
-{
-
- 
-
-    
 }
 
