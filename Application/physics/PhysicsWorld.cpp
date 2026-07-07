@@ -4,12 +4,11 @@ using namespace Impi;
 
 
 PhysicsWorld::PhysicsWorld() :
-    resolver(64),
-    maxContacts(256),
-    maxPotentialContacts(1024)
+    resolver(4096)
 {
     cData.first_contact_in_array = contacts;
-    cData.reset(256);
+    cData.reset(maxContacts);
+    
 
     cData.friction = real(0.0);
     cData.restitution = real(0.001);
@@ -23,7 +22,7 @@ PhysicsWorld::PhysicsWorld() :
 
 void PhysicsWorld::update(real dt)
 {
-    // YE NEWYE
+
     registry.updateForces(dt);
     for (RigidBody* body : bodies)
     {
@@ -35,7 +34,7 @@ void PhysicsWorld::update(real dt)
         primitive->calculateInternals();
     }
 
-    cData.reset(256);
+    cData.reset(maxContacts);
     cData.friction = (real)0.0;
     cData.restitution = (real)0.001;
     cData.tolerance = (real)0.001;
@@ -62,7 +61,7 @@ void PhysicsWorld::update(real dt)
     unsigned pairCount =
         broadPhase->generatePairs(
             potentialContacts,
-            1024);
+            maxPotentialContacts);
 
 
     for (unsigned i = 0; i < pairCount; ++i)
@@ -82,60 +81,16 @@ void PhysicsWorld::update(real dt)
         }
     }
 
+    //std::cout
+    //    << "Pairs: " << pairCount
+    //    << " Contacts: " << cData.contactCount
+    //    << '\n';
+
 
     resolver.resolveContacts(
         contacts,
         cData.contactCount,
         dt);
-
-  
-    ///* YE OLDE*/
-    //// 1. Plane box collisions
-    //for (size_t i = 0; i < collisionPrimitives.size(); ++i)
-    //{
-    //    auto& primitive = collisionPrimitives[i];
-    //    if (!cData.hasMoreContacts()) return;
-    //    if (auto* box = dynamic_cast<CollisionBox*>(primitive))
-    //    {
-    //        // check here in the future for if the cast is OK
-    //        detector.boxAndHalfSpace(*box, groundPlane, &cData);
-    //    }
-
-    //}
-    //resolver.resolveContacts(contacts, cData.contactCount, dt);
-
-    //
-
-
-    //for (auto& primitive : collisionPrimitives)
-    //{
-    //    primitive->calculateInternals();
-    //}
-
-    //// 2. Box Box collisions
-    //for (size_t i = 0; i < collisionPrimitives.size(); ++i)
-    //{
-
-    //    for (size_t j = i + 1; j < collisionPrimitives.size(); ++j)
-    //    {
-    //        auto* a = dynamic_cast<CollisionBox*>(collisionPrimitives[i]);
-    //        auto* b = dynamic_cast<CollisionBox*>(collisionPrimitives[j]);
-
-    //        if (a && b)
-    //        {
-    //            detector.boxAndBox(*a, *b, &cData);
-    //        }
-
-    //        if (!cData.hasMoreContacts()) return;
-    //        detector.boxAndBox(*a,*b, &cData);
-    //    }
-    //}
-    //for (auto* body : bodies)
-    //{
-    //    body->integrate(dt);
-    //    //body->calculateInternals();
-    //}
-
 
 }
 

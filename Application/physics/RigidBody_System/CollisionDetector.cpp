@@ -332,7 +332,7 @@ bool CollisionDetector::tryAxis(
 
 	if (penetration < 0)
 	{
-		std::cout << "Penetration too small on try axis" << std::endl;
+		//std::cout << "Penetration too small on try axis" << std::endl;
 		return false;
 	}
 	
@@ -487,8 +487,8 @@ unsigned CollisionDetector::boxAndBox(
 )
 {
 
-	std::cout << "two center " << two.getAxis(3) << std::endl;
-	std::cout << "one center " << one.getAxis(3) << std::endl;
+	//std::cout << "two center " << two.getAxis(3) << std::endl;
+	//std::cout << "one center " << one.getAxis(3) << std::endl;
 
 	Vector3 toCenter = two.getAxis(3) - one.getAxis(3);
 
@@ -540,8 +540,8 @@ unsigned CollisionDetector::boxAndBox(
 	else
 	{
 
-		std::cout << "Edge edge contact" << std::endl;
-		std::cout << "Best " << best;
+		//std::cout << "Edge edge contact" << std::endl;
+		//std::cout << "Best " << best;
 		// We've got an edge-edge contact. Find out which axes
 		best -= 6;
 		unsigned oneAxisIndex = best / 3;
