@@ -16,5 +16,5 @@ For your learning journey, I recommend the original book and the source code whi
 
 The project was on hiatus for a long time, but recent advancements in animation engine prompted a codebase reorg for starting a joined product, a more feature-complete engine. A noteworthy new feature is the implementation of spatial acceleration structures for rigidbody collisions and the introduction of a physicsworld API.
 
-<img width="400" height="400" alt="Demonstration of hundreds of simultaneous collisions in real-time" src="impi\_milestone.gif">
+<img width="400" height="400" alt="Demonstration of hundreds of simultaneous collisions in real-time" src="impi_milestone.gif">
 
