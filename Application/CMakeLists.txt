@@ -41,8 +41,8 @@ add_executable(Impi
 	"../includes/physics/Particle_System/ParticleLinks.h"
 	"../includes/physics/Particle_System/ParticleWorld.h"
 
-	"../includes/physics/Rigidbody_System/BoundingVolumes.h"
-	"../includes/physics/RigidBody_System/BVHnode.h"
+	"../includes/physics/Spatial/BoundingVolumes.h"
+	"../includes/physics/Spatial/BVHnode.h"
 	"../includes/physics/Rigidbody_System/CollisionDetector.h"
 	"../includes/physics/Rigidbody_System/CollisionPrimitives.h"
 	
@@ -87,7 +87,7 @@ add_executable(Impi
 	"physics/Particle_System/ParticleLinks.cpp"
 	"physics/Particle_System/ParticleWorld.cpp"
 
-	"physics/RigidBody_System/BoundingSphere.cpp"
+	"physics/Spatial/BoundingSphere.cpp"
 	"physics/RigidBody_System/CollisionDetector.cpp"
 	"physics/RigidBody_System/Contact.cpp"
 	"physics/RigidBody_System/ContactResolver.cpp"
