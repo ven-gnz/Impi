@@ -43,6 +43,8 @@ add_executable(Impi
 
 	"../includes/physics/Spatial/BoundingVolumes.h"
 	"../includes/physics/Spatial/BVHnode.h"
+	"../includes/physics/Spatial/Broadphase.h"
+	"../includes/physics/Spatial/UniformGrid.h"
 	"../includes/physics/Rigidbody_System/CollisionDetector.h"
 	"../includes/physics/Rigidbody_System/CollisionPrimitives.h"
 	
@@ -108,7 +110,7 @@ add_executable(Impi
 	"tools/Raycaster.cpp"
 	"opengl/Renderer.cpp"
 
- "physics/PhysicsWorld.cpp")
+ "physics/PhysicsWorld.cpp" "physics/Spatial/UniformGrid.cpp")
 
 
 
