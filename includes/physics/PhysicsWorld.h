@@ -30,19 +30,22 @@ public:
 	std::unique_ptr<BroadPhase> broadPhase;
 	FireworkSystem& getFireworkSystem();
 
+	static constexpr unsigned DefaultContactCapacity = 16384;
+	static constexpr unsigned DefaultPotentialCapacity = 65536;
+
 private:
 	std::vector<RigidBody*> bodies;
 	std::vector<CollisionPrimitive*> collisionPrimitives;
 
-	unsigned maxContacts = 512;
-	unsigned maxPotentialContacts = 1024;
+	unsigned maxContacts = DefaultContactCapacity;
+		unsigned maxPotentialContacts = DefaultPotentialCapacity;
 
 	ForceRegistry registry;
 	CollisionData cData;
 	ContactResolver resolver;
 	CollisionDetector detector;
-	Contact contacts[512];
-	PotentialContact potentialContacts[1024];
+	std::vector<Contact> contacts;
+	std::vector<PotentialContact> potentialContacts;
 
 	CollisionPlane groundPlane;
 

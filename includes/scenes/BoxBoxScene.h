@@ -38,7 +38,7 @@ class BoxBoxScene : public Scene
 	std::vector<Vector3> cubePositions;
 	std::vector<Box> boxes;
 
-	unsigned int NUM_BOXES = 500;
+	unsigned int NUM_BOXES = 150;
 
 
 public:

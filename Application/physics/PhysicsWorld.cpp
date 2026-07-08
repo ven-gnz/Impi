@@ -4,12 +4,16 @@ using namespace Impi;
 
 
 PhysicsWorld::PhysicsWorld() :
-    resolver(2048),
+    resolver(32),
     particleWorld(1, 1024),
     fireworkSystem()
 {
+
+    contacts.resize(maxContacts);
+    potentialContacts.resize(maxPotentialContacts);
+
     fireworkSystem.init(4096);
-    cData.first_contact_in_array = contacts;
+    cData.first_contact_in_array = contacts.data();
     cData.reset(maxContacts);
     
 
@@ -63,7 +67,7 @@ void PhysicsWorld::update(real dt)
 
     unsigned pairCount =
         broadPhase->generatePairs(
-            potentialContacts,
+            potentialContacts.data(),
             maxPotentialContacts);
 
 
@@ -84,14 +88,14 @@ void PhysicsWorld::update(real dt)
         }
     }
 
-    //std::cout
-    //    << "Pairs: " << pairCount
-    //    << " Contacts: " << cData.contactCount
-    //    << '\n';
+    std::cout
+        << "Pairs: " << pairCount
+        << " Contacts: " << cData.contactCount
+        << '\n';
 
 
     resolver.resolveContacts(
-        contacts,
+        contacts.data(),
         cData.contactCount,
         dt);
 

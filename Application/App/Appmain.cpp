@@ -92,7 +92,7 @@ int main(void)
 
     std::vector<Scene> scenes;
 
-    current_scene = &mobil_ykkonen;
+    current_scene = &box;
     current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {
