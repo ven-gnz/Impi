@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 #include <physics/Spatial/BroadPhase.h>
 #include <physics/RigidBody_System/Contact.h>
 #include <physics/RigidBody_System/CollisionPrimitives.h>
@@ -52,9 +53,32 @@ namespace Impi
 		void insert(CollisionPrimitive* primitive) override;
 		unsigned generatePairs(PotentialContact* contacts, unsigned limit) override;
 
+		bool isValidPair(CollisionPrimitive *a, CollisionPrimitive *b, std::unordered_set<uint64_t>& generatedPairs);
+
 	private:
 		GridCell computeCell(const Vector3& position) const;
 		real cellSize;
 		std::unordered_map<GridCell, std::vector<CollisionPrimitive*>, GridCellHash> cells{};
+	};
+
+	static constexpr GridCell forwardNeighbors[] =
+	{
+		{ 1, 0, 0 },
+
+		{ 0, 1, 0 },
+		{ 1, 1, 0 },
+		{-1, 1, 0 },
+
+		{ 0, 0, 1 },
+		{ 1, 0, 1 },
+		{-1, 0, 1 },
+
+		{ 0, 1, 1 },
+		{ 1, 1, 1 },
+		{-1, 1, 1 },
+
+		{ 0,-1, 1 },
+		{ 1,-1, 1 },
+		{-1,-1,1 }
 	};
 }
