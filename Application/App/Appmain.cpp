@@ -30,10 +30,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 void processInput(GLFWwindow* window);
 
 
-
-static int scene_ptr = 0;
-
-
 static ViewPort default_viewport = ViewPort{windowWidth,windowHeight};
 float delta;
 
@@ -96,7 +92,7 @@ int main(void)
 
     std::vector<Scene> scenes;
 
-    current_scene = &firework;
+    current_scene = &mobil_ykkonen;
     current_scene->onActivate();
     while (!glfwWindowShouldClose(window))
     {

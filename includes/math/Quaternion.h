@@ -1,0 +1,40 @@
+#pragma once
+#include <physics/Precision.h>
+#include <math/Vector3.h>
+
+namespace Impi {
+
+	class Quaternion
+	{
+	public:
+		union {
+			struct
+			{
+				real r;
+				real i;
+				real j;
+				real k;
+
+			};
+			real data[4];
+		};
+		
+		/**
+		* Returns an identity quaternion
+		*/
+		Quaternion();
+		Quaternion(const real r, const real i, const real j, const real k);
+		void normalise();
+		/**
+		* Multiplies the quaternion by the given quaternion.
+		*
+		* @param multiplier The quaternion by which to multiply.
+		*/
+		void operator*=(const Quaternion& multiplier);
+		void addScaledVector(const Vector3& vector, real scale);
+		void rotateByVector(const Vector3& vector);
+
+		Vector3 rotateInverse(const Vector3& v) const;
+	};
+
+}

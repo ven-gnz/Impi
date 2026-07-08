@@ -18,7 +18,6 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
         "shaders/impi_passthrough.vert",
         "shaders/impi_passthrough.frag",
         nullptr),
-    physics{},
     cubePositions{},
         random{}
 {   
@@ -52,10 +51,9 @@ BoxBoxScene::BoxBoxScene(Camera& camera)
 
     for (Box& b : boxes)
     {
-        physics.addBody(&b.body);
-        physics.addCollider(&b.collider);
-
-        physics.registerForceGenerator(&b.body, &scene_gravity);
+        physicsWorld.addBody(&b.body);
+        physicsWorld.addCollider(&b.collider);
+        physicsWorld.registerForceGenerator(&b.body, &scene_gravity);
     }
 
 
@@ -88,7 +86,7 @@ void BoxBoxScene::draw(Renderer& renderer, Camera& camera)
 }
 void BoxBoxScene::update(real dt)
 {
-    physics.update(dt);
+    physicsWorld.update(dt);
 }
 
 

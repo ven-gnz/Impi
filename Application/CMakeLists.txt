@@ -30,6 +30,7 @@ add_executable(Impi
 	"../includes/physics/Precision.h"
 	"../includes/physics/Objects/Cloth.h"
 	"../includes/physics/Objects/Firework.h"
+	"../includes/physics/Objects/FireworkSystem.h"
 	"../includes/physics/PhysicsWorld.h"
 
 	"../includes/physics/Particle_System/ClothParticle.h"
@@ -79,6 +80,7 @@ add_executable(Impi
 
 	"physics/Objects/Cloth.cpp"
 	"physics/Objects/Firework.cpp"
+	"physics/Objects/FireworkSystem.cpp"
 
 	"physics/Particle_System/ClothParticle.cpp"
 	"physics/Particle_System/Constraint.cpp"

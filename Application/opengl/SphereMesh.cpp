@@ -6,9 +6,6 @@
 
 /*
 https://songho.ca/opengl/gl_sphere.html
-Origokeskeinen yksikköpallo.
-Resurssi yllä.
-Tavoitteena tarjota sama utiliteetti kuin glutsolidsphere.
 */
 void SphereMesh::createMesh(float radius, unsigned int sectorCount, unsigned int stackCount)
 {
@@ -122,7 +119,7 @@ std::vector<float> SphereMesh::flatten() const
 
 void SphereMesh::uploadToGPU()
 {
-	// needs updating?
+	
 	std::vector<float> flatdata = flatten();
 
 	glGenVertexArrays(1, &vao);

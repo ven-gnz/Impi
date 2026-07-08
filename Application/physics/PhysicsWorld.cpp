@@ -4,8 +4,11 @@ using namespace Impi;
 
 
 PhysicsWorld::PhysicsWorld() :
-    resolver(4096)
+    resolver(2048),
+    particleWorld(1, 1024),
+    fireworkSystem()
 {
+    fireworkSystem.init(4096);
     cData.first_contact_in_array = contacts;
     cData.reset(maxContacts);
     
@@ -92,6 +95,14 @@ void PhysicsWorld::update(real dt)
         cData.contactCount,
         dt);
 
+    fireworkSystem.update(dt);
+
+}
+
+FireworkSystem& PhysicsWorld::getFireworkSystem()
+{
+    return fireworkSystem;
+  
 }
 
 
