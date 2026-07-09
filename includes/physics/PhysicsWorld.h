@@ -30,10 +30,10 @@ public:
 	std::unique_ptr<BroadPhase> broadPhase;
 	FireworkSystem& getFireworkSystem();
 
+private:
 	static constexpr unsigned DefaultContactCapacity = 16384;
 	static constexpr unsigned DefaultPotentialCapacity = 65536;
 
-private:
 	std::vector<RigidBody*> bodies;
 	std::vector<CollisionPrimitive*> collisionPrimitives;
 

@@ -67,6 +67,25 @@ namespace Impi
 		Vector3 transformTranspose(const Vector3& vector);
 
 		static Matrix3 identity();
+
+		void operator*=(const real scalar)
+		{
+			data[0] *= scalar; data[1] *= scalar; data[2] *= scalar;
+			data[3] *= scalar; data[4] *= scalar; data[5] *= scalar;
+			data[6] *= scalar; data[7] *= scalar; data[8] *= scalar;
+		}
+
+		void setSkewSymmetric(const Vector3& vector)
+		{
+			data[0] = data[4] = data[8] = 0;
+			data[1] = -vector.z;
+			data[2] = vector.y;
+			data[3] = vector.z;
+			data[5] = -vector.x;
+			data[6] = -vector.y;
+			data[7] = vector.x;
+		}
+
 	};
 
 	inline std::ostream& operator<<(std::ostream& strm, const Matrix3& m)
@@ -84,6 +103,8 @@ namespace Impi
 		return strm;
 	}
 
+
+
 /**
   * Holds a transform matrix, consisting of a rotation matrix and
   * a position. The matrix has 12 elements, it is assumed that the
@@ -96,7 +117,7 @@ public:
 	real data[12];
 
 
-	void setDiagonal(real a, real b, real c);
+	
 
 	
 

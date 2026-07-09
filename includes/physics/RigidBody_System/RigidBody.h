@@ -79,6 +79,9 @@ namespace Impi
 
 		bool hasFiniteMass();
 
+		/**
+			Despite its name, *returns* the *inverse mass* of a rigidbody which is more prominently used in physics calculations.
+		*/
 		real getMass();
 
 		void setPosition(Vector3& position);

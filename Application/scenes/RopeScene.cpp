@@ -72,7 +72,7 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
     shader.use();
     
     glm::mat4 model = glm::translate(glm::mat4(1.0f),
-        glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z));
+    glm::vec3(sphere.getPosition().x, sphere.getPosition().y, sphere.getPosition().z));
     shader.setVec3("color", glm::vec3(0.0, 0.0, 0.8));
     shader.setMat4("model", model);
 

@@ -122,3 +122,8 @@ void PhysicsWorld::registerForceGenerator(RigidBody* r, ForceGenerator* fg)
 {
     registry.add(r, fg);
 }
+
+void registerForceGenerator(Particle*, ParticleForceGenerator*)
+{
+    
+}
