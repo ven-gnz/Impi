@@ -66,10 +66,7 @@ void BoxBoxScene::draw(Renderer& renderer, Camera& camera)
 {
 
     renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
-
-    groundShader.use();
-    glBindVertexArray(groundmesh_ptr->vao);
-    groundmesh_ptr->draw();
+    renderGroundGrid();
     shader.use();
     glBindVertexArray(cubemesh_ptr->vao);
     

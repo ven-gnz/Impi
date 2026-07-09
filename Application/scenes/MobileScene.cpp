@@ -67,9 +67,7 @@ void MobileScene::draw(Renderer& renderer, Camera& camera)
 
     renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
 
-    groundShader.use();
-    glBindVertexArray(groundmesh_ptr->vao);
-    groundmesh_ptr->draw();
+    renderGroundGrid();
 
     shader.use();
     shader.setVec3("color", glm::vec3(0.9, 0.9, 0.9));

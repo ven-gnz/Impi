@@ -40,8 +40,9 @@ public:
 	std::string name;
 	std::vector<Particle> particles;
 	std::vector<RenderableParticle> renderables;
-	
 
+	
+	void renderGroundGrid();
 	virtual void update(float dt);
 	virtual void draw(Renderer& renderer, Camera& camera);
 	std::string getName() const;

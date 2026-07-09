@@ -68,11 +68,7 @@ void RopeScene::draw(Renderer& renderer, Camera& camera)
 {
 
     renderer.setUniform(camera.GetViewMatrix(), camera.getProjection(), camera.getPosition());
-
-    groundShader.use();
-    glBindVertexArray(groundmesh_ptr->vao);
-    groundmesh_ptr->draw();
-
+    renderGroundGrid();
     shader.use();
     
     glm::mat4 model = glm::translate(glm::mat4(1.0f),

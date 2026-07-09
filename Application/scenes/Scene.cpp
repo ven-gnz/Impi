@@ -1,9 +1,6 @@
 #include <scenes/Scene.h>
 
-/*
-	Pyrkimys formalisoida RR kurssilla vastaan tullut "Scene" ajatus. Nyt kun meillä selvästi on tulossa eri
-	testiscenejä niin ehkä tällainen tarvitaan. Pikkuhiljaa iteroidaan, katsotaan mitä tulee.
-*/
+
 
 Scene::Scene(std::string init_name,
 	Camera& camera,
@@ -49,5 +46,12 @@ void Scene::onActivate()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+}
+
+void Scene::renderGroundGrid()
+{
+	groundShader.use();
+	glBindVertexArray(groundmesh_ptr->vao);
+	groundmesh_ptr->draw();
 }
 
